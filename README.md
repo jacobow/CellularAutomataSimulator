@@ -2,6 +2,4 @@
 
 Duke CompSci 308 Cell Society Project
 
-fiasjdiofajsfoias
-ajergioaerjgioajerg
-ajergijaeroigjaiogjo
+2nd update
