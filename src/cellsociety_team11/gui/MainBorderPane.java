@@ -3,6 +3,8 @@ package cellsociety_team11.gui;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
+import javafx.scene.control.Button;
+import cellsociety_team11.CellSociety;
 import cellsociety_team11.Grid;
 import cellsociety_team11.CellSocietyController.SimulationType;
 import javafx.event.ActionEvent;
@@ -25,7 +27,7 @@ public class MainBorderPane extends BorderPane{
 	
 	private void initMainBorderPane(){
 		createMenuBar();
-		
+		createStartButton();		
 	}
 	
 	private void createMenuBar(){
@@ -33,6 +35,16 @@ public class MainBorderPane extends BorderPane{
 		Menu simulationMenu = createSimulationSelectorMenu();
 		menuBar.getMenus().add(simulationMenu);
 		this.setTop(menuBar);
+	}
+	
+	private void createStartButton(){
+		Button startButton = new Button("Start");
+		startButton.setId("startButton");
+		this.setLeft(startButton);
+		
+		Button stepButton = new Button("Step");
+		stepButton.setId("stepButton");
+		this.setRight(stepButton);
 	}
 	
 	private Menu createSimulationSelectorMenu(){

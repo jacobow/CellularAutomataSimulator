@@ -19,6 +19,12 @@ public class Cell<T> {
 	public T getValue() {
 		return currentValue;
 	}
+	
+	
+	//testing purposes
+	public void setValue(T newValue) {
+		this.currentValue = newValue;
+	}
 	/**
 	 * determines what the cell's next value should be
 	 */

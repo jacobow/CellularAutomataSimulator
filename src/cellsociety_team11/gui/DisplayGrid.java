@@ -4,10 +4,12 @@ import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import cellsociety_team11.Cell;
+import cellsociety_team11.CellSociety;
 
 /**
  * @author quin
@@ -25,10 +27,10 @@ public class DisplayGrid extends GridPane{
 	private void initDisplayGrid(){
 		initConstraints();
 		initDisplayCells();
-		//magic number for now
-		this.setHeight(800);
-		this.minWidthProperty().bind(this.heightProperty());
-		this.maxWidthProperty().bind(this.heightProperty());
+		this.setId("displayGrid");
+		this.setMaxHeight(CellSociety.INIT_HEIGHT/2);
+		this.setMaxWidth(CellSociety.INIT_WIDTH/2);
+		this.minHeightProperty().bind(this.heightProperty());
 	}
 	
 	private void initConstraints(){
@@ -55,13 +57,25 @@ public class DisplayGrid extends GridPane{
 	}
 	
 	private void initDisplayCells(){
-		this.autosize();
 		for (int i = 0; i < grid.getHeight(); i++){
 			
 			for (int j = 0; j < grid.getWidth(); j++){
-				DisplayCell displayCell = new DisplayCell();
+				Coordinates currentCoords = new Coordinates(i, j);
+				Cell<?> currentCell = grid.getCell(currentCoords);
+				DisplayCell displayCell = new DisplayCell((boolean) currentCell.getValue(), currentCoords);
 				this.add(displayCell, j, i);
 			}
+		}
+	}
+	
+	//duplicated code for testing purposes right now
+	public void updateDisplayCells(Grid<?> newGrid){
+		for (Node displayCell : this.getChildren()){
+			DisplayCell currDisplayCell = (DisplayCell) displayCell;
+			Coordinates currCoordinates = currDisplayCell.getCoordinates();
+			Cell<?> currentCell = newGrid.getCell(new Coordinates(currCoordinates.getI(), currCoordinates.getJ()));
+			currDisplayCell.updateAlive((boolean) currentCell.getValue());
+			System.out.println(currCoordinates.getCoordinates());
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package cellsociety_team11.gui;
 
+import cellsociety_team11.CellSociety;
 import cellsociety_team11.Grid;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -13,25 +14,32 @@ import javafx.scene.shape.Rectangle;
 public class MainWindow{
 	private Scene scene;
 	private MainBorderPane root;
-	private static final double INIT_WIDTH = 800;
-	private static final double INIT_HEIGHT = 800;
+	private DisplayGrid displayGrid; 
 	
 	public MainWindow(){
+		displayGrid = null;
 		initScene();
 	}
 	
 	public void addGrid(Grid<?> grid){
-		DisplayGrid displayGrid = new DisplayGrid(grid);
+		if (displayGrid == null){
+			DisplayGrid displayGrid = new DisplayGrid(grid);
+			root.setCenter(displayGrid);
+		}
+		else{
+			displayGrid.updateDisplayCells(grid);
+		}
+		
 		//Rectangle cellRectangle = new Rectangle(100, 100);
 		//cellRectangle.setFill(Color.RED);
 		//cellRectangle.setStroke(Color.BLACK);
-		root.setCenter(displayGrid);
+		
 		
 	}
 	
 	private void initScene(){
 		this.initRoot();
-		scene = new Scene(this.root, INIT_WIDTH, INIT_HEIGHT, Color.GHOSTWHITE);
+		scene = new Scene(this.root, CellSociety.INIT_WIDTH, CellSociety.INIT_HEIGHT, Color.GHOSTWHITE);
 	}
 	
 	private void initRoot(){
