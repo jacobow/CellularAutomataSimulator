@@ -1,6 +1,6 @@
 package cellsociety_team11;
 
-abstract class Grid<T> {
+public abstract class Grid<T> {
 
 	private Cell<T> [][] gridMatrix;
 	private int height;

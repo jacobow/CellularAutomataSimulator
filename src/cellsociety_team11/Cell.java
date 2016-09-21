@@ -1,6 +1,6 @@
 package cellsociety_team11;
 
-class Cell<T> {
+public class Cell<T> {
 
 	private T currentValue;
 	private T newValue;
