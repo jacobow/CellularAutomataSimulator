@@ -16,9 +16,14 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 
 	private int probCatch;
 
+	/**
+	 * returns new value based on its neighbors.  Burning neighbors have a set probablity of causing the value
+	 * to be burning as well
+	 */
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		Random r = new Random();
+		if(value == BURNING) return EMPTY;
 		for(SpreadingOfFireCell land : getNeighbors(coordinates, grid)) {
 			if(value == TREE &&
 			   land.getValue() == BURNING &&
@@ -33,6 +38,8 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 		this.probCatch = probCatch;
 	}
 
+	//returns the potentially 4 adjacent neighbors of a coordinate.  Edge coordinates
+	//are given some empty dummy cells for neighbors
 	private HashSet<SpreadingOfFireCell> getNeighbors(Coordinates coordinates, Grid<Integer> grid) {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();

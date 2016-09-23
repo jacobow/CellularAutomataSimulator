@@ -28,9 +28,7 @@ public class GameOfLifeRules implements Rule<Boolean>{
 		else return false;
 	}
 
-	/**
-	 *retrieves the neighbors of a cell's coordinates and returns them in a HashSet
-	 */
+	//retrieves the neighbors of a cell's coordinates and returns them in a HashSet
 	private HashSet<GameOfLifeCell> getNeighbors(Coordinates coordinates, Grid<Boolean> grid) {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();

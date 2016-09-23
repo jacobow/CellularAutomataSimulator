@@ -9,6 +9,12 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 
 	public static final int EMPTY = 0;
 
+	/**
+	 *
+	 * @param height
+	 * @param length
+	 * @param rule
+	 */
 	public SpreadingOfFireGrid(int height, int length, Rule<Integer> rule) {
 		super(height, length, rule);
 	}

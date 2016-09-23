@@ -15,6 +15,10 @@ public class PredatorPreyRules implements Rule<Integer>{
 	public static final int PREDATOR = 1;
 	public static final int PREY = 2;
 
+	/**
+	 * calculates a new value based on its neighboring cells.  In cases of breeding another cell is given this value,
+	 * and in cases of energy completely consumed the predator or prey dies and receives an empty value
+	 */
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		int newValue = value;
@@ -27,6 +31,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return newValue;
 	}
 
+	//moves a predator and determines if it must die or breed
 	private Integer movePredator(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
 		boolean needsToBreed = false;
 		if(cell.getDeathTimer() <= 0) return EMPTY;
@@ -68,6 +73,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return PREDATOR;
 	}
 
+	//moves prey and determines if it must die or breed
 	private Integer movePrey(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
 		boolean needsToBreed = false;
 		cell.tickBreedingTimer();
@@ -87,6 +93,8 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return PREY;
 	}
 
+	//returns the potentially 4 adjacent neighbors of a coordinate.  Edge coordinates
+	//are given some empty dummy cells for neighbors
 	private HashSet<PredatorPreyCell> getNeighbors(Coordinates coordinates, Grid<Integer> grid) {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -107,6 +115,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return neighbors;
 	}
 
+	//returns the empty cells of a grid
 	private ArrayList<PredatorPreyCell> getEmptyCells(Grid<Integer> grid) {
 		ArrayList<PredatorPreyCell> emptyCells = new ArrayList<PredatorPreyCell>();
 		for(int i = 0; i < grid.getHeight(); i++) {
@@ -120,6 +129,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return emptyCells;
 	}
 
+	//fills a random empty cell's new value
 	private void fillRandomEmptyCell(int value, PredatorPreyCell cell, Grid<Integer> grid) {
 		Random r = new Random();
 		PredatorPreyCell randCell = getEmptyCells(grid).get(r.nextInt());
