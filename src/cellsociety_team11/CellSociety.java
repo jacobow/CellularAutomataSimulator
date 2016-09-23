@@ -15,7 +15,7 @@ public class CellSociety extends Application{
 	
 	@Override
 	public void start (Stage primaryStage) throws Exception{
-		CellSocietyController cellSocietyController = new CellSocietyController();
+		CellSocietyController cellSocietyController = new CellSocietyController("English");
 		primaryStage.setTitle("Cell Society");
 		primaryStage.setScene(cellSocietyController.getScene());
 		primaryStage.centerOnScreen();

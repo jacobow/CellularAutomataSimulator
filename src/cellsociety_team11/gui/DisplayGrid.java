@@ -2,8 +2,6 @@ package cellsociety_team11.gui;
 
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
-import javafx.beans.binding.DoubleBinding;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -27,7 +25,6 @@ public class DisplayGrid extends GridPane{
 	private void initDisplayGrid(){
 		initConstraints();
 		initDisplayCells();
-		this.setId("displayGrid");
 		this.setMaxHeight(CellSociety.INIT_HEIGHT/2);
 		this.setMaxWidth(CellSociety.INIT_WIDTH/2);
 		this.minHeightProperty().bind(this.heightProperty());
