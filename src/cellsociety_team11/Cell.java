@@ -1,6 +1,6 @@
 package cellsociety_team11;
 
-class Cell<T> {
+public class Cell<T> {
 
 	private T currentValue;
 	private T newValue;
@@ -19,16 +19,26 @@ class Cell<T> {
 	public T getValue() {
 		return currentValue;
 	}
+
+	public T getNewValue() {
+		return newValue;
+	}
+
+	public void setNewValue(T value) {
+		newValue = value;
+	}
+
 	/**
 	 * determines what the cell's next value should be
 	 */
 	public void evaluateCell() {
-		newValue = rule.calculateNewValue(currentValue, grid, coordinates);
+		newValue = rule.calculateNewValue(this, currentValue, grid, coordinates);
 	}
 	/**
 	 *  commits the cell's next value as the current value
 	 */
 	public void commitCell() {
 		currentValue = newValue;
+		newValue = null;
 	}
 }

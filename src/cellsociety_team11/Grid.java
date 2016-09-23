@@ -1,17 +1,16 @@
 package cellsociety_team11;
 
-abstract class Grid<T> {
+public abstract class Grid<T> {
 
-	private Cell<T> [][] gridMatrix;
-	private int height;
-	private int width;
-	private Rule<T> rule;
+	protected Cell<T> [][] gridMatrix;
+	protected int height;
+	protected int width;
 
 
-	public Grid(int height, int length, Rule rule) {
+	@SuppressWarnings("unchecked")
+	public Grid(int height, int length, Rule<T> rule) {
 		this.height = height;
 		this.width = length;
-		this.rule = rule;
 		this.gridMatrix = new Cell[height][length];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < length; j++) {
@@ -25,7 +24,7 @@ abstract class Grid<T> {
 	public void nextGrid() {
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				gridMatrix[i][j].evaluateCell();
+				if(gridMatrix[i][j].getNewValue() == null) gridMatrix[i][j].evaluateCell();
 			}
 		}
 		for(int i = 0; i < height; i++) {
@@ -55,6 +54,9 @@ abstract class Grid<T> {
 	 */
 	public abstract Cell<T> createNewCell(Coordinates coordinates, Rule<T> rule);
 
+	public Cell<T>[][] getGridMatrix() {
+		return gridMatrix;
+	}
 	/**
 	 * @return
 	 * 		height of the grid

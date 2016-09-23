@@ -1,4 +1,9 @@
-package cellsociety_team11;
+package cellsociety_team11.game_of_life;
+
+import cellsociety_team11.Cell;
+import cellsociety_team11.Coordinates;
+import cellsociety_team11.Grid;
+import cellsociety_team11.Rule;
 
 public class GameOfLifeGrid extends Grid<Boolean>{
 

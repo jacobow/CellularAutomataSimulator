@@ -1,5 +1,9 @@
-package cellsociety_team11;
+package cellsociety_team11.game_of_life;
 
+import cellsociety_team11.Cell;
+import cellsociety_team11.Coordinates;
+import cellsociety_team11.Grid;
+import cellsociety_team11.Rule;
 import java.util.HashSet;
 
 public class GameOfLifeRules implements Rule<Boolean>{
@@ -10,7 +14,7 @@ public class GameOfLifeRules implements Rule<Boolean>{
 	 * using the rules of Conway's Game Of Life
 	 */
 	@Override
-	public Boolean calculateNewValue(Boolean currentValue, Grid<Boolean> grid, Coordinates coordinates) {
+	public Boolean calculateNewValue(Cell<Boolean> c, Boolean currentValue, Grid<Boolean> grid, Coordinates coordinates) {
 		int lifeCount = 0;
 		for(GameOfLifeCell cell : getNeighbors(coordinates, grid)) {
 			if(cell.getValue()) lifeCount++;
@@ -36,7 +40,7 @@ public class GameOfLifeRules implements Rule<Boolean>{
 				if(y == 0 && x == 0) {
 					continue;
 				}
-				if(0 < i+y || i+y >= grid.getHeight() || 0 < j+x || j+x >= grid.getWidth()) {
+				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
 					neighbors.add(new GameOfLifeCell(false, null, null, null));
 				}
 				else {
