@@ -48,12 +48,6 @@ public class MainWindow{
 		
 	}
 	
-	/*public void updateGrid(){
-		if (grid != null && displayGrid!=null){
-			displayGrid.updateDisplayCells(grid);
-		}
-	}*/
-	
 	private ResourceBundle initResourceBundle(String language){
 		return ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
 	}
