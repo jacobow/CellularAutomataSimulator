@@ -8,6 +8,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 public class CellSocietyController implements SimulationController{
+	public static final boolean[][] TEST_INIT_GRID= new boolean[][]{
+		{false, false, false, true, true},
+		{false, false, true, true, false},
+		{false, true, true, false, false},
+		{false, true, false, false, true},
+		{false, true, false, false, true}			
+		};
 	
 	private static final int FRAMES_PER_SECOND = 4;
     private static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
@@ -19,8 +26,20 @@ public class CellSocietyController implements SimulationController{
 	
 	public CellSocietyController(String language){
 		this.mainWindow = new MainWindow(this, language);
-		grid = new GameOfLifeGrid(20, 20, new GameOfLifeRules());
+		grid = new GameOfLifeGrid(5, 5, new GameOfLifeRules());
+		testSetGrid();
 		this.mainWindow.setGrid(grid);
+		
+	}
+	
+	private void testSetGrid(){
+		for (int i = 0; i < grid.getWidth(); i++){
+			for (int j = 0; j<grid.getHeight(); j++){
+				Coordinates currentCoords = new Coordinates(i, j);
+				GameOfLifeCell currentCell = (GameOfLifeCell) grid.getCell(currentCoords);
+				currentCell.setValue(TEST_INIT_GRID[i][j]);
+			}
+		}
 	}
 	
 	public Scene getScene(){

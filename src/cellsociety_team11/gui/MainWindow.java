@@ -23,7 +23,6 @@ public class MainWindow{
 	private Scene scene;
 	private MainBorderPane root;
 	private DisplayGrid displayGrid; 
-	private Grid<?> grid;
 	
 	private ResourceBundle resourceBundle;
 	private SimulationController simulationController;
@@ -31,23 +30,29 @@ public class MainWindow{
 	
 	public MainWindow(SimulationController simulationController, String language){
 		displayGrid = null;
-		grid = null;
 		this.simulationController = simulationController;
 		this.resourceBundle = initResourceBundle(language);
 		initScene();
 	}
 	
 	public void setGrid(Grid<?> grid){
-		this.grid = grid;
-		DisplayGrid displayGrid = new DisplayGrid(grid);
-		this.root.setCenter(displayGrid);
+		if (grid!=null){
+			if (this.displayGrid == null){
+				this.displayGrid = new DisplayGrid(grid);
+				this.root.setCenter(displayGrid);
+			}
+			else{
+				this.displayGrid.updateDisplayCells(grid);
+			}
+		}
+		
 	}
 	
-	public void updateGrid(){
+	/*public void updateGrid(){
 		if (grid != null && displayGrid!=null){
 			displayGrid.updateDisplayCells(grid);
 		}
-	}
+	}*/
 	
 	private ResourceBundle initResourceBundle(String language){
 		return ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
