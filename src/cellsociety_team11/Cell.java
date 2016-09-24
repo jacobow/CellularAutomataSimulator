@@ -1,10 +1,15 @@
 package cellsociety_team11;
-public class Cell<T> {
+
+import java.util.HashSet;
+
+public abstract class Cell<T> {
+
 	private T currentValue;
 	private T newValue;
-	private Grid<T> grid;
+	protected Grid<T> grid;
 	private Rule<T> rule;
-	private Coordinates coordinates;
+	protected Coordinates coordinates;
+
 	/**
 	 * Cell of a grid
 	 * @param value
@@ -53,4 +58,8 @@ public class Cell<T> {
 		currentValue = newValue;
 		newValue = null;
 	}
+	/**
+	 * gets a cell's neighbors
+	 */
+	public abstract HashSet<?> getNeighbors();
 }

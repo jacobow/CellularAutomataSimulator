@@ -36,7 +36,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		if(cell.getDeathTimer() <= 0) return EMPTY;
 		cell.tickDeathTimer();
 		cell.tickBreedingTimer();
-		HashSet<PredatorPreyCell> neighbors = getNeighbors(coordinates, grid);
+		HashSet<PredatorPreyCell> neighbors = ((PredatorPreyCell)cell).getNeighbors();
 		for(PredatorPreyCell neighbor : neighbors) {
 			if(neighbor.getValue() == PREY && neighbor.getNewValue() == null) {
 				cell.upTickDeathTimer();
@@ -70,35 +70,13 @@ public class PredatorPreyRules implements Rule<Integer>{
 	//moves prey and determines if it must die or breed
 	private Integer movePrey(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
 		cell.tickBreedingTimer();
-		HashSet<PredatorPreyCell> neighbors = getNeighbors(coordinates, grid);
+		HashSet<PredatorPreyCell> neighbors = ((PredatorPreyCell)cell).getNeighbors();
 		for(PredatorPreyCell neighbor : neighbors) {
 			if(neighbor.getValue() == EMPTY && neighbor.getNewValue() == null) {
 				swap(cell, neighbor);
 			}
 		}
 		return PREY;
-	}
-
-	//returns the potentially 4 adjacent neighbors of a coordinate.  Edge coordinates
-	//are given some empty dummy cells for neighbors
-	private HashSet<PredatorPreyCell> getNeighbors(Coordinates coordinates, Grid<Integer> grid) {
-		int i = coordinates.getI();
-		int j = coordinates.getJ();
-		HashSet<PredatorPreyCell> neighbors = new HashSet<PredatorPreyCell>();
-		for(int y = -1; i <= 1; y++) {
-			for(int x = -1; j <= 1; x++) {
-				if(y == x) {
-					continue;
-				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new PredatorPreyCell(EMPTY, null, null));
-				}
-				else {
-					neighbors.add((PredatorPreyCell) grid.getCell(new Coordinates(i+y, j+x)));
-				}
-			}
-		}
-		return neighbors;
 	}
 
 	//returns the empty cells of a grid

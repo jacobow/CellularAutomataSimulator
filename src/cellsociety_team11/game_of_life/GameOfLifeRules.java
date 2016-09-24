@@ -4,7 +4,6 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
-import java.util.HashSet;
 
 public class GameOfLifeRules implements Rule<Boolean>{
 
@@ -16,7 +15,7 @@ public class GameOfLifeRules implements Rule<Boolean>{
 	@Override
 	public Boolean calculateNewValue(Cell<Boolean> c, Boolean currentValue, Grid<Boolean> grid, Coordinates coordinates) {
 		int lifeCount = 0;
-		for(GameOfLifeCell cell : getNeighbors(coordinates, grid)) {
+		for(GameOfLifeCell cell : ((GameOfLifeCell)c).getNeighbors()) {
 			if(cell.getValue()) lifeCount++;
 		}
 		if(currentValue && lifeCount > 1 && lifeCount < 4) {
@@ -26,27 +25,6 @@ public class GameOfLifeRules implements Rule<Boolean>{
 			return true;
 		}
 		else return false;
-	}
-
-	//retrieves the neighbors of a cell's coordinates and returns them in a HashSet
-	private HashSet<GameOfLifeCell> getNeighbors(Coordinates coordinates, Grid<Boolean> grid) {
-		int i = coordinates.getI();
-		int j = coordinates.getJ();
-		HashSet<GameOfLifeCell> neighbors = new HashSet<GameOfLifeCell>();
-		for(int y = -1; y <= 1; y++) {
-			for(int x = -1; x <= 1; x++) {
-				if(y == 0 && x == 0) {
-					continue;
-				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new GameOfLifeCell(false, null, null));
-				}
-				else {
-					neighbors.add((GameOfLifeCell) grid.getCell(new Coordinates(i+y, j+x)));
-				}
-			}
-		}
-		return neighbors;
 	}
 
 }
