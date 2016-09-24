@@ -1,7 +1,6 @@
 package cellsociety_team11.segregation;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import cellsociety_team11.Cell;
@@ -32,8 +31,8 @@ public class SegregationRules implements Rule<Integer>{
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		if(value == EMPTY) return value;
 		double valueProportion = 0;
-		double neighborSize = getNeighbors(coordinates, grid).size();
-		for(SegregationCell agent : getNeighbors(coordinates, grid)) {
+		double neighborSize = ((SegregationCell)cell).getNeighbors().size();
+		for(SegregationCell agent : ((SegregationCell)cell).getNeighbors()) {
 			if(agent.getValue() == value) valueProportion += 1/neighborSize;
 		}
 		if(valueProportion < threshold) {
@@ -42,27 +41,7 @@ public class SegregationRules implements Rule<Integer>{
 		}
 		return value;
 	}
-	//finds the potentially 6 neighbors of a coordinate on a grid.  Edge coordinates are
-	//given empty dummy cells as some neighbors
-	private HashSet<SegregationCell> getNeighbors(Coordinates coordinates, Grid<Integer> grid) {
-		int i = coordinates.getI();
-		int j = coordinates.getJ();
-		HashSet<SegregationCell> neighbors = new HashSet<SegregationCell>();
-		for(int y = -1; i <= 1; y++) {
-			for(int x = -1; j <= 1; x++) {
-				if(y == 0 && x == 0) {
-					continue;
-				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SegregationCell(EMPTY, null, null));
-				}
-				else {
-					neighbors.add((SegregationCell) grid.getCell(new Coordinates(i+y, j+x)));
-				}
-			}
-		}
-		return neighbors;
-	}
+
 	//fills a random empty cell with a specified value
 	private void fillRandomEmptyCell(int value, Grid<Integer> grid) {
 		Random r = new Random();
