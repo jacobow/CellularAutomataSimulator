@@ -8,22 +8,41 @@ public class Cell<T> {
 	private Rule<T> rule;
 	private Coordinates coordinates;
 
-
-	public Cell(T value, Rule<T> rule, Coordinates coordinates, Grid<T> grid) {
+	/**
+	 * Cell of a grid
+	 * @param value
+	 * 		The characteristic of the cell which determines
+	 * 		which rules it is to follow
+	 * @param coordinates
+	 * 		Location of the cell on the grid
+	 * @param grid
+	 * 		The grid the cell is located on
+	 */
+	public Cell(T value, Coordinates coordinates, Grid<T> grid) {
 		this.currentValue = value;
-		this.rule = rule;
+		newValue = null;
+		rule = grid.getRule();
 		this.coordinates = coordinates;
 		this.grid = grid;
 	}
 
+	/**
+	 * Gets the value of the cell
+	 */
 	public T getValue() {
 		return currentValue;
 	}
 
+	/**
+	 * Gets the new value of the cell
+	 */
 	public T getNewValue() {
 		return newValue;
 	}
 
+	/**
+	 * Sets the new value of the cell
+	 */
 	public void setNewValue(T value) {
 		newValue = value;
 	}

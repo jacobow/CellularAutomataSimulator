@@ -16,6 +16,14 @@ public class SegregationRules implements Rule<Integer>{
 	private double threshold;
 
 	/**
+	 * sets an instance of segregation rules at a certain threshold
+	 * @param threshold
+	 * 			a parameter that determines the tolerance of agents
+	 */
+	SegregationRules(double threshold) {
+		this.threshold = threshold;
+	}
+	/**
 	 * returns the value of a cell based on its alike neighbors.
 	 * If there aren't enough alike neighbors to surpass a threshold,
 	 * then a random empty cell is filled with the value.
@@ -46,7 +54,7 @@ public class SegregationRules implements Rule<Integer>{
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SegregationCell(EMPTY, null, null, null));
+					neighbors.add(new SegregationCell(EMPTY, null, null));
 				}
 				else {
 					neighbors.add((SegregationCell) grid.getCell(new Coordinates(i+y, j+x)));
@@ -68,10 +76,6 @@ public class SegregationRules implements Rule<Integer>{
 			}
 		}
 		emptyCells.get(r.nextInt()).setNewValue(value);
-	}
-
-	public void setThreshold(double threshold) {
-		this.threshold = threshold;
 	}
 
 }

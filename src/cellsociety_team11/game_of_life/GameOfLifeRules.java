@@ -39,7 +39,7 @@ public class GameOfLifeRules implements Rule<Boolean>{
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new GameOfLifeCell(false, null, null, null));
+					neighbors.add(new GameOfLifeCell(false, null, null));
 				}
 				else {
 					neighbors.add((GameOfLifeCell) grid.getCell(new Coordinates(i+y, j+x)));

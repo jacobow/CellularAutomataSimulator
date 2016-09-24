@@ -3,19 +3,28 @@ package cellsociety_team11.segregation;
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
-import cellsociety_team11.Rule;
 
 public class SegregationGrid extends Grid<Integer>{
 
 	public static final int EMPTY = 0;
 
-	public SegregationGrid(int height, int length, Rule<Integer> rule) {
-		super(height, length, rule);
+	/**
+	 * creates a new segregation grid
+	 * @param valueGrid
+	 * 				grid of the values of the cells
+	 * @param theshold
+	 * 				a parameter that determines the tolerance of agents
+	 */
+	public SegregationGrid(Integer[][] valueGrid, double theshold) {
+		super(valueGrid, new SegregationRules(theshold));
 	}
 
+	/**
+	 * creates a new cell in the grid
+	 */
 	@Override
-	public Cell<Integer> createNewCell(Coordinates coordinates, Rule<Integer> rule) {
-		return new SegregationCell(EMPTY, rule, coordinates, this);
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates) {
+		return new SegregationCell(value, coordinates, this);
 	}
 
 }

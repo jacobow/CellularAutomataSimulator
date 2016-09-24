@@ -5,19 +5,27 @@ public abstract class Grid<T> {
 	protected Cell<T> [][] gridMatrix;
 	protected int height;
 	protected int width;
+	private Rule<T> rule;
 
-
+	/**
+	 * creates a new grid
+	 * @param valueGrid
+	 *				grid of the values of the cells
+	 * @param rule
+	 * 				the rules which the cells will follow
+	 */
 	@SuppressWarnings("unchecked")
-	public Grid(int height, int length, Rule<T> rule) {
-		this.height = height;
-		this.width = length;
-		this.gridMatrix = new Cell[height][length];
+	public Grid(T[][] valueGrid, Rule<T> rule) {
+		height = valueGrid.length;
+		width = valueGrid[0].length;
+		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < length; j++) {
-				gridMatrix[i][j] = createNewCell(new Coordinates(i, j), rule);
+			for(int j = 0; j < width; j++) {
+				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j));
 			}
 		}
 	}
+
 	/**
 	 * Manipulate the Grid into its next state
 	 */
@@ -33,6 +41,7 @@ public abstract class Grid<T> {
 			}
 		}
 	}
+
 	/**
 	 * retrieves a cell in the grid from certain coordinates
 	 * @param c
@@ -43,6 +52,7 @@ public abstract class Grid<T> {
 	public Cell<T> getCell(Coordinates c) {
 		return gridMatrix[c.getI()][c.getJ()];
 	}
+
 	/**
 	 * creates a cell at certain coordinates
 	 * @param coordinates
@@ -52,21 +62,38 @@ public abstract class Grid<T> {
 	 * @return
 	 * 		Cell at given coordinates
 	 */
-	public abstract Cell<T> createNewCell(Coordinates coordinates, Rule<T> rule);
+	public abstract Cell<T> createNewCell(T value, Coordinates coordinates);
 
+	/**
+	 * gets the rules
+	 */
+	public Rule<T> getRule() {
+		return rule;
+	}
+
+	/**
+	 * sets a new rule
+	 */
+	public void setRule(Rule<T> rule) {
+		this.rule = rule;
+	}
+
+	/**
+	 * gets the grid matrix
+	 */
 	public Cell<T>[][] getGridMatrix() {
 		return gridMatrix;
 	}
+
 	/**
-	 * @return
-	 * 		height of the grid
+	 * gets the height of the grid
 	 */
 	public int getHeight() {
 		return height;
 	}
+
 	/**
-	 * @return
-	 * 		width of the grid
+	 * gets the width of the grid
 	 */
 	public int getWidth() {
 		return width;

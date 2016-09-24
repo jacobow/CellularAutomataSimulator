@@ -14,7 +14,11 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 	public static final int TREE = 1;
 	public static final int BURNING = 2;
 
-	private int probCatch;
+	private double probCatch;
+
+	public SpreadingOfFireRules(double probCatch) {
+		this.probCatch = probCatch;
+	}
 
 	/**
 	 * returns new value based on its neighbors.  Burning neighbors have a set probablity of causing the value
@@ -34,10 +38,6 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 		return value;
 	}
 
-	public void setProbCatch(int probCatch) {
-		this.probCatch = probCatch;
-	}
-
 	//returns the potentially 4 adjacent neighbors of a coordinate.  Edge coordinates
 	//are given some empty dummy cells for neighbors
 	private HashSet<SpreadingOfFireCell> getNeighbors(Coordinates coordinates, Grid<Integer> grid) {
@@ -50,7 +50,7 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SpreadingOfFireCell(EMPTY, null, null, null));
+					neighbors.add(new SpreadingOfFireCell(EMPTY, null, null));
 				}
 				else {
 					neighbors.add((SpreadingOfFireCell) grid.getCell(new Coordinates(i+y, j+x)));

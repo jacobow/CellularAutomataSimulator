@@ -33,37 +33,19 @@ public class PredatorPreyRules implements Rule<Integer>{
 
 	//moves a predator and determines if it must die or breed
 	private Integer movePredator(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
-		boolean needsToBreed = false;
 		if(cell.getDeathTimer() <= 0) return EMPTY;
 		cell.tickDeathTimer();
 		cell.tickBreedingTimer();
-		if(cell.getBreedingTimer() <= 0) needsToBreed = true;
 		HashSet<PredatorPreyCell> neighbors = getNeighbors(coordinates, grid);
 		for(PredatorPreyCell neighbor : neighbors) {
 			if(neighbor.getValue() == PREY && neighbor.getNewValue() == null) {
 				cell.upTickDeathTimer();
-				neighbor.setNewValue(PREDATOR);
-				neighbor.setDeathTimer(cell.getDeathTimer());
-				neighbor.setBreedingTimer(cell.getBreedingTimer());
-				if(needsToBreed) {
-					cell.resetDeathTimer();
-					cell.resetBreedingTimer();
-					return PREDATOR;
-				}
-				return EMPTY;
+				swap(cell, neighbor);
 			}
 		}
 		for(PredatorPreyCell n : neighbors) {
 			if(n.getValue() == EMPTY && n.getNewValue() == null) {
-				n.setNewValue(PREDATOR);
-				n.setDeathTimer(cell.getDeathTimer());
-				n.setBreedingTimer(cell.getBreedingTimer());
-				if(needsToBreed) {
-					cell.resetDeathTimer();
-					cell.resetBreedingTimer();
-					return PREDATOR;
-				}
-				return EMPTY;
+				swap(cell, n);
 			}
 		}
 		if(!getEmptyCells(grid).isEmpty()) {
@@ -73,21 +55,25 @@ public class PredatorPreyRules implements Rule<Integer>{
 		return PREDATOR;
 	}
 
+	//swaps two cells
+	private Integer swap(PredatorPreyCell cell, PredatorPreyCell neighbor) {
+		neighbor.setNewValue(cell.getValue());
+		if(cell.getValue() == PREDATOR) neighbor.setDeathTimer(cell.getDeathTimer());
+		neighbor.setBreedingTimer(cell.getBreedingTimer());
+		if(cell.getBreedingTimer() <= 0) {
+			if(cell.getValue() == PREDATOR) cell.resetDeathTimer();
+			cell.resetBreedingTimer();
+			return cell.getValue();
+		}
+		return EMPTY;
+	}
 	//moves prey and determines if it must die or breed
 	private Integer movePrey(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
-		boolean needsToBreed = false;
 		cell.tickBreedingTimer();
-		if(cell.getBreedingTimer() <= 0) needsToBreed = true;
 		HashSet<PredatorPreyCell> neighbors = getNeighbors(coordinates, grid);
 		for(PredatorPreyCell neighbor : neighbors) {
 			if(neighbor.getValue() == EMPTY && neighbor.getNewValue() == null) {
-				neighbor.setNewValue(PREY);
-				neighbor.setBreedingTimer(cell.getBreedingTimer());
-				if(needsToBreed) {
-					cell.resetBreedingTimer();
-					return PREY;
-				}
-				return EMPTY;
+				swap(cell, neighbor);
 			}
 		}
 		return PREY;
@@ -105,7 +91,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new PredatorPreyCell(EMPTY, null, null, null));
+					neighbors.add(new PredatorPreyCell(EMPTY, null, null));
 				}
 				else {
 					neighbors.add((PredatorPreyCell) grid.getCell(new Coordinates(i+y, j+x)));
