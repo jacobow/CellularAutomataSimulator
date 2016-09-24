@@ -1,21 +1,24 @@
 package cellsociety_team11;
-
 public abstract class Grid<T> {
-
-	private Cell<T> [][] gridMatrix;
-	private int height;
-	private int width;
+	protected Cell<T> [][] gridMatrix;
+	protected int height;
+	protected int width;
 	private Rule<T> rule;
-
-
-	public Grid(int height, int length, Rule rule) {
-		this.height = height;
-		this.width = length;
-		this.rule = rule;
-		this.gridMatrix = new Cell[height][length];
+	/**
+	 * creates a new grid
+	 * @param valueGrid
+	 *				grid of the values of the cells
+	 * @param rule
+	 * 				the rules which the cells will follow
+	 */
+	@SuppressWarnings("unchecked")
+	public Grid(T[][] valueGrid, Rule<T> rule) {
+		height = valueGrid.length;
+		width = valueGrid[0].length;
+		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < length; j++) {
-				gridMatrix[i][j] = createNewCell(new Coordinates(i, j), rule);
+			for(int j = 0; j < width; j++) {
+				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j));
 			}
 		}
 	}
@@ -23,13 +26,13 @@ public abstract class Grid<T> {
 	 * Manipulate the Grid into its next state
 	 */
 	public void nextGrid() {
-		for(int i = 1; i < height-1; i++) {
-			for(int j = 1; j < width-1; j++) {
-				gridMatrix[i][j].evaluateCell();
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				if(gridMatrix[i][j].getNewValue() == null) gridMatrix[i][j].evaluateCell();
 			}
 		}
-		for(int i = 1; i < height-1; i++) {
-			for(int j = 1; j < width-1; j++) {
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
 				gridMatrix[i][j].commitCell();
 			}
 		}
@@ -53,18 +56,33 @@ public abstract class Grid<T> {
 	 * @return
 	 * 		Cell at given coordinates
 	 */
-	public abstract Cell<T> createNewCell(Coordinates coordinates, Rule<T> rule);
-
+	public abstract Cell<T> createNewCell(T value, Coordinates coordinates);
 	/**
-	 * @return
-	 * 		height of the grid
+	 * gets the rules
+	 */
+	public Rule<T> getRule() {
+		return rule;
+	}
+	/**
+	 * sets a new rule
+	 */
+	public void setRule(Rule<T> rule) {
+		this.rule = rule;
+	}
+	/**
+	 * gets the grid matrix
+	 */
+	public Cell<T>[][] getGridMatrix() {
+		return gridMatrix;
+	}
+	/**
+	 * gets the height of the grid
 	 */
 	public int getHeight() {
 		return height;
 	}
 	/**
-	 * @return
-	 * 		width of the grid
+	 * gets the width of the grid
 	 */
 	public int getWidth() {
 		return width;
