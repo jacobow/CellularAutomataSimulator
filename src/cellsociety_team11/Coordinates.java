@@ -18,15 +18,15 @@ public class Coordinates {
 		this.i = i;
 		this.j = j;
 	}
-
-	public int[] getCoordinates() {
-		return new int[] { i, j };
-	}
-
+	/**
+	 * gets the i coordinate
+	 */
 	public int getI() {
 		return i;
 	}
-
+	/**
+	 * gets the j coordinate
+	 */
 	public int getJ() {
 		return j;
 	}
