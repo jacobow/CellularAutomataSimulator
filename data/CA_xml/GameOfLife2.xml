@@ -2,6 +2,6 @@
 <Simulation SimulationType="Game of Life">
     <name>Game of Life 2</name>
     <author>Noel</author>
-    <dimensions>5x2</dimensions>
+    <dimensions>2x5</dimensions>
     <initialLayout>10010//10111</initialLayout>
 </Simulation>

@@ -23,15 +23,14 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
     }
 
     @Override
-    public SimulationXMLModel getSimulation (Element root) throws XMLFactoryException {
+    public GameOfLifeXMLModel getSimulation (Element root) throws XMLFactoryException {
         if (! isValidFile(root)) {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
         // BUGBUG: hard coding tagNames is a bad idea
         String name = getTextValue(root, "name");
         String author = getTextValue(root, "author");
-        String dimensions = getTextValue(root, "dimensions");
         String initialLayout = getTextValue(root, "initialLayout");
-        return new GameOfLifeXMLModel(name, author, dimensions, initialLayout);
+        return new GameOfLifeXMLModel(name, author, initialLayout);
     }
 }

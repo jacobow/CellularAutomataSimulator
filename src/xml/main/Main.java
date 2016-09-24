@@ -1,5 +1,6 @@
 package xml.main;
 import java.io.File;
+import xml.model.GameOfLifeXMLModel;
 import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 import xml.factory.SimulationXMLFactory;
@@ -18,8 +19,9 @@ public class Main {
 
     public static void main (String[] args) {
         XMLParser parser = new XMLParser();
-        SimulationXMLFactory factory = new GameOfLifeXMLFactory();
+        GameOfLifeXMLFactory factory = new GameOfLifeXMLFactory();
         File folder = new File(XML_FILES_LOCATION);
+        /*
         for (File f : folder.listFiles()) {
             if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
                 try {
@@ -30,6 +32,19 @@ public class Main {
                     System.err.println("Reading file " + f.getPath());
                     e.printStackTrace();
                 }
+            }
+        }
+        */
+        File f = folder.listFiles()[2];
+        if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
+            try {
+                GameOfLifeXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                System.out.println(p.getInitialLayout());
+                System.out.println(p);
+            }
+            catch (XMLFactoryException e) {
+                System.err.println("Reading file " + f.getPath());
+                e.printStackTrace();
             }
         }
     }
