@@ -1,5 +1,7 @@
 package cellsociety_team11;
 
+import cellsociety_team11.game_of_life.GameOfLifeGrid;
+
 public enum SimulationType{
 	
 	GAMEOFLIFE ("Game of Life", GameOfLifeGrid.class),

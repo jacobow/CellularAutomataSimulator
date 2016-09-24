@@ -1,5 +1,8 @@
 package cellsociety_team11;
 
+import cellsociety_team11.game_of_life.GameOfLifeCell;
+import cellsociety_team11.game_of_life.GameOfLifeGrid;
+import cellsociety_team11.game_of_life.GameOfLifeRules;
 import cellsociety_team11.gui.MainWindow;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -8,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
 public class CellSocietyController implements SimulationController{
-	public static final boolean[][] TEST_INIT_GRID= new boolean[][]{
+	public static final Boolean[][] TEST_INIT_GRID= new Boolean[][]{
 		{false, false, false, true, true},
 		{false, false, true, true, false},
 		{false, true, true, false, false},
@@ -26,8 +29,8 @@ public class CellSocietyController implements SimulationController{
 	
 	public CellSocietyController(String language){
 		this.mainWindow = new MainWindow(this, language);
-		grid = new GameOfLifeGrid(5, 5, new GameOfLifeRules());
-		testSetGrid();
+		grid = new GameOfLifeGrid(TEST_INIT_GRID);
+		//testSetGrid();
 		this.mainWindow.setGrid(grid);
 		
 	}
@@ -37,7 +40,7 @@ public class CellSocietyController implements SimulationController{
 			for (int j = 0; j<grid.getHeight(); j++){
 				Coordinates currentCoords = new Coordinates(i, j);
 				GameOfLifeCell currentCell = (GameOfLifeCell) grid.getCell(currentCoords);
-				currentCell.setValue(TEST_INIT_GRID[i][j]);
+				currentCell.setNewValue(TEST_INIT_GRID[i][j]);
 			}
 		}
 	}
@@ -59,7 +62,7 @@ public class CellSocietyController implements SimulationController{
 	@Override
 	public void nextStepSimulation() {
 		grid.nextGrid();
-		mainWindow.setGrid(grid);
+		//mainWindow.setGrid(grid);
 	}
 	
 	@Override
