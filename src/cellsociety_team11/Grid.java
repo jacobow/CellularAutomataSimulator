@@ -1,12 +1,9 @@
 package cellsociety_team11;
-
 public abstract class Grid<T> {
-
 	protected Cell<T> [][] gridMatrix;
 	protected int height;
 	protected int width;
 	private Rule<T> rule;
-
 	/**
 	 * creates a new grid
 	 * @param valueGrid
@@ -25,7 +22,6 @@ public abstract class Grid<T> {
 			}
 		}
 	}
-
 	/**
 	 * Manipulate the Grid into its next state
 	 */
@@ -41,7 +37,6 @@ public abstract class Grid<T> {
 			}
 		}
 	}
-
 	/**
 	 * retrieves a cell in the grid from certain coordinates
 	 * @param c
@@ -52,7 +47,6 @@ public abstract class Grid<T> {
 	public Cell<T> getCell(Coordinates c) {
 		return gridMatrix[c.getI()][c.getJ()];
 	}
-
 	/**
 	 * creates a cell at certain coordinates
 	 * @param coordinates
@@ -63,35 +57,30 @@ public abstract class Grid<T> {
 	 * 		Cell at given coordinates
 	 */
 	public abstract Cell<T> createNewCell(T value, Coordinates coordinates);
-
 	/**
 	 * gets the rules
 	 */
 	public Rule<T> getRule() {
 		return rule;
 	}
-
 	/**
 	 * sets a new rule
 	 */
 	public void setRule(Rule<T> rule) {
 		this.rule = rule;
 	}
-
 	/**
 	 * gets the grid matrix
 	 */
 	public Cell<T>[][] getGridMatrix() {
 		return gridMatrix;
 	}
-
 	/**
 	 * gets the height of the grid
 	 */
 	public int getHeight() {
 		return height;
 	}
-
 	/**
 	 * gets the width of the grid
 	 */

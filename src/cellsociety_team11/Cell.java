@@ -27,28 +27,24 @@ public abstract class Cell<T> {
 		this.coordinates = coordinates;
 		this.grid = grid;
 	}
-
 	/**
 	 * Gets the value of the cell
 	 */
 	public T getValue() {
 		return currentValue;
 	}
-
 	/**
 	 * Gets the new value of the cell
 	 */
 	public T getNewValue() {
 		return newValue;
 	}
-
 	/**
 	 * Sets the new value of the cell
 	 */
 	public void setNewValue(T value) {
 		newValue = value;
 	}
-
 	/**
 	 * determines what the cell's next value should be
 	 */
