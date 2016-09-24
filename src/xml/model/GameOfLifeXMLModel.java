@@ -9,21 +9,20 @@ import xml.model.SimulationXMLModel;
  * @author Robert Duvall
  */
 public class GameOfLifeXMLModel extends SimulationXMLModel {
-    private String myDimensions;
     private String myInitialLayout;
 
-    public GameOfLifeXMLModel (String name, String author, String dimensions, String initialLayout) {
+    public GameOfLifeXMLModel (String name, String author, String initialLayout) {
         super(name, author);
-        myDimensions = dimensions;
         myInitialLayout = initialLayout;
     }
 
-    public String getClassTaught () {
-        return myDimensions;
-    }
-
-    public String getOfficeLocation () {
-        return myInitialLayout;
+    public boolean[][] getInitialLayout () {
+        for (int i=0; i<myInitialLayout.length(); i++){
+            if (myInitialLayout.charAt(i)=='/'){
+                
+            }
+        }
+        return null;
     }
 
     @Override
@@ -32,7 +31,6 @@ public class GameOfLifeXMLModel extends SimulationXMLModel {
         result.append("Game of Life {")
               .append("Name='").append(getName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
-              .append("Dimensions='").append(myDimensions).append("', ")
               .append("Initial Layout='").append(myInitialLayout)
               .append('}');
        return result.toString();
