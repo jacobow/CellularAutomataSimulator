@@ -1,13 +1,10 @@
 package cellsociety_team11;
-
 public class Cell<T> {
-
 	private T currentValue;
 	private T newValue;
 	private Grid<T> grid;
 	private Rule<T> rule;
 	private Coordinates coordinates;
-
 	/**
 	 * Cell of a grid
 	 * @param value
@@ -25,28 +22,24 @@ public class Cell<T> {
 		this.coordinates = coordinates;
 		this.grid = grid;
 	}
-
 	/**
 	 * Gets the value of the cell
 	 */
 	public T getValue() {
 		return currentValue;
 	}
-
 	/**
 	 * Gets the new value of the cell
 	 */
 	public T getNewValue() {
 		return newValue;
 	}
-
 	/**
 	 * Sets the new value of the cell
 	 */
 	public void setNewValue(T value) {
 		newValue = value;
 	}
-
 	/**
 	 * determines what the cell's next value should be
 	 */
