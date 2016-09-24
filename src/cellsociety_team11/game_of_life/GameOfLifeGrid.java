@@ -19,7 +19,7 @@ public class GameOfLifeGrid extends Grid<Boolean>{
 	 */
 	@Override
 	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates) {
-		return new GameOfLifeCell(false, coordinates, this);
+		return new GameOfLifeCell(value, coordinates, this);
 	}
 
 }

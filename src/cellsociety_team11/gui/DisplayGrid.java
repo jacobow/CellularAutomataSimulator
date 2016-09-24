@@ -79,7 +79,6 @@ public class DisplayGrid extends GridPane{
 		}
 	}
 	
-	//duplicated code for testing purposes right now
 	public void updateDisplayCells(Grid<?> newGrid){
 		for (Node displayCell : this.getChildren()){
 			DisplayCell currDisplayCell = (DisplayCell) displayCell;

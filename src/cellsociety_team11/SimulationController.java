@@ -18,4 +18,9 @@ public interface SimulationController {
 	 * Updates the Simulation Speed based on the Speed Slider
 	 */
 	public void updateSimulationSpeed(MouseEvent speedUpdated);
+	
+	/*
+	 * Stops the Simulation
+	 */
+	public void stopSimulation();
 }
