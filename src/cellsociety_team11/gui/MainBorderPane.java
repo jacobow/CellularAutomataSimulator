@@ -23,7 +23,7 @@ public class MainBorderPane extends BorderPane{
 	private SimulationController simulationController;
 	private static final double SPEED_SLIDER_MIN = 0.25;
 	private static final double SPEED_SLIDER_MAX = 1.25;
-	private static final double SPEED_SLIDER_START = 0.5;
+	public static final double SPEED_SLIDER_START = 0.5;
 	private static final double SPEED_SLIDER_TICK_NUMBER = 4.0;
 	private static final double SPEED_SLIDER_MAJOR_TICK_UNIT = (SPEED_SLIDER_MAX-SPEED_SLIDER_MIN)/(SPEED_SLIDER_TICK_NUMBER-1.0);
 	
@@ -42,6 +42,7 @@ public class MainBorderPane extends BorderPane{
 		ToolBar toolBar = new ToolBar();
 		toolBar.getItems().add(createButton("StartButton", event -> simulationController.startSimulation()));
 		toolBar.getItems().add(createButton("StepButton", event -> simulationController.nextStepSimulation()));
+		toolBar.getItems().add(createButton("StopButton", event -> simulationController.stopSimulation()));
 		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> simulationController.updateSimulationSpeed(event))); 
 		return toolBar;
 	}

@@ -60,8 +60,4 @@ public class DisplayCell extends Pane{
 		cellRectangle.setFill(color);
 	}
 	
-	/*private void handleCellClicked(MouseEvent mouseEvent){
-		this.alive = !this.alive;
-		setColor(getColor());
-	}*/
 }
