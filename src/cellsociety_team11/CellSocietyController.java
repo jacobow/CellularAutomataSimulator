@@ -41,7 +41,9 @@ public class CellSocietyController implements MainController{
 	
 	private static final double INIT_FRAMES_PER_SECOND = 4;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
-	private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife2.xml";
+	
+	
+	private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
 	private static final String XML_SUFFIX = ".xml";
 	
 	private MainWindow mainWindow;
@@ -49,32 +51,51 @@ public class CellSocietyController implements MainController{
 	private Timeline timeline;
 	private double simulationSpeed;
 	private SimulationType simulationType;
+	private SimulationXMLModel simulation;
 
 	public CellSocietyController(String language){
-		
+		readFileData();
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
-		simulationType = SimulationType.PREDATOR_PREY;
-		//grid = new SpreadingOfFireGrid(INT_INIT_GRID, 0.5);
-		//grid = new SegregationGrid(INT_INIT_GRID, 0.5);
-		grid = new PredatorPreyGrid(INT_INIT_GRID, 3, 3, 3);
+		setSimulationGrid(simulation.getSimulationName());
+		//simulationType = SimulationType.SPREADING_OF_FIRE;
 		//testSetGrid();
 		this.mainWindow.setGrid(grid, this.simulationType);
 		
 	}
 	
-	private void getFileData(){
+	private void readFileData(){
 	    XMLParser parser = new XMLParser();
 	    SimulationXMLFactory factory = new SimulationXMLFactory("Simulation");
 	    File f = new File(XML_FILE_LOCATION);
 	    if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
 	        try {
-	            model = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+	            simulation = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
 	        }
 	        catch (XMLFactoryException e) {
 	            System.err.println("Reading file " + f.getPath());
 	            e.printStackTrace();
 	        }
+	    }
+	}
+	
+	private void setSimulationGrid(String simulationTypeStr) {
+	    if (simulationTypeStr.equals("Game of Life")) {
+	        simulationType = SimulationType.GAMEOFLIFE;
+	        grid = new GameOfLifeGrid(intToBool(simulation.getInitialLayout()));
+	    }
+	    if (simulationTypeStr.equals("Segregation")) {
+	        simulationType = SimulationType.SEGREGATION;
+	        grid = new SegregationGrid(simulation.getInitialLayout(), simulation.getProbability());
+	    }
+	    if (simulationTypeStr.equals("Spreading of Fire")) {
+	        simulationType = SimulationType.SPREADING_OF_FIRE;
+	        grid = new SpreadingOfFireGrid(simulation.getInitialLayout(), simulation.getProbability());
+            }
+	    if (simulationTypeStr.equals("Predator Prey")) {
+	        simulationType = SimulationType.PREDATOR_PREY;
+	        grid = new PredatorPreyGrid(simulation.getInitialLayout(), simulation.getPredatorLifeSpan(), 
+	                                    simulation.getPreyBreedingSpan(), simulation.getPredatorBreedingSpan());
 	    }
 	}
 	
@@ -107,7 +128,7 @@ public class CellSocietyController implements MainController{
 	@Override
 	public void nextStepSimulation() {
 		grid.nextGrid();
-		printGrid(grid);
+		//printGrid(grid);
 		mainWindow.setGrid(grid, this.simulationType);
 	}
 	
