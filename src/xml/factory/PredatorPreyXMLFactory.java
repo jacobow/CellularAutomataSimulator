@@ -12,7 +12,14 @@ import org.w3c.dom.Element;
  */
 public class PredatorPreyXMLFactory extends SimulationXMLFactory {
     private static final String XML_TAG_NAME = "Predator Prey";
-
+    private static final String XML_TAG_TITLE = "name";
+    private static final String XML_TAG_AUTHOR = "author";
+    private static final String XML_TAG_ROWS = "rows";
+    private static final String XML_TAG_COLUMNS = "columns";
+    private static final String XML_TAG_INITIAL_LAYOUT = "initialLayout";
+    private static final String XML_TAG_PREY_BREEDING_SPAN = "preyBreedingSpan";
+    private static final String XML_TAG_PREDATOR_BREEDING_SPAN = "predatorBreedingSpan";
+    private static final String XML_TAG_PREDATOR_LIFE_SPAN = "predatorLifeSpan";
 
     /**
      * Create factory capable of generating Professor objects.
@@ -27,14 +34,14 @@ public class PredatorPreyXMLFactory extends SimulationXMLFactory {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
         // BUGBUG: hard coding tagNames is a bad idea
-        String name = getTextValue(root, "name");
-        String author = getTextValue(root, "author");
-        String rows = getTextValue(root, "rows");
-        String columns = getTextValue(root, "columns");
-        String initialLayout = getTextValue(root, "initialLayout");
-        String preyBreedingSpan = getTextValue(root, "preyBreedingSpan");
-        String predatorBreedingSpan = getTextValue(root, "predatorBreedingSpan");
-        String predatorLifeSpan = getTextValue(root, "predatorLifeSpan");
+        String name = getTextValue(root, XML_TAG_TITLE);
+        String author = getTextValue(root, XML_TAG_AUTHOR);
+        String rows = getTextValue(root, XML_TAG_ROWS);
+        String columns = getTextValue(root, XML_TAG_COLUMNS);
+        String initialLayout = getTextValue(root, XML_TAG_INITIAL_LAYOUT);
+        String preyBreedingSpan = getTextValue(root, XML_TAG_PREY_BREEDING_SPAN);
+        String predatorBreedingSpan = getTextValue(root, XML_TAG_PREDATOR_BREEDING_SPAN);
+        String predatorLifeSpan = getTextValue(root, XML_TAG_PREDATOR_LIFE_SPAN);
         return new PredatorPreyXMLModel(name, author, rows, columns, initialLayout, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
     }
 }
