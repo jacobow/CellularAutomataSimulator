@@ -25,13 +25,13 @@ public class SegregationCell extends Cell<Integer>{
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
 		HashSet<SegregationCell> neighbors = new HashSet<SegregationCell>();
-		for(int y = -1; i <= 1; y++) {
-			for(int x = -1; j <= 1; x++) {
+		for(int y = -1; y <= 1; y++) {
+			for(int x = -1; x <= 1; x++) {
 				if(y == 0 && x == 0) {
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SegregationCell(EMPTY, null, null));
+					neighbors.add(new SegregationCell(EMPTY, null, grid));
 				}
 				else {
 					neighbors.add((SegregationCell) grid.getCell(new Coordinates(i+y, j+x)));

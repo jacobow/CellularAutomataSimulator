@@ -16,6 +16,7 @@ public abstract class Grid<T> {
 		this.rule = rule;
 		height = valueGrid.length;
 		width = valueGrid[0].length;
+		this.rule = rule;
 		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
