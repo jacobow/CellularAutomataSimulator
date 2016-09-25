@@ -8,8 +8,8 @@ import xml.model.SimulationXMLModel;
 public class GameOfLifeXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
 
-    public GameOfLifeXMLModel (String name, String author, String rows, String columns, String initialLayout) {
-        super(name, author, rows, columns);
+    public GameOfLifeXMLModel (String name, String title, String author, String rows, String columns, String initialLayout) {
+        super(name, title, author, rows, columns);
         myInitialLayout = initialLayout;
     }
 
@@ -34,7 +34,7 @@ public class GameOfLifeXMLModel extends SimulationXMLModel {
     public String toString () {
         StringBuilder result = new StringBuilder();
         result.append("Game of Life {")
-              .append("Name='").append(getName()).append("', ")
+              .append("Name='").append(getSimulationName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
               .append("Columns='").append(getColumns()).append("', ")
