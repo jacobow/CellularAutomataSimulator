@@ -18,7 +18,7 @@ import xml.factory.XMLFactoryException;
 public class Main {
     private static final String XML_FILES_LOCATION = "data/CA_xml/";
     private static final String XML_SUFFIX = ".xml";
-
+    private static final String XML_SPREADING_OF_FIRE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
 
     public static void main (String[] args) {
         XMLParser parser = new XMLParser();
@@ -38,7 +38,7 @@ public class Main {
             }
         }
         */
-        File f = new File("data/CA_xml/SpreadingOfFire.xml");
+        File f = new File(XML_SPREADING_OF_FIRE_LOCATION);
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
                 SpreadingOfFireXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
