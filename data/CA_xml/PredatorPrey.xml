@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Simulation SimulationType="Predator Prey">
+<CA SimulationType="Simulation">
     <name>Predator Prey</name>
+    <title>Predator Prey 1</title>
     <author>Noel</author>
     <rows>3</rows>
     <columns>5</columns>
@@ -8,4 +9,4 @@
     <preyBreedingSpan>5</preyBreedingSpan>
     <predatorBreedingSpan>5</predatorBreedingSpan>
     <predatorLifeSpan>5</predatorLifeSpan>
-</Simulation>
+</CA>

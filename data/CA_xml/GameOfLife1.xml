@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Simulation SimulationType="Game of Life">
-    <name>Game of Life 1</name>
+<CA SimulationType="Simulation">
+    <name>Game of Life</name>
+    <title>Game of Life 1</title>
     <author>Noel</author>
-    <dimensions>2x2</dimensions>
+    <rows>2</rows>
+    <columns>2</columns>
     <initialLayout>10//10</initialLayout>
-</Simulation>
+</CA>
