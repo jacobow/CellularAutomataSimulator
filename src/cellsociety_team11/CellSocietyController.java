@@ -5,6 +5,7 @@ import cellsociety_team11.game_of_life.GameOfLifeGrid;
 import cellsociety_team11.game_of_life.GameOfLifeRules;
 import cellsociety_team11.gui.MainBorderPane;
 import cellsociety_team11.gui.MainWindow;
+import cellsociety_team11.gui.SimulationType;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -34,7 +35,7 @@ public class CellSocietyController implements SimulationController{
 		this.mainWindow = new MainWindow(this, language);
 		grid = new GameOfLifeGrid(TEST_INIT_GRID);
 		//testSetGrid();
-		this.mainWindow.setGrid(grid);
+		this.mainWindow.setGrid(grid, SimulationType.GAMEOFLIFE);
 		
 	}
 	
@@ -67,7 +68,7 @@ public class CellSocietyController implements SimulationController{
 		grid.nextGrid();
 		System.out.println("Updated Grid");
 		printGrid(grid);
-		mainWindow.setGrid(grid);
+		mainWindow.setGrid(grid, SimulationType.GAMEOFLIFE);
 	}
 	
 	

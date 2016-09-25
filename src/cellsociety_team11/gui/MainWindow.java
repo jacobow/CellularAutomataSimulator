@@ -35,10 +35,10 @@ public class MainWindow{
 		initScene();
 	}
 	
-	public <T> void setGrid(Grid<T> grid){
+	public <T> void setGrid(Grid<T> grid, SimulationType simulationType){
 		if (grid!=null){
 			if (this.displayGrid == null){
-				this.displayGrid = new DisplayGrid<T>(grid);
+				this.displayGrid = new DisplayGrid<T>(grid, simulationType);
 				this.root.setCenter(displayGrid);
 			}
 			else{
@@ -64,8 +64,5 @@ public class MainWindow{
 	public Scene getScene(){
 		return scene;
 	}
-	
-	
-	
-	
+		
 }

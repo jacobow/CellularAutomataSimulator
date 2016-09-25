@@ -1,5 +1,7 @@
 package cellsociety_team11.gui;
 
+import java.lang.reflect.Constructor;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
@@ -10,11 +12,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 public class DisplayGrid<T> extends GridPane{
-	protected static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
-	protected Grid<T> grid;
-	protected double cellSize;
+	private static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
+	private Grid<T> grid;
+	private double cellSize;
+	private SimulationType simulationType;
+	
 
-	public DisplayGrid(Grid<T> grid) {
+	public DisplayGrid(Grid<T> grid, SimulationType simulationType) {
+		this.simulationType = simulationType;
 		this.grid = grid;
 		initDisplayGrid();
 	}
@@ -24,10 +29,23 @@ public class DisplayGrid<T> extends GridPane{
 			for (int j = 0; j < grid.getWidth(); j++){
 				Coordinates currentCoords = new Coordinates(i, j);
 				Cell<T> currentCell = grid.getCell(currentCoords);
-				GameOfLifeDisplayCell displayCell = new GameOfLifeDisplayCell((Boolean) currentCell.getValue(), currentCoords);
-				this.add(displayCell, j, i);
+				this.add(getDisplayCellInstance(currentCell.getValue(), currentCoords), j, i);
 			}
 		}
+	}
+	
+	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates){
+		Class <? extends DisplayCell<?>> simulationClass = simulationType.getDisplayCellClass();
+		Constructor<? extends DisplayCell<?>> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
+		DisplayCell<T> displayCell = null;
+		try{
+			displayCell = (DisplayCell<T>) myConstructor.newInstance(new Object[] {cellValue, coordinates});
+		}
+		catch(Exception e){
+			System.err.println("Couldn't Get DisplayCell Instance");
+			return null;
+		}
+		return displayCell;
 	}
 	
 	public void updateDisplayCells(Grid<T> newGrid){
