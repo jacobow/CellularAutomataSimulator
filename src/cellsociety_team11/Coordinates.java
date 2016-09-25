@@ -19,6 +19,13 @@ public class Coordinates {
 		this.j = j;
 	}
 	/**
+	 * gets both coordinates
+	 */
+	public int[] getIJ() {
+		int[] a = {i, j};
+		return a;
+	}
+	/**
 	 * gets the i coordinate
 	 */
 	public int getI() {

@@ -24,18 +24,18 @@ public class CellSocietyController implements MainController{
 		{false, true, false, false, true},
 		{false, true, false, false, true}
 		};
-		
+
 	public static final Integer[][] INT_INIT_GRID= new Integer[][]{
-		{0, 1, 1, 0, 1},
-		{1, 2, 2, 2, 1},
-		{0, 1, 2, 1, 0},
-		{1, 2, 1, 1, 0},
-		{1, 2, 1, 0, 0}
+		{0, 0, 0, 0},
+		{0, 2, 1, 2},
+		{0, 0, 1, 0},
+		{1, 1, 0, 1},
+		{0, 0, 0, 0}
 		};
-	
+
 	private static final double INIT_FRAMES_PER_SECOND = 4;
     private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
-	
+
 	private MainWindow mainWindow;
 	private Grid<?> grid;
 	private Timeline timeline;
@@ -43,7 +43,7 @@ public class CellSocietyController implements MainController{
 	private SimulationType simulationType;
 
 	public CellSocietyController(String language){
-		
+
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
 		simulationType = SimulationType.PREDATOR_PREY;
@@ -52,7 +52,7 @@ public class CellSocietyController implements MainController{
 		grid = new PredatorPreyGrid(INT_INIT_GRID, 3, 3, 3);
 		//testSetGrid();
 		this.mainWindow.setGrid(grid, this.simulationType);
-		
+
 	}
 
 	public Scene getScene(){
@@ -72,12 +72,12 @@ public class CellSocietyController implements MainController{
 	@Override
 	public void nextStepSimulation() {
 		grid.nextGrid();
-		printGrid(grid);
+		//printGrid(grid);
 		mainWindow.setGrid(grid, this.simulationType);
 	}
-	
-	
-	
+
+
+
 	private void printGrid(Grid<?> grid){
 		for (int i = 0; i < grid.getWidth(); i++){
 			for (int j = 0; j< grid.getHeight(); j++){
