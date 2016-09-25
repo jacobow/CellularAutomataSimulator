@@ -2,7 +2,7 @@ package cellsociety_team11;
 
 import javafx.scene.input.MouseEvent;
 
-public interface SimulationController {
+public interface MainController {
 	
 	/*
 	 * Starts the Simulation at the current Simulation Speed

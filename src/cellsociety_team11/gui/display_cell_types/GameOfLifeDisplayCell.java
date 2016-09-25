@@ -1,6 +1,7 @@
-package cellsociety_team11.gui;
+package cellsociety_team11.gui.display_cell_types;
 
 import cellsociety_team11.Coordinates;
+import cellsociety_team11.gui.SquareDisplayCell;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
