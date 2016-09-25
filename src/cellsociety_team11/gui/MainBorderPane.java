@@ -4,7 +4,7 @@ import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import cellsociety_team11.SimulationController;
+import cellsociety_team11.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
@@ -20,16 +20,16 @@ import javafx.scene.layout.HBox;
 public class MainBorderPane extends BorderPane{
 	private ToolBar toolBar;
 	private ResourceBundle resourceBundle;
-	private SimulationController simulationController;
+	private MainController mainController;
 	private static final double SPEED_SLIDER_MIN = 0.25;
 	private static final double SPEED_SLIDER_MAX = 1.25;
 	public static final double SPEED_SLIDER_START = 0.5;
 	private static final double SPEED_SLIDER_TICK_NUMBER = 4.0;
 	private static final double SPEED_SLIDER_MAJOR_TICK_UNIT = (SPEED_SLIDER_MAX-SPEED_SLIDER_MIN)/(SPEED_SLIDER_TICK_NUMBER-1.0);
 	
-	public MainBorderPane(SimulationController simulationController, ResourceBundle resourceBundle){
+	public MainBorderPane(MainController simulationController, ResourceBundle resourceBundle){
 		this.resourceBundle = resourceBundle;
-		this.simulationController = simulationController;
+		this.mainController = simulationController;
 		initMainBorderPane();
 	}
 	
@@ -40,10 +40,10 @@ public class MainBorderPane extends BorderPane{
 	
 	private ToolBar createToolBar(){
 		ToolBar toolBar = new ToolBar();
-		toolBar.getItems().add(createButton("StartButton", event -> simulationController.startSimulation()));
-		toolBar.getItems().add(createButton("StepButton", event -> simulationController.nextStepSimulation()));
-		toolBar.getItems().add(createButton("StopButton", event -> simulationController.stopSimulation()));
-		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> simulationController.updateSimulationSpeed(event))); 
+		toolBar.getItems().add(createButton("StartButton", event -> mainController.startSimulation()));
+		toolBar.getItems().add(createButton("StepButton", event -> mainController.nextStepSimulation()));
+		toolBar.getItems().add(createButton("StopButton", event -> mainController.stopSimulation()));
+		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> mainController.updateSimulationSpeed(event))); 
 		return toolBar;
 	}
 	
