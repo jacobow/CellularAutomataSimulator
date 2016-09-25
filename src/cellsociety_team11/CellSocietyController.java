@@ -43,7 +43,7 @@ public class CellSocietyController implements MainController{
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
 	
 	
-	private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
+	private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
 	private static final String XML_SUFFIX = ".xml";
 	
 	private MainWindow mainWindow;
