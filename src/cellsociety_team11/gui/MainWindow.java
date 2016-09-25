@@ -6,7 +6,7 @@ import com.sun.org.apache.regexp.internal.recompile;
 
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Grid;
-import cellsociety_team11.SimulationController;
+import cellsociety_team11.MainController;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -25,12 +25,12 @@ public class MainWindow{
 	private DisplayGrid displayGrid; 
 	
 	private ResourceBundle resourceBundle;
-	private SimulationController simulationController;
+	private MainController mainController;
 	
 	
-	public MainWindow(SimulationController simulationController, String language){
+	public MainWindow(MainController simulationController, String language){
 		displayGrid = null;
-		this.simulationController = simulationController;
+		this.mainController = simulationController;
 		this.resourceBundle = initResourceBundle(language);
 		initScene();
 	}
@@ -58,7 +58,7 @@ public class MainWindow{
 	}
 	
 	private MainBorderPane initRoot(){
-		return new MainBorderPane(simulationController, resourceBundle);
+		return new MainBorderPane(mainController, resourceBundle);
 	}
 	
 	public Scene getScene(){

@@ -49,7 +49,6 @@ public abstract class Cell<T> {
 	 * determines what the cell's next value should be
 	 */
 	public void evaluateCell() {
-		System.out.println("About to calculate value");
 		newValue = rule.calculateNewValue(this, currentValue, grid, coordinates);
 	}
 	/**
