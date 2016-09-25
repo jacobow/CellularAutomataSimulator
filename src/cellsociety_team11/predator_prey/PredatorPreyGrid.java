@@ -27,9 +27,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	 */
 	public PredatorPreyGrid(Integer[][] valueGrid, int predatorLifeSpan, int preyBreedingSpan, int predatorBreedingSpan) {
 		super(valueGrid, new PredatorPreyRules());
-		this.predatorLifeSpan = predatorLifeSpan;
-		this.preyBreedingSpan = preyBreedingSpan;
-		this.predatorBreedingSpan = predatorBreedingSpan;
+		setTimers(predatorLifeSpan, preyBreedingSpan, predatorBreedingSpan);
 	}
 
 	/**
@@ -37,13 +35,26 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	 */
 	@Override
 	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates) {
-		PredatorPreyCell cell = new PredatorPreyCell(value, coordinates, this);
-		if(value == PREY) cell.setBreedingSpan(preyBreedingSpan);
-		if(value == PREDATOR) {
-			cell.setBreedingSpan(predatorBreedingSpan);
-			cell.setLifeSpan(predatorLifeSpan);
+		return new PredatorPreyCell(value, coordinates, this);
+	}
+
+	private void setTimers(int predatorLifeSpan, int preyBreedingSpan, int predatorBreedingSpan) {
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				PredatorPreyCell cell = (PredatorPreyCell) gridMatrix[i][j];
+				Integer value = cell.getValue();
+				if(value == PREY) {
+					cell.setBreedingSpan(preyBreedingSpan);
+					cell.resetBreedingTimer();
+				}
+				if(value == PREDATOR) {
+					cell.setBreedingSpan(predatorBreedingSpan);
+					cell.resetBreedingTimer();
+					cell.setLifeSpan(predatorLifeSpan);
+					cell.resetDeathTimer();
+				}
+			}
 		}
-		return cell;
 	}
 
 }

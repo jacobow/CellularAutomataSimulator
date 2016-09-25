@@ -28,15 +28,14 @@ public class PredatorPreyCell extends Cell<Integer> {
 		HashSet<PredatorPreyCell> neighbors = new HashSet<PredatorPreyCell>();
 		for(int y = -1; y <= 1; y++) {
 			for(int x = -1; x <= 1; x++) {
-				if(y == x) {
+				if(Math.abs(y) == Math.abs(x)) {
 					continue;
 				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new PredatorPreyCell(EMPTY, null, grid));
-				}
-				else {
-					neighbors.add((PredatorPreyCell) grid.getCell(new Coordinates(i+y, j+x)));
-				}
+				if(i+y < 0) i = grid.getHeight();
+				if(i+y >= grid.getHeight()) i = 0;
+				if(j+x < 0) j = grid.getWidth();
+				if(j+x >= grid.getWidth()) j = 0;
+				neighbors.add((PredatorPreyCell) grid.getCell(new Coordinates(i+y, j+x)));
 			}
 		}
 		return neighbors;
@@ -53,7 +52,7 @@ public class PredatorPreyCell extends Cell<Integer> {
 	 * sets the timer for when the cell should breed
 	 */
 	public void setBreedingTimer(int time) {
-		deathTimer = time;
+		breedingTimer = time;
 	}
 
 	/**
@@ -61,6 +60,13 @@ public class PredatorPreyCell extends Cell<Integer> {
 	 */
 	public void setBreedingSpan(int time) {
 		breedingSpan = time;
+	}
+
+	/**
+	 * gets the time it takes the breeding timer to end
+	 */
+	public int getBreedingSpan() {
+		return breedingSpan;
 	}
 
 	/**
@@ -77,6 +83,9 @@ public class PredatorPreyCell extends Cell<Integer> {
 		breedingTimer--;
 	}
 
+	/**
+	 * gets the timer for when the cell should die
+	 */
 	public int getDeathTimer() {
 		return deathTimer;
 	}
@@ -93,6 +102,13 @@ public class PredatorPreyCell extends Cell<Integer> {
 	 */
 	public void setLifeSpan(int time) {
 		lifeSpan = time;
+	}
+
+	/**
+	 * gets the time it takes the death timer to end
+	 */
+	public int getLifeSpan() {
+		return lifeSpan;
 	}
 
 	/**

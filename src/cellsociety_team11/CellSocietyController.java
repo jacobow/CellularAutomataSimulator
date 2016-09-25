@@ -30,15 +30,15 @@ public class CellSocietyController implements MainController{
 		{false, true, false, false, true},
 		{false, true, false, false, true}
 		};
-		
+
 	public static final Integer[][] INT_INIT_GRID= new Integer[][]{
-		{0, 1, 1, 0, 1},
-		{1, 2, 2, 2, 1},
-		{0, 1, 2, 1, 0},
-		{1, 2, 1, 1, 0},
-		{1, 2, 1, 0, 0}
+		{0, 0, 0, 0},
+		{0, 2, 1, 2},
+		{0, 0, 1, 0},
+		{1, 1, 0, 1},
+		{0, 0, 0, 0}
 		};
-	
+
 	private static final double INIT_FRAMES_PER_SECOND = 4;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
 	
@@ -61,7 +61,7 @@ public class CellSocietyController implements MainController{
 		//simulationType = SimulationType.SPREADING_OF_FIRE;
 		//testSetGrid();
 		this.mainWindow.setGrid(grid, this.simulationType);
-		
+
 	}
 	
 	private void readFileData(){
@@ -131,9 +131,9 @@ public class CellSocietyController implements MainController{
 		//printGrid(grid);
 		mainWindow.setGrid(grid, this.simulationType);
 	}
-	
-	
-	
+
+
+
 	private void printGrid(Grid<?> grid){
 		for (int i = 0; i < grid.getWidth(); i++){
 			for (int j = 0; j< grid.getHeight(); j++){
