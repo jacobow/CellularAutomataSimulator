@@ -39,7 +39,8 @@ public class GameOfLifeXMLModel extends SimulationXMLModel {
         result.append("Game of Life {")
               .append("Name='").append(getName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
-              .append("Initial Layout='").append(myInitialLayout)
+              .append("Rows='").append(getRows()).append("', ")
+              .append("Columns='").append(getColumns()).append("', ")
               .append('}');
        return result.toString();
     }

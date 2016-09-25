@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Simulation SimulationType="Game of Life">
-    <name>Game of Life 3</name>
+<Simulation SimulationType="Predator Prey">
+    <name>Predator Prey</name>
     <author>Noel</author>
-    <dimensions>2x4</dimensions>
-    <initialLayout>10//10//01//00</initialLayout>
+    <rows>3</rows>
+    <columns>5</columns>
+    <initialLayout>10010/10111/22222</initialLayout>
+    <preyBreedingSpan>5</preyBreedingSpan>
+    <predatorBreedingSpan>5</predatorBreedingSpan>
+    <predatorLifeSpan>5</predatorLifeSpan>
 </Simulation>
