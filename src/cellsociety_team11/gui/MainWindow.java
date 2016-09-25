@@ -35,10 +35,10 @@ public class MainWindow{
 		initScene();
 	}
 	
-	public void setGrid(Grid<?> grid){
+	public <T> void setGrid(Grid<T> grid){
 		if (grid!=null){
 			if (this.displayGrid == null){
-				this.displayGrid = new DisplayGrid(grid);
+				this.displayGrid = new DisplayGrid<T>(grid);
 				this.root.setCenter(displayGrid);
 			}
 			else{

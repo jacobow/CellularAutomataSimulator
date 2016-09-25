@@ -1,26 +1,42 @@
 package cellsociety_team11.gui;
 
+import cellsociety_team11.Cell;
+import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import cellsociety_team11.Cell;
-import cellsociety_team11.CellSociety;
 
-/**
- * @author quin
- *
- */
-public class DisplayGrid extends GridPane{
-	private static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
-	private Grid<?> grid;
-	private double cellSize;
-	
-	public DisplayGrid(Grid<?> grid){
+public class DisplayGrid<T> extends GridPane{
+	protected static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
+	protected Grid<T> grid;
+	protected double cellSize;
+
+	public DisplayGrid(Grid<T> grid) {
 		this.grid = grid;
 		initDisplayGrid();
+	}
+	
+	private void initDisplayCells(){
+		for (int i = 0; i < grid.getHeight(); i++){
+			for (int j = 0; j < grid.getWidth(); j++){
+				Coordinates currentCoords = new Coordinates(i, j);
+				Cell<T> currentCell = grid.getCell(currentCoords);
+				GameOfLifeDisplayCell displayCell = new GameOfLifeDisplayCell((Boolean) currentCell.getValue(), currentCoords);
+				this.add(displayCell, j, i);
+			}
+		}
+	}
+	
+	public void updateDisplayCells(Grid<T> newGrid){
+		for (Node displayCell : this.getChildren()){
+			DisplayCell<T> currDisplayCell = (DisplayCell<T>) displayCell;
+			Coordinates currCoordinates = currDisplayCell.getCoordinates();
+			Cell<T> currentCell = newGrid.getCell(new Coordinates(currCoordinates.getI(), currCoordinates.getJ()));
+			currDisplayCell.updateValue((T)currentCell.getValue());
+		}
 	}
 	
 	private void initDisplayGrid(){
@@ -33,16 +49,6 @@ public class DisplayGrid extends GridPane{
 		}
 		
 		initDisplayCells();
-	}
-	
-	private void setDimensions(int largestDimension){
-		cellSize = MAX_WIDTH/(double) largestDimension;
-		this.setWidth(grid.getWidth()*cellSize);
-		this.setHeight(grid.getHeight()*cellSize);
-		this.setMaxWidth(grid.getWidth()*cellSize);
-		this.setMaxHeight(grid.getHeight()*cellSize);
-		this.setMinWidth(grid.getWidth()*cellSize);
-		this.setMinHeight(grid.getHeight()*cellSize);
 	}
 	
 	private void initConstraints(){
@@ -68,23 +74,12 @@ public class DisplayGrid extends GridPane{
 		this.getRowConstraints().add(rowResizing);
 	}
 	
-	private void initDisplayCells(){
-		for (int i = 0; i < grid.getHeight(); i++){
-			for (int j = 0; j < grid.getWidth(); j++){
-				Coordinates currentCoords = new Coordinates(i, j);
-				Cell<?> currentCell = grid.getCell(currentCoords);
-				DisplayCell displayCell = new DisplayCell((boolean) currentCell.getValue(), currentCoords);
-				this.add(displayCell, j, i);
-			}
-		}
+	private void setDimensions(int largestDimension){
+		cellSize = MAX_WIDTH/(double) largestDimension;
+		this.setMaxWidth(grid.getWidth()*cellSize);
+		this.setMaxHeight(grid.getHeight()*cellSize);
+		this.setMinWidth(grid.getWidth()*cellSize);
+		this.setMinHeight(grid.getHeight()*cellSize);
 	}
-	
-	public void updateDisplayCells(Grid<?> newGrid){
-		for (Node displayCell : this.getChildren()){
-			DisplayCell currDisplayCell = (DisplayCell) displayCell;
-			Coordinates currCoordinates = currDisplayCell.getCoordinates();
-			Cell<?> currentCell = newGrid.getCell(new Coordinates(currCoordinates.getI(), currCoordinates.getJ()));
-			currDisplayCell.updateAlive((boolean) currentCell.getValue());
-		}
-	}
+
 }

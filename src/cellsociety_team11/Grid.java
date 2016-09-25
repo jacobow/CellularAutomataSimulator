@@ -13,6 +13,7 @@ public abstract class Grid<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Grid(T[][] valueGrid, Rule<T> rule) {
+		this.rule = rule;
 		height = valueGrid.length;
 		width = valueGrid[0].length;
 		this.gridMatrix = new Cell[height][width];
