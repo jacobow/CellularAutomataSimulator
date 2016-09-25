@@ -6,4 +6,5 @@
     <rows>3</rows>
     <columns>5</columns>
     <initialLayout>10010/10111/22222</initialLayout>
+    <probability>0.5</probability>
 </CA>

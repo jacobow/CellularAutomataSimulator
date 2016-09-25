@@ -16,6 +16,7 @@ public class SimulationXMLModel {
     private String myPreyBreedingSpan;
     private String myPredatorBreedingSpan;
     private String myPredatorLifeSpan;
+    private String myProbability;
 
     public SimulationXMLModel (String simulationName) {
         mySimulationName = simulationName;
@@ -28,6 +29,17 @@ public class SimulationXMLModel {
         myRows = rows;
         myColumns = columns;
         myInitialLayout = initialLayout;
+    }
+    
+    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout,
+                               String probability) {
+        mySimulationName = simulationName;
+        myTitle = title;
+        myAuthor = author;
+        myRows = rows;
+        myColumns = columns;
+        myInitialLayout = initialLayout;
+        myProbability = probability;
     }
     
     public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
@@ -86,6 +98,10 @@ public class SimulationXMLModel {
 
     public int getPredatorLifeSpan () {
         return Integer.parseInt(myPredatorLifeSpan);
+    }
+    
+    public float getProbability () {
+        return Float.parseFloat(myProbability);
     }
     
     @Override

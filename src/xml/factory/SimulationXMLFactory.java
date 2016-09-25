@@ -19,6 +19,7 @@ public class SimulationXMLFactory extends XMLFactory {
     private static final String XML_TAG_PREY_BREEDING_SPAN = "preyBreedingSpan";
     private static final String XML_TAG_PREDATOR_BREEDING_SPAN = "predatorBreedingSpan";
     private static final String XML_TAG_PREDATOR_LIFE_SPAN = "predatorLifeSpan";
+    private static final String XML_TAG_PROBABILITY = "probability";
     
     private String mySimulationType;
     
@@ -58,6 +59,9 @@ public class SimulationXMLFactory extends XMLFactory {
             String predatorBreedingSpan = getTextValue(root, XML_TAG_PREDATOR_BREEDING_SPAN);
             String predatorLifeSpan = getTextValue(root, XML_TAG_PREDATOR_LIFE_SPAN);
             return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
+        } if (name.equals("Segregation") || name.equals("Spreading of Fire")) {
+            String probability = getTextValue(root, XML_TAG_PROBABILITY);
+            return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, probability);
         } else {
             return new SimulationXMLModel(name, title, author, rows, columns, initialLayout);
         }
