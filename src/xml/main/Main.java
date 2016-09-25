@@ -2,12 +2,12 @@ package xml.main;
 import java.io.File;
 import java.util.Arrays;
 import xml.model.GameOfLifeXMLModel;
-import xml.model.PredatorPreyXMLModel;
+import xml.model.SpreadingOfFireXMLModel;
 import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 import xml.factory.SimulationXMLFactory;
 import xml.factory.GameOfLifeXMLFactory;
-import xml.factory.PredatorPreyXMLFactory;
+import xml.factory.SpreadingOfFireXMLFactory;
 import xml.factory.XMLFactoryException;
 
 
@@ -22,7 +22,7 @@ public class Main {
 
     public static void main (String[] args) {
         XMLParser parser = new XMLParser();
-        PredatorPreyXMLFactory factory = new PredatorPreyXMLFactory();
+        SpreadingOfFireXMLFactory factory = new SpreadingOfFireXMLFactory();
         File folder = new File(XML_FILES_LOCATION);
         /*
         for (File f : folder.listFiles()) {
@@ -38,10 +38,10 @@ public class Main {
             }
         }
         */
-        File f = new File("data/CA_xml/PredatorPrey.xml");
+        File f = new File("data/CA_xml/SpreadingOfFire.xml");
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
-                PredatorPreyXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                SpreadingOfFireXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
                 for (int i=0; i<p.getRows(); i++){
                     System.out.println(Arrays.toString(p.getInitialLayout()[i]));
                 }

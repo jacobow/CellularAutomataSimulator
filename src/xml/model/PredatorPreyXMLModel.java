@@ -3,10 +3,7 @@ package xml.model;
 import xml.model.SimulationXMLModel;
 
 /**
- * CAXMLModel object for Game of Life.
- *
- * @author Rhondu Smithwick
- * @author Robert Duvall
+ * SimulationXMLModel object for Predator Prey.
  */
 public class PredatorPreyXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
@@ -57,7 +54,7 @@ public class PredatorPreyXMLModel extends SimulationXMLModel {
     @Override
     public String toString () {        
         StringBuilder result = new StringBuilder();
-        result.append("Game of Life {")
+        result.append("Predator Prey {")
               .append("Name='").append(getName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")

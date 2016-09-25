@@ -1,17 +1,14 @@
 package xml.factory;
 
-import xml.model.GameOfLifeXMLModel;
+import xml.model.SegregationXMLModel;
 import org.w3c.dom.Element;
 
 
 /**
- * Creates Game of Life object from an XML file.
- *
- * @author Rhondu Smithwick
- * @author Robert Duvall
+ * Creates Segregation object from an XML file.
  */
-public class GameOfLifeXMLFactory extends SimulationXMLFactory {
-    private static final String XML_TAG_NAME = "Game of Life";
+public class SegregationXMLFactory extends SimulationXMLFactory {
+    private static final String XML_TAG_NAME = "Segregation";
     private static final String XML_TAG_TITLE = "name";
     private static final String XML_TAG_AUTHOR = "author";
     private static final String XML_TAG_ROWS = "rows";
@@ -19,14 +16,14 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
     private static final String XML_TAG_INITIAL_LAYOUT = "initialLayout";
 
     /**
-     * Create factory capable of generating Game of Life objects.
+     * Create factory capable of generating Segregation objects.
      */
-    public GameOfLifeXMLFactory () {
+    public SegregationXMLFactory () {
         super(XML_TAG_NAME);
     }
 
     @Override
-    public GameOfLifeXMLModel getSimulation (Element root) throws XMLFactoryException {
+    public SegregationXMLModel getSimulation (Element root) throws XMLFactoryException {
         if (! isValidFile(root)) {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
@@ -35,6 +32,6 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
         String rows = getTextValue(root, XML_TAG_ROWS);
         String columns = getTextValue(root, XML_TAG_COLUMNS);
         String initialLayout = getTextValue(root, XML_TAG_INITIAL_LAYOUT);
-        return new GameOfLifeXMLModel(name, author, rows, columns, initialLayout);
+        return new SegregationXMLModel(name, author, rows, columns, initialLayout);
     }
 }

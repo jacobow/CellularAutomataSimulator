@@ -1,17 +1,14 @@
 package xml.factory;
 
-import xml.model.GameOfLifeXMLModel;
+import xml.model.SpreadingOfFireXMLModel;
 import org.w3c.dom.Element;
 
 
 /**
- * Creates Game of Life object from an XML file.
- *
- * @author Rhondu Smithwick
- * @author Robert Duvall
+ * Creates SpreadingOfFire object from an XML file.
  */
-public class GameOfLifeXMLFactory extends SimulationXMLFactory {
-    private static final String XML_TAG_NAME = "Game of Life";
+public class SpreadingOfFireXMLFactory extends SimulationXMLFactory {
+    private static final String XML_TAG_NAME = "Spreading of Fire";
     private static final String XML_TAG_TITLE = "name";
     private static final String XML_TAG_AUTHOR = "author";
     private static final String XML_TAG_ROWS = "rows";
@@ -19,14 +16,14 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
     private static final String XML_TAG_INITIAL_LAYOUT = "initialLayout";
 
     /**
-     * Create factory capable of generating Game of Life objects.
+     * Create factory capable of generating SpreadingOfFire objects.
      */
-    public GameOfLifeXMLFactory () {
+    public SpreadingOfFireXMLFactory () {
         super(XML_TAG_NAME);
     }
 
     @Override
-    public GameOfLifeXMLModel getSimulation (Element root) throws XMLFactoryException {
+    public SpreadingOfFireXMLModel getSimulation (Element root) throws XMLFactoryException {
         if (! isValidFile(root)) {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
@@ -35,6 +32,6 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
         String rows = getTextValue(root, XML_TAG_ROWS);
         String columns = getTextValue(root, XML_TAG_COLUMNS);
         String initialLayout = getTextValue(root, XML_TAG_INITIAL_LAYOUT);
-        return new GameOfLifeXMLModel(name, author, rows, columns, initialLayout);
+        return new SpreadingOfFireXMLModel(name, author, rows, columns, initialLayout);
     }
 }
