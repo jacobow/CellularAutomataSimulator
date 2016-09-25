@@ -8,10 +8,10 @@ import xml.model.SimulationXMLModel;
  * @author Rhondu Smithwick
  * @author Robert Duvall
  */
-public class GameOfLifeXMLModel extends SimulationXMLModel {
+public class PredatorPreyXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
 
-    public GameOfLifeXMLModel (String name, String author, String rows, String columns, String initialLayout) {
+    public PredatorPreyXMLModel (String name, String author, String rows, String columns, String initialLayout) {
         super(name, author, rows, columns);
         myInitialLayout = initialLayout;
     }

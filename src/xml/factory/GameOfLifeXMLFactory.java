@@ -30,7 +30,9 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
         // BUGBUG: hard coding tagNames is a bad idea
         String name = getTextValue(root, "name");
         String author = getTextValue(root, "author");
+        String rows = getTextValue(root, "rows");
+        String columns = getTextValue(root, "columns");
         String initialLayout = getTextValue(root, "initialLayout");
-        return new GameOfLifeXMLModel(name, author, initialLayout);
+        return new GameOfLifeXMLModel(name, author, rows, columns, initialLayout);
     }
 }
