@@ -23,7 +23,7 @@ public abstract class Cell<T> {
 	public Cell(T value, Coordinates coordinates, Grid<T> grid) {
 		this.currentValue = value;
 		newValue = null;
-		rule = grid.getRule();
+		this.rule = grid.getRule();
 		this.coordinates = coordinates;
 		this.grid = grid;
 	}
@@ -49,6 +49,7 @@ public abstract class Cell<T> {
 	 * determines what the cell's next value should be
 	 */
 	public void evaluateCell() {
+		System.out.println("About to calculate value");
 		newValue = rule.calculateNewValue(this, currentValue, grid, coordinates);
 	}
 	/**

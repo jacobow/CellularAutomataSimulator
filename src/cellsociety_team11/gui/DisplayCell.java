@@ -1,34 +1,32 @@
 package cellsociety_team11.gui;
 
 import cellsociety_team11.Coordinates;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
-/**
- * @author quin
- *
- */
-public class DisplayCell extends Pane{
-	private boolean alive;
-	private Rectangle cellRectangle;
-	private Coordinates coordinates;
+public abstract class DisplayCell<T> extends Pane{
+	protected T currentValue;
+	protected Coordinates coordinates;
+	protected Shape cellShape;
 	
-	public DisplayCell(boolean alive, Coordinates coordinates){
+	public DisplayCell(T value, Coordinates coordinates) {
 		super();
-		this.alive = alive;
+		this.currentValue = value;
 		this.coordinates = coordinates;
-		initRectangle();
-		this.getChildren().add(cellRectangle);
-		//this.setOnMouseClicked(e -> handleCellClicked(e));
+		this.cellShape = initCell();
+		this.getChildren().add(cellShape);
+		setColor(getColor());
+		// TODO Auto-generated constructor stub
 	}
 	
-	public void updateAlive(boolean newAlive){
-		this.alive = newAlive;
+	public T getValue(){
+		return currentValue;
+	}
+	
+	public void updateValue(T newValue){
+		currentValue = newValue;
 		setColor(getColor());
 	}
 	
@@ -36,28 +34,12 @@ public class DisplayCell extends Pane{
 		return this.coordinates;
 	}
 	
-	public boolean getValue(){
-		return alive;
+	protected abstract Shape initCell();
+	
+	protected abstract Color getColor();
+	
+	protected void setColor(Color color){
+		cellShape.setFill(color);
 	}
-	
-	private void initRectangle(){
-		cellRectangle = new Rectangle();
-		cellRectangle.widthProperty().bind(this.widthProperty());
-		cellRectangle.heightProperty().bind(this.heightProperty());
-		setColor(getColor());
-		cellRectangle.setStroke(Color.BLACK);
-	}
-	
-	private Color getColor(){
-		if (alive){
-			return Color.GREEN;
-		}
-		return Color.BLUE;
-	}
-	
-	
-	private void setColor(Color color){
-		cellRectangle.setFill(color);
-	}
-	
+
 }
