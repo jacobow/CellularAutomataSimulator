@@ -19,7 +19,7 @@ public class CellSocietyController implements SimulationController{
 		{false, false, true, true, false},
 		{false, true, true, false, false},
 		{false, true, false, false, true},
-		{false, true, false, false, true}			
+		{false, true, false, false, true}
 		};
 	
 	private static final double INIT_FRAMES_PER_SECOND = 4;
@@ -29,7 +29,7 @@ public class CellSocietyController implements SimulationController{
 	private GameOfLifeGrid grid;
 	private Timeline timeline;
 	private double simulationSpeed;
-	
+
 	public CellSocietyController(String language){
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
@@ -38,21 +38,11 @@ public class CellSocietyController implements SimulationController{
 		this.mainWindow.setGrid(grid, SimulationType.GAMEOFLIFE);
 		
 	}
-	
-	private void testSetGrid(){
-		for (int i = 0; i < grid.getWidth(); i++){
-			for (int j = 0; j<grid.getHeight(); j++){
-				Coordinates currentCoords = new Coordinates(i, j);
-				GameOfLifeCell currentCell = (GameOfLifeCell) grid.getCell(currentCoords);
-				currentCell.setNewValue(TEST_INIT_GRID[i][j]);
-			}
-		}
-	}
-	
+
 	public Scene getScene(){
 		return mainWindow.getScene();
 	}
-	
+
 	@Override
 	public void startSimulation(){
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY * simulationSpeed),
@@ -82,7 +72,7 @@ public class CellSocietyController implements SimulationController{
 			System.out.println("");
 		}
 	}
-	
+
 	@Override
 	public void updateSimulationSpeed(MouseEvent speedUpdated) {
 		// TODO Auto-generated method stub

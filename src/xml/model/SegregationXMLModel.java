@@ -3,25 +3,27 @@ package xml.model;
 import xml.model.SimulationXMLModel;
 
 /**
- * SimulationXMLModel object for Game of Life.
+ * SimulationXMLModel object for Segregation.
  */
-public class GameOfLifeXMLModel extends SimulationXMLModel {
+public class SegregationXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
 
-    public GameOfLifeXMLModel (String name, String author, String rows, String columns, String initialLayout) {
+    public SegregationXMLModel (String name, String author, String rows, String columns, String initialLayout) {
         super(name, author, rows, columns);
         myInitialLayout = initialLayout;
     }
 
-    public Boolean[][] getInitialLayout () {
-        Boolean initialLayout[][] = new Boolean[getRows()][getColumns()];
+    public Integer[][] getInitialLayout () {
+        Integer initialLayout[][] = new Integer[getRows()][getColumns()];
         int strIndex = 0;
         for (int i=0; i<getRows(); i++){
             for (int j=0; j<getColumns(); j++){
-                if (myInitialLayout.charAt(strIndex) == '1'){
-                    initialLayout[i][j] = true;
+                if (myInitialLayout.charAt(strIndex) == '0'){
+                    initialLayout[i][j] = 0;
+                } else if (myInitialLayout.charAt(strIndex) == '1') {
+                    initialLayout[i][j] = 1;
                 } else {
-                    initialLayout[i][j] = false;
+                    initialLayout[i][j] = 2;
                 }
                 strIndex++;
             }
@@ -33,7 +35,7 @@ public class GameOfLifeXMLModel extends SimulationXMLModel {
     @Override
     public String toString () {
         StringBuilder result = new StringBuilder();
-        result.append("Game of Life {")
+        result.append("Segregation {")
               .append("Name='").append(getName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")

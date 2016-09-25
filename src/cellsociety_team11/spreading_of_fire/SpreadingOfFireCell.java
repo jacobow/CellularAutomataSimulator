@@ -24,13 +24,13 @@ public class SpreadingOfFireCell extends Cell<Integer>{
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
 		HashSet<SpreadingOfFireCell> neighbors = new HashSet<SpreadingOfFireCell>();
-		for(int y = -1; i <= 1; y++) {
-			for(int x = -1; j <= 1; x++) {
+		for(int y = -1; y <= 1; y++) {
+			for(int x = -1; x <= 1; x++) {
 				if(y == x) {
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SpreadingOfFireCell(EMPTY, null, null));
+					neighbors.add(new SpreadingOfFireCell(EMPTY, null, grid));
 				}
 				else {
 					neighbors.add((SpreadingOfFireCell) grid.getCell(new Coordinates(i+y, j+x)));
