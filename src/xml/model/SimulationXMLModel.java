@@ -9,10 +9,15 @@ package xml.model;
 public class SimulationXMLModel {
     private String myName;
     private String myAuthor;
+    private String myRows;
 
-    public SimulationXMLModel (String name, String author) {
+    private String myColumns;
+
+    public SimulationXMLModel (String name, String author, String rows, String columns) {
         myName = name;
         myAuthor = author;
+        myRows = rows;
+        myColumns = columns;
     }
 
     public String getName () {
@@ -21,6 +26,14 @@ public class SimulationXMLModel {
     
     public String getAuthor () {
         return myAuthor;
+    }
+    
+    public int getRows () {
+        return Integer.parseInt(myRows);
+    }
+
+    public int getColumns () {
+        return Integer.parseInt(myColumns);
     }
 }
 

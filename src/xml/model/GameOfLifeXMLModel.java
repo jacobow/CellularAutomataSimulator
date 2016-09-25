@@ -11,18 +11,26 @@ import xml.model.SimulationXMLModel;
 public class GameOfLifeXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
 
-    public GameOfLifeXMLModel (String name, String author, String initialLayout) {
-        super(name, author);
+    public GameOfLifeXMLModel (String name, String author, String rows, String columns, String initialLayout) {
+        super(name, author, rows, columns);
         myInitialLayout = initialLayout;
     }
 
-    public boolean[][] getInitialLayout () {
-        for (int i=0; i<myInitialLayout.length(); i++){
-            if (myInitialLayout.charAt(i)=='/'){
-                
+    public Boolean[][] getInitialLayout () {
+        Boolean initialLayout[][] = new Boolean[getRows()][getColumns()];
+        int strIndex = 0;
+        for (int i=0; i<getRows(); i++){
+            for (int j=0; j<getColumns(); j++){
+                if (myInitialLayout.charAt(strIndex) == '1'){
+                    initialLayout[i][j] = true;
+                } else {
+                    initialLayout[i][j] = false;
+                }
+                strIndex++;
             }
+            strIndex++;
         }
-        return null;
+        return initialLayout;
     }
 
     @Override
@@ -31,7 +39,8 @@ public class GameOfLifeXMLModel extends SimulationXMLModel {
         result.append("Game of Life {")
               .append("Name='").append(getName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
-              .append("Initial Layout='").append(myInitialLayout)
+              .append("Rows='").append(getRows()).append("', ")
+              .append("Columns='").append(getColumns()).append("', ")
               .append('}');
        return result.toString();
     }

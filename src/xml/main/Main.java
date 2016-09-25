@@ -1,10 +1,13 @@
 package xml.main;
 import java.io.File;
+import java.util.Arrays;
 import xml.model.GameOfLifeXMLModel;
+import xml.model.PredatorPreyXMLModel;
 import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 import xml.factory.SimulationXMLFactory;
 import xml.factory.GameOfLifeXMLFactory;
+import xml.factory.PredatorPreyXMLFactory;
 import xml.factory.XMLFactoryException;
 
 
@@ -19,7 +22,7 @@ public class Main {
 
     public static void main (String[] args) {
         XMLParser parser = new XMLParser();
-        GameOfLifeXMLFactory factory = new GameOfLifeXMLFactory();
+        PredatorPreyXMLFactory factory = new PredatorPreyXMLFactory();
         File folder = new File(XML_FILES_LOCATION);
         /*
         for (File f : folder.listFiles()) {
@@ -35,11 +38,13 @@ public class Main {
             }
         }
         */
-        File f = folder.listFiles()[2];
+        File f = new File("data/CA_xml/PredatorPrey.xml");
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
-                GameOfLifeXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
-                System.out.println(p.getInitialLayout());
+                PredatorPreyXMLModel p = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                for (int i=0; i<p.getRows(); i++){
+                    System.out.println(Arrays.toString(p.getInitialLayout()[i]));
+                }
                 System.out.println(p);
             }
             catch (XMLFactoryException e) {

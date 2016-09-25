@@ -1,6 +1,6 @@
 package xml.factory;
 
-import xml.model.GameOfLifeXMLModel;
+import xml.model.PredatorPreyXMLModel;
 import org.w3c.dom.Element;
 
 
@@ -10,19 +10,19 @@ import org.w3c.dom.Element;
  * @author Rhondu Smithwick
  * @author Robert Duvall
  */
-public class GameOfLifeXMLFactory extends SimulationXMLFactory {
-    private static final String XML_TAG_NAME = "Game of Life";
+public class PredatorPreyXMLFactory extends SimulationXMLFactory {
+    private static final String XML_TAG_NAME = "Predator Prey";
 
 
     /**
      * Create factory capable of generating Professor objects.
      */
-    public GameOfLifeXMLFactory () {
+    public PredatorPreyXMLFactory () {
         super(XML_TAG_NAME);
     }
 
     @Override
-    public GameOfLifeXMLModel getSimulation (Element root) throws XMLFactoryException {
+    public PredatorPreyXMLModel getSimulation (Element root) throws XMLFactoryException {
         if (! isValidFile(root)) {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
@@ -32,6 +32,9 @@ public class GameOfLifeXMLFactory extends SimulationXMLFactory {
         String rows = getTextValue(root, "rows");
         String columns = getTextValue(root, "columns");
         String initialLayout = getTextValue(root, "initialLayout");
-        return new GameOfLifeXMLModel(name, author, rows, columns, initialLayout);
+        String preyBreedingSpan = getTextValue(root, "preyBreedingSpan");
+        String predatorBreedingSpan = getTextValue(root, "predatorBreedingSpan");
+        String predatorLifeSpan = getTextValue(root, "predatorLifeSpan");
+        return new PredatorPreyXMLModel(name, author, rows, columns, initialLayout, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
     }
 }

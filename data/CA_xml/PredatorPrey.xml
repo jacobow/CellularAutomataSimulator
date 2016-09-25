@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Simulation SimulationType="Predator Prey">
+    <name>Predator Prey</name>
+    <author>Noel</author>
+    <rows>3</rows>
+    <columns>5</columns>
+    <initialLayout>10010/10111/22222</initialLayout>
+    <preyBreedingSpan>5</preyBreedingSpan>
+    <predatorBreedingSpan>5</predatorBreedingSpan>
+    <predatorLifeSpan>5</predatorLifeSpan>
+</Simulation>
