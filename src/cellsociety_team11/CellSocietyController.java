@@ -91,9 +91,10 @@ public class CellSocietyController implements MainController{
 		Slider speedSlider = (Slider) speedUpdated.getSource();
 		this.simulationSpeed = speedSlider.getValue();
 		//this.timeline.getKeyFrames();
-		this.timeline.pause();
+		this.timeline.stop();
 		this.timeline.getKeyFrames().clear();
 		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
+		this.timeline.playFromStart();
 	}
 
 	@Override
