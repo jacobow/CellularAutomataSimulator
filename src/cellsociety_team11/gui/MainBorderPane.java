@@ -1,5 +1,7 @@
 package cellsociety_team11.gui;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Button;
@@ -14,8 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 /**
- * @author quin
- *
+ * @author Cleveland Quin Thompson V (ct168)
+ * Instantiates all the User Interface controls and points event handlers at the MainController
  */
 public class MainBorderPane extends BorderPane{
 	private ToolBar toolBar;
@@ -43,9 +45,20 @@ public class MainBorderPane extends BorderPane{
 		toolBar.getItems().add(createButton("StartButton", event -> mainController.startSimulation()));
 		toolBar.getItems().add(createButton("StepButton", event -> mainController.nextStepSimulation()));
 		toolBar.getItems().add(createButton("StopButton", event -> mainController.stopSimulation()));
+		toolBar.getItems().add(createButton("UploadXMLButton", event -> this.updateXMLHandler()));
 		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> mainController.updateSimulationSpeed(event))); 
 		return toolBar;
 	}
+	
+	private void updateXMLHandler(){
+		ArrayList<String> extensionList = new ArrayList<>();
+		extensionList.add(MainController.XML_SUFFIX);
+		File xmlFile = (new XMLFileChooser("XMLFileChooserTitle", extensionList, this.resourceBundle)).getXMLFileChooser().showOpenDialog(this.getScene().getWindow());
+		if (xmlFile != null){
+			mainController.uploadedXMLFileHandler(xmlFile);
+		}
+	}
+	
 	
 	private HBox createSliderAndLabelHBox(String labelProperty, EventHandler<? super MouseEvent> handler){
 		HBox sliderAndLabel = new HBox();

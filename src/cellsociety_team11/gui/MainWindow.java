@@ -2,27 +2,24 @@ package cellsociety_team11.gui;
 
 import java.util.ResourceBundle;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Grid;
 import cellsociety_team11.MainController;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 
 /**
- * @author quin
- *
+ * @author Cleveland Quin Thompson V (ct168)
+ * Main Window for CellSociety GUI. Handles instantiating the MainBorderPane,
+ * which initializes the user controls, and updating the DisplayGrid based on the Grid input.
  */
 public class MainWindow{
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	
 	private Scene scene;
 	private MainBorderPane root;
-	private DisplayGrid displayGrid; 
+	private DisplayGrid<?> displayGrid; 
 	
 	private ResourceBundle resourceBundle;
 	private MainController mainController;
@@ -36,14 +33,10 @@ public class MainWindow{
 	}
 	
 	public <T> void setGrid(Grid<T> grid, SimulationType simulationType){
+		this.displayGrid = null;
 		if (grid!=null){
-			if (this.displayGrid == null){
-				this.displayGrid = new DisplayGrid<T>(grid, simulationType);
-				this.root.setCenter(displayGrid);
-			}
-			else{
-				this.displayGrid.updateDisplayCells(grid);
-			}
+			this.displayGrid = new DisplayGrid<T>(grid, simulationType);
+			this.root.setCenter(displayGrid);
 		}
 		
 	}

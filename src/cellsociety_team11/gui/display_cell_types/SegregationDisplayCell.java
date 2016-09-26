@@ -4,6 +4,10 @@ import cellsociety_team11.Coordinates;
 import cellsociety_team11.gui.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Display Cell Segregation Simulation
+ */
 public class SegregationDisplayCell extends SquareDisplayCell<Integer>{
 
 	public SegregationDisplayCell(Integer race, Coordinates coordinates) {
