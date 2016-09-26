@@ -4,6 +4,10 @@ import cellsociety_team11.Coordinates;
 import cellsociety_team11.gui.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Display Cell For Spreading of Fire Simulation
+ */
 public class SpreadingOfFireDisplayCell extends SquareDisplayCell<Integer>{
 
 	public SpreadingOfFireDisplayCell(Integer treeStatus, Coordinates coordinates) {

@@ -11,7 +11,8 @@ import javafx.scene.paint.Color;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
- *
+ * Main Window for CellSociety GUI. Handles instantiating the MainBorderPane,
+ * which initializes the user controls, and updating the DisplayGrid based on the Grid input.
  */
 public class MainWindow{
 	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/";

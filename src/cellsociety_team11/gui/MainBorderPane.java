@@ -17,7 +17,7 @@ import javafx.scene.layout.HBox;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
- *
+ * Instantiates all the User Interface controls and points event handlers at the MainController
  */
 public class MainBorderPane extends BorderPane{
 	private ToolBar toolBar;

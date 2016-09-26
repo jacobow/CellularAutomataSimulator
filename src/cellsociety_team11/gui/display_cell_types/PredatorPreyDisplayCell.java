@@ -4,10 +4,13 @@ import cellsociety_team11.Coordinates;
 import cellsociety_team11.gui.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Display Cell For Predator Prey Simulation
+ */
 public class PredatorPreyDisplayCell extends SquareDisplayCell<Integer>{
 
 	public PredatorPreyDisplayCell(Integer cellType, Coordinates coordinates) {
-		// TODO Auto-generated constructor stub
 		super(cellType, coordinates);
 	}
 	
