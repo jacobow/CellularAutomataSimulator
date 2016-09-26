@@ -43,9 +43,10 @@ public class CellSocietyController implements MainController{
 	private Timeline timeline;
 	private double simulationSpeed;
 	private SimulationType simulationType;
+	private boolean isPlaying;
 
 	public CellSocietyController(String language){
-		
+		isPlaying = false;
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
 		simulationType = SimulationType.SPREADING_OF_FIRE;
@@ -76,6 +77,7 @@ public class CellSocietyController implements MainController{
 
 	@Override
 	public void startSimulation(){
+		isPlaying = true;
 		timeline.play();
 	}
 
@@ -90,16 +92,18 @@ public class CellSocietyController implements MainController{
 	public void updateSimulationSpeed(MouseEvent speedUpdated) {
 		Slider speedSlider = (Slider) speedUpdated.getSource();
 		this.simulationSpeed = speedSlider.getValue();
-		//this.timeline.getKeyFrames();
 		this.timeline.stop();
 		this.timeline.getKeyFrames().clear();
 		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
-		this.timeline.playFromStart();
+		if (isPlaying){
+			this.timeline.playFromStart();
+		}
 	}
 
 	@Override
 	public void stopSimulation() {
 		// TODO Auto-generated method stub
+		isPlaying = false; 
 		timeline.stop();
 	}
 }
