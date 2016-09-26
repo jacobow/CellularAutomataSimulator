@@ -1,5 +1,7 @@
 package cellsociety_team11;
 
+import java.sql.Time;
+
 import cellsociety_team11.game_of_life.GameOfLifeCell;
 import cellsociety_team11.game_of_life.GameOfLifeGrid;
 import cellsociety_team11.game_of_life.GameOfLifeRules;
@@ -33,7 +35,7 @@ public class CellSocietyController implements MainController{
 		{1, 2, 1, 0, 0}
 		};
 	
-	private static final double INIT_FRAMES_PER_SECOND = 4;
+	private static final double INIT_FRAMES_PER_SECOND = 2;
     private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
 	
 	private MainWindow mainWindow;
@@ -46,54 +48,52 @@ public class CellSocietyController implements MainController{
 		
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
-		simulationType = SimulationType.PREDATOR_PREY;
-		//grid = new SpreadingOfFireGrid(INT_INIT_GRID, 0.5);
+		simulationType = SimulationType.SPREADING_OF_FIRE;
+		grid = new SpreadingOfFireGrid(INT_INIT_GRID, 0.5);
 		//grid = new SegregationGrid(INT_INIT_GRID, 0.5);
-		grid = new PredatorPreyGrid(INT_INIT_GRID, 3, 3, 3);
-		//testSetGrid();
+		//grid = new PredatorPreyGrid(INT_INIT_GRID, 3, 3, 3);
 		this.mainWindow.setGrid(grid, this.simulationType);
+		this.timeline = initSimulation();
 		
 	}
 
 	public Scene getScene(){
 		return mainWindow.getScene();
 	}
+	
+	private Timeline initSimulation(){
+		Timeline simulationTimeline = new Timeline();
+		simulationTimeline.setCycleCount(Timeline.INDEFINITE);
+		simulationTimeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
+		return simulationTimeline;
+	}
+	
+	private KeyFrame getKeyFrame(double frameDuration){
+		KeyFrame frame = new KeyFrame(Duration.millis(frameDuration),
+                e -> this.nextStepSimulation());
+		return frame;
+	}
 
 	@Override
 	public void startSimulation(){
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY * simulationSpeed),
-                e -> this.nextStepSimulation());
-		timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(frame);
 		timeline.play();
 	}
 
 	@Override
 	public void nextStepSimulation() {
 		grid.nextGrid();
-		printGrid(grid);
+		//printGrid(grid);
 		mainWindow.setGrid(grid, this.simulationType);
-	}
-	
-	
-	
-	private void printGrid(Grid<?> grid){
-		for (int i = 0; i < grid.getWidth(); i++){
-			for (int j = 0; j< grid.getHeight(); j++){
-				Cell<?> currCell = grid.getCell(new Coordinates(i, j));
-				System.out.print(currCell.getValue().toString() + " ");
-			}
-			System.out.println("");
-		}
 	}
 
 	@Override
 	public void updateSimulationSpeed(MouseEvent speedUpdated) {
-		// TODO Auto-generated method stub
 		Slider speedSlider = (Slider) speedUpdated.getSource();
 		this.simulationSpeed = speedSlider.getValue();
-		timeline.setDelay(Duration.millis(MILLISECOND_DELAY * simulationSpeed));
+		//this.timeline.getKeyFrames();
+		this.timeline.pause();
+		this.timeline.getKeyFrames().clear();
+		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
 	}
 
 	@Override
