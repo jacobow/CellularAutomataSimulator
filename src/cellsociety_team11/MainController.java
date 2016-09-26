@@ -1,9 +1,16 @@
 package cellsociety_team11;
 
+import java.io.File;
+
 import javafx.scene.input.MouseEvent;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ *
+ */
 public interface MainController {
-	
+	public static final String XML_SUFFIX = ".xml";
+	public static final String DATA_DIRECTORY = "./data";
 	/*
 	 * Starts the Simulation at the current Simulation Speed
 	 */
@@ -23,4 +30,9 @@ public interface MainController {
 	 * Stops the Simulation
 	 */
 	public void stopSimulation();
+	
+	/*
+	 * Handles the upload of a new XML file and reinitializes the Simulation
+	 */
+	public void uploadedXMLFileHandler(File xmlFile);
 }

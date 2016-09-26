@@ -1,11 +1,7 @@
 package cellsociety_team11;
 
-import java.sql.Time;
 import java.io.File;
-import java.util.Arrays;
-import cellsociety_team11.game_of_life.GameOfLifeCell;
 import cellsociety_team11.game_of_life.GameOfLifeGrid;
-import cellsociety_team11.game_of_life.GameOfLifeRules;
 import cellsociety_team11.gui.MainBorderPane;
 import cellsociety_team11.gui.MainWindow;
 import cellsociety_team11.gui.SimulationType;
@@ -24,27 +20,10 @@ import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 
 public class CellSocietyController implements MainController{
-	public static final Boolean[][] BOOL_INIT_GRID= new Boolean[][]{
-		{false, false, false, true, true},
-		{false, false, true, true, false},
-		{false, true, true, false, false},
-		{false, true, false, false, true},
-		{false, true, false, false, true}
-		};
-
-	public static final Integer[][] INT_INIT_GRID= new Integer[][]{
-		{0, 0, 0, 0},
-		{0, 2, 1, 2},
-		{0, 0, 1, 0},
-		{1, 1, 0, 1},
-		{0, 0, 0, 0}
-		};
 
 	private static final double INIT_FRAMES_PER_SECOND = 2;
     private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
-    
-	private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
-	private static final String XML_SUFFIX = ".xml";
+	
 
 	private MainWindow mainWindow;
 	private Grid<?> grid;
@@ -58,18 +37,62 @@ public class CellSocietyController implements MainController{
 
 	public CellSocietyController(String language){
 		isPlaying = false;
-		readFileData();
 		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
+		this.timeline = initSimulation();
+	}
+	
+	@Override
+	public void startSimulation(){
+		isPlaying = true;
+		timeline.play();
+	}
+
+	@Override
+	public void nextStepSimulation() {
+		grid.nextGrid();
+		mainWindow.setGrid(grid, this.simulationType);
+	}
+
+
+	@Override
+	public void updateSimulationSpeed(MouseEvent speedUpdated) {
+		Slider speedSlider = (Slider) speedUpdated.getSource();
+		this.simulationSpeed = speedSlider.getValue();
+		this.timeline.stop();
+		this.timeline.getKeyFrames().clear();
+		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
+		if (isPlaying){
+			this.timeline.playFromStart();
+		}
+	}
+
+	@Override
+	public void stopSimulation() {
+		isPlaying = false; 
+		timeline.stop();
+	}
+
+	@Override
+	public void uploadedXMLFileHandler(File xmlFile) {
+		this.stopSimulation();
+		readFileData(xmlFile.getAbsolutePath());
 		setSimulationGrid(simulation.getSimulationName());
 		this.timeline = initSimulation();
 		this.mainWindow.setGrid(grid, this.simulationType);
 	}
 	
-	private void readFileData(){
+	/*
+	 * Gets the Scene from the GUI
+	 */
+	public Scene getScene(){
+		return mainWindow.getScene();
+	}
+	
+	private void readFileData(String xmlFileLocation){
 	    XMLParser parser = new XMLParser();
 	    SimulationXMLFactory factory = new SimulationXMLFactory("Simulation");
-	    File f = new File(XML_FILE_LOCATION);
+	    File f = new File(xmlFileLocation);
 	    if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
 	        try {
 	            simulation = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
@@ -113,9 +136,6 @@ public class CellSocietyController implements MainController{
             return result;
 	}
 
-	public Scene getScene(){
-		return mainWindow.getScene();
-	}
 	
 	private Timeline initSimulation(){
 		Timeline simulationTimeline = new Timeline();
@@ -130,36 +150,5 @@ public class CellSocietyController implements MainController{
 		return frame;
 	}
 
-	@Override
-	public void startSimulation(){
-		isPlaying = true;
-		timeline.play();
-	}
-
-	@Override
-	public void nextStepSimulation() {
-		grid.nextGrid();
-		//printGrid(grid);
-		mainWindow.setGrid(grid, this.simulationType);
-	}
-
-
-	@Override
-	public void updateSimulationSpeed(MouseEvent speedUpdated) {
-		Slider speedSlider = (Slider) speedUpdated.getSource();
-		this.simulationSpeed = speedSlider.getValue();
-		this.timeline.stop();
-		this.timeline.getKeyFrames().clear();
-		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / simulationSpeed));
-		if (isPlaying){
-			this.timeline.playFromStart();
-		}
-	}
-
-	@Override
-	public void stopSimulation() {
-		// TODO Auto-generated method stub
-		isPlaying = false; 
-		timeline.stop();
-	}
+	
 }

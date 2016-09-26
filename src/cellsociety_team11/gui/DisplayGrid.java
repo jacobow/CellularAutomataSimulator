@@ -6,11 +6,18 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
-import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Display Grid that holds the DisplayCells that are specific to the simulation type.
+ * In current implementation, this is instantiated on every grid update rather than updated.
+ * This isn't great from a performance standpoint, but made it more extensible in the meantime,
+ * as updating the DisplayGrid in MainWindow becomes much easier.
+ * Ulimately will make this more "efficient" once we have the new CA to implement.
+ */
 public class DisplayGrid<T> extends GridPane{
 	private static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
 	private Grid<T> grid;
@@ -34,6 +41,7 @@ public class DisplayGrid<T> extends GridPane{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates){
 		Class <? extends DisplayCell<?>> simulationClass = simulationType.getDisplayCellClass();
 		Constructor<? extends DisplayCell<?>> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
@@ -46,15 +54,6 @@ public class DisplayGrid<T> extends GridPane{
 			return null;
 		}
 		return displayCell;
-	}
-	
-	public void updateDisplayCells(Grid<T> newGrid){
-		for (Node displayCell : this.getChildren()){
-			DisplayCell<T> currDisplayCell = (DisplayCell<T>) displayCell;
-			Coordinates currCoordinates = currDisplayCell.getCoordinates();
-			Cell<T> currentCell = newGrid.getCell(new Coordinates(currCoordinates.getI(), currCoordinates.getJ()));
-			currDisplayCell.updateValue((T)currentCell.getValue());
-		}
 	}
 	
 	private void initDisplayGrid(){

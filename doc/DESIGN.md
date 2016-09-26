@@ -45,7 +45,7 @@ ________________________________________________________________________________
 
 **Team Responsibilities** - *This section describes the program components each team member plans to take primary and secondary responsibility for and a high-level plan of how the team will complete the program.*
 
-The Grid and Rules classes will be taken care of by Jacob.  Since game of life is an easier set of rules and good for testing, Jacob will implement this extension of the Rules class alongside whichever CA he is assigned later. The GUI class will be taken care of by Quin, and the Cell class will be taken care of by Noel.
+The Grid and Rules classes will be taken care of by Jacob.  Since game of life is an easier set of rules and good for testing, Jacob will implement this extension of the Rules class alongside whichever CA he is assigned later. The GUI class will be taken care of by Cleveland Quin Thompson V (ct168), and the Cell class will be taken care of by Noel.
 
 After all the abstract classes have been completed, the team will assign one of the required CAs (segregation, predator-prey, fire) to each of the members. Individually, each member will work on taking care of the GUI, Cell, and Rules class for their respective CA using the abstract methods that the group wrote together. After three of the CAs have been written, the group will work together on adding the fourth CA while heavily assessing the overall project’s flexibility and determining what needs to be improved to improve the ease of adding more CAs.
 ____________________________________________________________________________________

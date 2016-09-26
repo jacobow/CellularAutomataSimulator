@@ -2,18 +2,11 @@ package cellsociety_team11.gui.display_cell_types;
 
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.gui.SquareDisplayCell;
-import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.DoubleProperty;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 /**
- * @author quin
- *
+ * @author Cleveland Quin Thompson V (ct168)
+ * Display Cell For Game of Life Simulation
  */
 public class GameOfLifeDisplayCell extends SquareDisplayCell<Boolean>{
 	

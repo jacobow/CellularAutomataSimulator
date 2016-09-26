@@ -5,6 +5,10 @@ import cellsociety_team11.gui.display_cell_types.PredatorPreyDisplayCell;
 import cellsociety_team11.gui.display_cell_types.SegregationDisplayCell;
 import cellsociety_team11.gui.display_cell_types.SpreadingOfFireDisplayCell;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ *
+ */
 public enum SimulationType{
 	
 	GAMEOFLIFE ("Game of Life", GameOfLifeDisplayCell.class),
