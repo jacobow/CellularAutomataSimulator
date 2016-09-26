@@ -30,10 +30,7 @@ public class SegregationCell extends Cell<Integer>{
 				if(y == 0 && x == 0) {
 					continue;
 				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SegregationCell(EMPTY, null, grid));
-				}
-				else {
+				if(0 <= i+y && i+y < grid.getHeight() && 0 <= j+x && j+x < grid.getWidth() && grid.getCell(new Coordinates(i+y, j+x)).getValue() != EMPTY) {
 					neighbors.add((SegregationCell) grid.getCell(new Coordinates(i+y, j+x)));
 				}
 			}

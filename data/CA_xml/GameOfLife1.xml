@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Simulation SimulationType="Game of Life">
-    <name>Game of Life 1</name>
-    <author>Noel</author>
-    <dimensions>2x2</dimensions>
-    <initialLayout>10//10</initialLayout>
-</Simulation>

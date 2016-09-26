@@ -28,6 +28,12 @@ public abstract class Cell<T> {
 		this.grid = grid;
 	}
 	/**
+	 * gets the cell's coordinates
+	 */
+	public Coordinates getCoordinates() {
+		return coordinates;
+	}
+	/**
 	 * Gets the value of the cell
 	 */
 	public T getValue() {

@@ -11,9 +11,9 @@ public class PredatorPreyXMLModel extends SimulationXMLModel {
     private String myPredatorBreedingSpan;
     private String myPredatorLifeSpan;
 
-    public PredatorPreyXMLModel (String name, String author, String rows, String columns, String initialLayout, String preyBreedingSpan, 
+    public PredatorPreyXMLModel (String name, String title, String author, String rows, String columns, String initialLayout, String preyBreedingSpan, 
                                  String predatorBreedingSpan, String predatorLifeSpan) {
-        super(name, author, rows, columns);
+        super(name, title, author, rows, columns);
         myInitialLayout = initialLayout;
         myPreyBreedingSpan = preyBreedingSpan;
         myPredatorBreedingSpan = predatorBreedingSpan;
@@ -39,14 +39,17 @@ public class PredatorPreyXMLModel extends SimulationXMLModel {
         return initialLayout;
     }
     
+    @Override
     public String getMyPreyBreedingSpan () {
         return myPreyBreedingSpan;
     }
 
+    @Override
     public String getMyPredatorBreedingSpan () {
         return myPredatorBreedingSpan;
     }
 
+    @Override
     public String getMyPredatorLifeSpan () {
         return myPredatorLifeSpan;
     }
@@ -55,7 +58,7 @@ public class PredatorPreyXMLModel extends SimulationXMLModel {
     public String toString () {        
         StringBuilder result = new StringBuilder();
         result.append("Predator Prey {")
-              .append("Name='").append(getName()).append("', ")
+              .append("Name='").append(getSimulationName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
               .append("Columns='").append(getColumns()).append("', ")

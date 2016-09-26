@@ -8,8 +8,8 @@ import xml.model.SimulationXMLModel;
 public class SpreadingOfFireXMLModel extends SimulationXMLModel {
     private String myInitialLayout;
 
-    public SpreadingOfFireXMLModel (String name, String author, String rows, String columns, String initialLayout) {
-        super(name, author, rows, columns);
+    public SpreadingOfFireXMLModel (String name, String title, String author, String rows, String columns, String initialLayout) {
+        super(name, title, author, rows, columns);
         myInitialLayout = initialLayout;
     }
 
@@ -36,7 +36,7 @@ public class SpreadingOfFireXMLModel extends SimulationXMLModel {
     public String toString () {
         StringBuilder result = new StringBuilder();
         result.append("Spreading of Fire {")
-              .append("Name='").append(getName()).append("', ")
+              .append("Name='").append(getSimulationName()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
               .append("Columns='").append(getColumns()).append("', ")

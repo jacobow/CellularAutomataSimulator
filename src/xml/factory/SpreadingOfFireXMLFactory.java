@@ -8,8 +8,9 @@ import org.w3c.dom.Element;
  * Creates SpreadingOfFire object from an XML file.
  */
 public class SpreadingOfFireXMLFactory extends SimulationXMLFactory {
-    private static final String XML_TAG_NAME = "Spreading of Fire";
-    private static final String XML_TAG_TITLE = "name";
+    private static final String XML_TAG_TYPE = "Simulation";
+    private static final String XML_TAG_NAME = "name";
+    private static final String XML_TAG_TITLE = "title";
     private static final String XML_TAG_AUTHOR = "author";
     private static final String XML_TAG_ROWS = "rows";
     private static final String XML_TAG_COLUMNS = "columns";
@@ -19,7 +20,7 @@ public class SpreadingOfFireXMLFactory extends SimulationXMLFactory {
      * Create factory capable of generating SpreadingOfFire objects.
      */
     public SpreadingOfFireXMLFactory () {
-        super(XML_TAG_NAME);
+        super(XML_TAG_TYPE);
     }
 
     @Override
@@ -27,11 +28,12 @@ public class SpreadingOfFireXMLFactory extends SimulationXMLFactory {
         if (! isValidFile(root)) {
             throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
         }
-        String name = getTextValue(root, XML_TAG_TITLE);
+        String name = getTextValue(root, XML_TAG_NAME);
+        String title = getTextValue(root, XML_TAG_TITLE);
         String author = getTextValue(root, XML_TAG_AUTHOR);
         String rows = getTextValue(root, XML_TAG_ROWS);
         String columns = getTextValue(root, XML_TAG_COLUMNS);
         String initialLayout = getTextValue(root, XML_TAG_INITIAL_LAYOUT);
-        return new SpreadingOfFireXMLModel(name, author, rows, columns, initialLayout);
+        return new SpreadingOfFireXMLModel(name, title, author, rows, columns, initialLayout);
     }
 }

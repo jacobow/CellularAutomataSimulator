@@ -29,32 +29,35 @@ public class SegregationRules implements Rule<Integer>{
 	 */
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
-		if(value == EMPTY) return value;
+		if(value == EMPTY) return EMPTY;
 		double valueProportion = 0;
 		double neighborSize = ((SegregationCell)cell).getNeighbors().size();
 		for(SegregationCell agent : ((SegregationCell)cell).getNeighbors()) {
 			if(agent.getValue() == value) valueProportion += 1/neighborSize;
 		}
 		if(valueProportion < threshold) {
-			fillRandomEmptyCell(value, grid);
-			return EMPTY;
+			if(fillRandomEmptyCell(value, grid)) return EMPTY;
 		}
 		return value;
 	}
 
-	//fills a random empty cell with a specified value
-	private void fillRandomEmptyCell(int value, Grid<Integer> grid) {
+	//fills a random empty cell with a specified value and returns whether or not it was successful
+	private boolean fillRandomEmptyCell(int value, Grid<Integer> grid) {
 		Random r = new Random();
 		ArrayList<SegregationCell> emptyCells = new ArrayList<SegregationCell>();
 		for(int i = 0; i < grid.getHeight(); i++) {
 			for(int j = 0; j < grid.getWidth(); j++) {
 				if(grid.getGridMatrix()[i][j].getValue() == EMPTY &&
-				   grid.getGridMatrix()[i][j].getNewValue() == null) {
+				   (grid.getGridMatrix()[i][j].getNewValue() == null || grid.getGridMatrix()[i][j].getNewValue() == EMPTY)) {
 					emptyCells.add((SegregationCell) grid.getGridMatrix()[i][j]);
 				}
 			}
 		}
-		emptyCells.get(r.nextInt()).setNewValue(value);
+		if(!emptyCells.isEmpty()) {
+			emptyCells.get(r.nextInt(emptyCells.size())).setNewValue(value);
+			return true;
+		}
+		return false;
 	}
 
 }
