@@ -10,9 +10,9 @@ import javafx.scene.shape.Shape;
  * Highest Level of Abstraction for displaying the representation of each cell in the grid
  */
 public abstract class DisplayCell<T> extends Pane{
-	protected T currentValue;
-	protected Coordinates coordinates;
-	protected Shape cellShape;
+	private T currentValue;
+	private Coordinates coordinates;
+	private Shape cellShape;
 	
 	public DisplayCell(T value, Coordinates coordinates) {
 		super();
@@ -31,7 +31,7 @@ public abstract class DisplayCell<T> extends Pane{
 	 */
 	public void updateValue(T newValue){
 		//TODO: Check if this method is still necessary as we approach final product
-		currentValue = newValue;
+		this.currentValue = newValue;
 		setColor(getColor());
 	}
 	
@@ -49,7 +49,15 @@ public abstract class DisplayCell<T> extends Pane{
 	protected abstract Color getColor();
 	
 	protected void setColor(Color color){
-		cellShape.setFill(color);
+		this.cellShape.setFill(color);
+	}
+	
+	protected T getValue() {
+		return this.currentValue;		
+	}
+	
+	protected Shape getCellShape(){
+		return this.cellShape;
 	}
 
 }

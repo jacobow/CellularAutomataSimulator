@@ -17,10 +17,10 @@ public class SpreadingOfFireDisplayCell extends SquareDisplayCell<Integer>{
 	
 	@Override
 	protected Color getColor() {
-		if (currentValue.equals(2)){
+		if (this.getValue().equals(2)){
 			return Color.RED;
 		}
-		else if(currentValue.equals(1)){
+		else if(this.getValue().equals(1)){
 			return Color.GREEN;
 		}
 		else{

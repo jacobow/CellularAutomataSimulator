@@ -16,7 +16,7 @@ public class GameOfLifeDisplayCell extends SquareDisplayCell<Boolean>{
 
 	@Override
 	protected Color getColor() {
-		if (currentValue){
+		if (this.getValue()){
 			return Color.GREEN;
 		}
 		return Color.BLUE;
