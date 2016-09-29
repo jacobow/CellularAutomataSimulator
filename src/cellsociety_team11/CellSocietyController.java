@@ -22,7 +22,7 @@ import xml.parser.XMLParser;
 public class CellSocietyController implements MainController{
 
 	private static final double INIT_FRAMES_PER_SECOND = 2;
-    private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
+	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
 	
 
 	private MainWindow mainWindow;
@@ -42,14 +42,18 @@ public class CellSocietyController implements MainController{
 	
 	@Override
 	public void startSimulation(){
-		this.isPlaying = true;
-		this.timeline.play();
+		if (this.grid!=null){
+			this.isPlaying = true;
+			this.timeline.play();
+		}
 	}
 
 	@Override
 	public void nextStepSimulation() {
-		this.grid.nextGrid();
-		this.mainWindow.setGrid(this.grid, this.simulationType);
+		if (this.grid!=null){
+			this.grid.nextGrid();
+			this.mainWindow.setGrid(this.grid, this.simulationType);
+		}
 	}
 
 
