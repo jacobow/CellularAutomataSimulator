@@ -7,9 +7,10 @@ import java.util.Objects;
 
 /**
  * An XMLFactory that gives back a simulation object.
+ * 
+ * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    private static final String XML_TAG_TYPE = "Simulation";
     private static final String XML_TAG_NAME = "name";
     private static final String XML_TAG_TITLE = "title";
     private static final String XML_TAG_AUTHOR = "author";
@@ -21,24 +22,21 @@ public class SimulationXMLFactory extends XMLFactory {
     private static final String XML_TAG_PREDATOR_LIFE_SPAN = "predatorLifeSpan";
     private static final String XML_TAG_PROBABILITY = "probability";
     
-    private String mySimulationType;
+    private String myXMLType;
     
 
     /**
      * Create a factory for making simulation objects.  
      */
-    public SimulationXMLFactory (String simulationType) {
-        mySimulationType = simulationType;
-    }
-    
-    public SimulationXMLFactory () {
+    public SimulationXMLFactory (String XMLType) {
+        myXMLType = XMLType;
     }
 
     /**
      * @return the type of simulation this file represents
      */
     public String getSimulationType () {
-        return mySimulationType;
+        return myXMLType;
     }
 
     /**
@@ -72,6 +70,6 @@ public class SimulationXMLFactory extends XMLFactory {
      */
     @Override
     protected boolean isValidFile (Element root) {
-        return Objects.equals(getAttribute(root, "SimulationType"), getSimulationType());
+        return Objects.equals(getAttribute(root, "XMLType"), getSimulationType());
     }
 }
