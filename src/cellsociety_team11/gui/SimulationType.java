@@ -1,9 +1,9 @@
 package cellsociety_team11.gui;
 
-import cellsociety_team11.gui.display_cell_types.GameOfLifeDisplayCell;
-import cellsociety_team11.gui.display_cell_types.PredatorPreyDisplayCell;
-import cellsociety_team11.gui.display_cell_types.SegregationDisplayCell;
-import cellsociety_team11.gui.display_cell_types.SpreadingOfFireDisplayCell;
+import cellsociety_team11.gui.display_cell_types.square_display_cells.GameOfLifeDisplayCell;
+import cellsociety_team11.gui.display_cell_types.square_display_cells.PredatorPreyDisplayCell;
+import cellsociety_team11.gui.display_cell_types.square_display_cells.SegregationDisplayCell;
+import cellsociety_team11.gui.display_cell_types.square_display_cells.SpreadingOfFireDisplayCell;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)

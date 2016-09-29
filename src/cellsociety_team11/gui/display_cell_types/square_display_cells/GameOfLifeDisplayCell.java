@@ -1,7 +1,7 @@
-package cellsociety_team11.gui.display_cell_types;
+package cellsociety_team11.gui.display_cell_types.square_display_cells;
 
 import cellsociety_team11.Coordinates;
-import cellsociety_team11.gui.SquareDisplayCell;
+import cellsociety_team11.gui.display_cell_types.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
 /**
@@ -16,7 +16,7 @@ public class GameOfLifeDisplayCell extends SquareDisplayCell<Boolean>{
 
 	@Override
 	protected Color getColor() {
-		if (currentValue){
+		if (this.getValue()){
 			return Color.GREEN;
 		}
 		return Color.BLUE;

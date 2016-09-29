@@ -1,7 +1,7 @@
-package cellsociety_team11.gui.display_cell_types;
+package cellsociety_team11.gui.display_cell_types.square_display_cells;
 
 import cellsociety_team11.Coordinates;
-import cellsociety_team11.gui.SquareDisplayCell;
+import cellsociety_team11.gui.display_cell_types.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
 /**
@@ -17,10 +17,10 @@ public class SegregationDisplayCell extends SquareDisplayCell<Integer>{
 	
 	@Override
 	protected Color getColor() {
-		if (currentValue.equals(2)){
+		if (this.getValue().equals(2)){
 			return Color.BLACK;
 		}
-		else if(currentValue.equals(1)){
+		else if(this.getValue().equals(1)){
 			return Color.WHITE;
 		}
 		else{

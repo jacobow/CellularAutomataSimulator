@@ -26,7 +26,7 @@ public class MainWindow{
 	
 	
 	public MainWindow(MainController simulationController, String language){
-		displayGrid = null;
+		this.displayGrid = null;
 		this.mainController = simulationController;
 		this.resourceBundle = initResourceBundle(language);
 		initScene();
@@ -36,7 +36,7 @@ public class MainWindow{
 		this.displayGrid = null;
 		if (grid!=null){
 			this.displayGrid = new DisplayGrid<T>(grid, simulationType);
-			this.root.setCenter(displayGrid);
+			this.root.setCenter(this.displayGrid);
 		}
 		
 	}
@@ -47,15 +47,15 @@ public class MainWindow{
 	
 	private void initScene(){
 		this.root = this.initRoot();
-		scene = new Scene(this.root, CellSociety.INIT_WIDTH, CellSociety.INIT_HEIGHT, Color.GHOSTWHITE);
+		this.scene = new Scene(this.root, CellSociety.INIT_WIDTH, CellSociety.INIT_HEIGHT, Color.GHOSTWHITE);
 	}
 	
 	private MainBorderPane initRoot(){
-		return new MainBorderPane(mainController, resourceBundle);
+		return new MainBorderPane(this.mainController, this.resourceBundle);
 	}
 	
 	public Scene getScene(){
-		return scene;
+		return this.scene;
 	}
 		
 }

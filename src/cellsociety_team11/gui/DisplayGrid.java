@@ -21,7 +21,6 @@ import javafx.scene.layout.RowConstraints;
 public class DisplayGrid<T> extends GridPane{
 	private static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
 	private Grid<T> grid;
-	private double cellSize;
 	private SimulationType simulationType;
 	
 
@@ -32,10 +31,10 @@ public class DisplayGrid<T> extends GridPane{
 	}
 	
 	private void initDisplayCells(){
-		for (int i = 0; i < grid.getHeight(); i++){
-			for (int j = 0; j < grid.getWidth(); j++){
+		for (int i = 0; i < this.grid.getHeight(); i++){
+			for (int j = 0; j < this.grid.getWidth(); j++){
 				Coordinates currentCoords = new Coordinates(i, j);
-				Cell<T> currentCell = grid.getCell(currentCoords);
+				Cell<T> currentCell = this.grid.getCell(currentCoords);
 				this.add(getDisplayCellInstance(currentCell.getValue(), currentCoords), j, i);
 			}
 		}
@@ -43,7 +42,7 @@ public class DisplayGrid<T> extends GridPane{
 	
 	@SuppressWarnings("unchecked")
 	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates){
-		Class <? extends DisplayCell<?>> simulationClass = simulationType.getDisplayCellClass();
+		Class <? extends DisplayCell<?>> simulationClass = this.simulationType.getDisplayCellClass();
 		Constructor<? extends DisplayCell<?>> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
 		DisplayCell<T> displayCell = null;
 		try{
@@ -58,11 +57,11 @@ public class DisplayGrid<T> extends GridPane{
 	
 	private void initDisplayGrid(){
 		initConstraints();
-		if (grid.getHeight() > grid.getWidth()){
-			setDimensions(grid.getHeight());
+		if (this.grid.getHeight() > this.grid.getWidth()){
+			setDimensions(this.grid.getHeight());
 		}
 		else{
-			setDimensions(grid.getWidth());
+			setDimensions(this.grid.getWidth());
 		}
 		
 		initDisplayCells();
@@ -70,33 +69,33 @@ public class DisplayGrid<T> extends GridPane{
 	
 	private void initConstraints(){
 		
-		for (int i = 0; i<grid.getWidth(); i++){
+		for (int i = 0; i<this.grid.getWidth(); i++){
 			this.addCustomColumnConstraint();
 		}
 		
-		for (int i = 0; i<grid.getHeight(); i++){
+		for (int i = 0; i<this.grid.getHeight(); i++){
 			this.addCustomRowConstraint();
 		}
 	}
 	
 	private void addCustomColumnConstraint(){
 		ColumnConstraints columnResizing = new ColumnConstraints();
-		columnResizing.prefWidthProperty().bind(this.widthProperty().divide(grid.getWidth()));
+		columnResizing.prefWidthProperty().bind(this.widthProperty().divide(this.grid.getWidth()));
 		this.getColumnConstraints().add(columnResizing);
 	}
 	
 	private void addCustomRowConstraint(){
 		RowConstraints rowResizing = new RowConstraints();
-		rowResizing.prefHeightProperty().bind(this.heightProperty().divide(grid.getHeight()));
+		rowResizing.prefHeightProperty().bind(this.heightProperty().divide(this.grid.getHeight()));
 		this.getRowConstraints().add(rowResizing);
 	}
 	
 	private void setDimensions(int largestDimension){
-		cellSize = MAX_WIDTH/(double) largestDimension;
-		this.setMaxWidth(grid.getWidth()*cellSize);
-		this.setMaxHeight(grid.getHeight()*cellSize);
-		this.setMinWidth(grid.getWidth()*cellSize);
-		this.setMinHeight(grid.getHeight()*cellSize);
+		double cellSize = MAX_WIDTH/(double) largestDimension;
+		this.setMaxWidth(this.grid.getWidth()*cellSize);
+		this.setMaxHeight(this.grid.getHeight()*cellSize);
+		this.setMinWidth(this.grid.getWidth()*cellSize);
+		this.setMinHeight(this.grid.getHeight()*cellSize);
 	}
 
 }
