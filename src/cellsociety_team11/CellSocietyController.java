@@ -2,6 +2,7 @@ package cellsociety_team11;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 import cellsociety_team11.gui.MainBorderPane;
@@ -110,8 +111,11 @@ public class CellSocietyController implements MainController{
 			this.grid = getGridInstance(this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
 		}
 		catch(SimulationInstantiationException e){
+			//e.printStackTrace();
+			e.getCause().printStackTrace();
 			System.out.println(e.getMessage());
 			System.out.println(e.getCause());
+			System.out.println(e.getStackTrace().toString());
 		}
 	}
 	
@@ -122,7 +126,17 @@ public class CellSocietyController implements MainController{
 			Constructor<?> myConstructor = simulationClass.getConstructors()[0];
 			return (Grid<T>) myConstructor.newInstance(new Object[] {valueGrid, this.simulation});
 		}
-		catch(Exception e){
+		catch(ClassNotFoundException e){
+			//throw new SimulationInstantiationException(e.getMessage(), e);
+			System.out.println("Class Not Found");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(InvocationTargetException e ){
+			System.out.println("Invoke Failed");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(Exception e ){
+			System.out.println("Other");
 			throw new SimulationInstantiationException(e.getMessage(), e);
 		}
 	}
