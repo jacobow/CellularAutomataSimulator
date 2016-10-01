@@ -8,4 +8,4 @@ Why new version is better: This new version of the code was better because it ma
 a lot simpler to add new constructors. In the old version, if I wanted to make a new constructor, I would have to make lines of code for initializing
 each instance variable for every constructor.
 
-Link to my commit: https://git.cs.duke.edu/CompSci308_2016Fall/cellsociety_team11/commit/3f829d51fe525a0b483c99ce9e35c16f24470baa
+Link to my commit: https://git.cs.duke.edu/CompSci308_2016Fall/cellsociety_team11/commit/a302d4966f3d733249d3b5bc62c00cb81e9c4226
