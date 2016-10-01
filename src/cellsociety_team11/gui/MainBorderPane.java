@@ -4,13 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import cellsociety_team11.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,6 +39,11 @@ public class MainBorderPane extends BorderPane{
 		initMainBorderPane();
 	}
 	
+	public void showErrorAlert(){
+		Alert errorAlert = createAlert(AlertType.ERROR, "SimulationExceptionTitle", "SimulationExceptionHeader", "SimulationExceptionContent");
+		errorAlert.showAndWait();
+	}
+	
 	private void initMainBorderPane(){
 		this.toolBar = createToolBar();	
 		this.setTop(this.toolBar);
@@ -47,8 +55,20 @@ public class MainBorderPane extends BorderPane{
 		toolBar.getItems().add(createButton("StepButton", event -> this.mainController.nextStepSimulation()));
 		toolBar.getItems().add(createButton("StopButton", event -> this.mainController.stopSimulation()));
 		toolBar.getItems().add(createButton("UploadXMLButton", event -> this.updateXMLHandler()));
+		toolBar.getItems().add(createButton("SecondDisplayButton", event -> addDisplayHandler()));
 		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> this.mainController.updateSimulationSpeed(event))); 
+		
 		return toolBar;
+	}
+	
+	private void addDisplayHandler(){
+		Alert displayChooser = createAlert(AlertType.CONFIRMATION, "ChooseDisplayTitle", "ChooseDisplayHeader", "ChooseDisplayContent");
+		//displayChooser.getButtonTypes().add(createButton("ChooseDisplayLeftButton", event -> setDisplay()));
+		//displayChooser.getButtonTypes().add(createButton("ChooseDisplayRightButton", event -> setDisplay()));
+	}
+	
+	private void setDisplay(){
+		
 	}
 	
 	private void updateXMLHandler(){
@@ -58,6 +78,14 @@ public class MainBorderPane extends BorderPane{
 		if (xmlFile != null){
 			this.mainController.uploadedXMLFileHandler(xmlFile);
 		}
+	}
+	
+	private Alert createAlert(AlertType alertType, String titleKey, String headerKey, String contentKey){
+		Alert alert = new Alert(alertType);
+		alert.setTitle(this.resourceBundle.getString(titleKey));
+		alert.setHeaderText(this.resourceBundle.getString(headerKey));
+		alert.setContentText(this.resourceBundle.getString(contentKey));
+		return alert;
 	}
 	
 	

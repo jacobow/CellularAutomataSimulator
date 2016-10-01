@@ -7,8 +7,6 @@ import cellsociety_team11.Grid;
 import cellsociety_team11.MainController;
 import cellsociety_team11.SimulationInstantiationException;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 
 
@@ -26,10 +24,12 @@ public class MainWindow{
 	
 	private ResourceBundle resourceBundle;
 	private MainController mainController;
+	private boolean dualDisplays;
 	
 	
 	public MainWindow(MainController simulationController, String language){
 		this.displayGrid = null;
+		this.dualDisplays = false;
 		this.mainController = simulationController;
 		this.resourceBundle = initResourceBundle(language);
 		initScene();
@@ -44,20 +44,12 @@ public class MainWindow{
 			}
 			catch(SimulationInstantiationException s){
 				System.out.print("Caught SimException");
-				Alert errorAlert = createAlert(AlertType.ERROR, "SimulationExceptionTitle", "SimulationExceptionHeader", "SimulationExceptionContent");
-				errorAlert.showAndWait();
+				root.showErrorAlert();
 			}
 		}
 		
 	}
 	
-	private Alert createAlert(AlertType alertType, String titleKey, String headerKey, String contentKey){
-		Alert alert = new Alert(alertType);
-		alert.setTitle(this.resourceBundle.getString(titleKey));
-		alert.setHeaderText(this.resourceBundle.getString(headerKey));
-		alert.setContentText(this.resourceBundle.getString(contentKey));
-		return alert;
-	}
 	
 	private ResourceBundle initResourceBundle(String language){
 		return ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
