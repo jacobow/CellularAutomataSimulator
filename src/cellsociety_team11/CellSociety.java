@@ -1,9 +1,12 @@
 package cellsociety_team11;
 
-import cellsociety_team11.gui.MainWindow;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Main Class for JavaFX Application
+ */
 public class CellSociety extends Application{
 	public static final double INIT_WIDTH = 800;
 	public static final double INIT_HEIGHT = 800;

@@ -3,28 +3,22 @@ package cellsociety_team11.segregation;
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
-import cellsociety_team11.predator_prey.PredatorPreyCell;
+import cellsociety_team11.Rule;
+import xml.model.SimulationXMLModel;
 
 public class SegregationGrid extends Grid<Integer>{
 
+	
 	public static final int EMPTY = 0;
 
-	private String shape;
-	private double threshold;
-
-	/**
-	 * creates a new segregation grid
-	 * @param valueGrid
-	 * 				grid of the values of the cells
-	 * @param theshold
-	 * 				a parameter that determines the tolerance of agents
-	 */
-	public SegregationGrid(Integer[][] valueGrid, double theshold, String shape, String world) {
-		super(valueGrid, new SegregationRules(theshold), shape, world);
-		this.shape = shape;
-		this.threshold = threshold;
+	public SegregationGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
+		super(valueGrid, simulation);
 	}
-
+	
+	@Override
+	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
+		return new SegregationRules(simulation.getProbability());
+	}
 	/**
 	 * creates a new cell in the grid
 	 */
@@ -46,5 +40,10 @@ public class SegregationGrid extends Grid<Integer>{
 		this.threshold = threshold;
 		((SegregationRules)this.getRule()).setThreshold(threshold);
 	}
+
+
+
+
+	
 
 }

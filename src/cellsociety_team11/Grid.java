@@ -1,4 +1,7 @@
 package cellsociety_team11;
+
+import xml.model.SimulationXMLModel;
+
 public abstract class Grid<T> {
 	private Cell<T> [][] gridMatrix;
 	private int height;
@@ -13,12 +16,10 @@ public abstract class Grid<T> {
 	 * 				the rules which the cells will follow
 	 */
 	@SuppressWarnings("unchecked")
-	public Grid(T[][] valueGrid, Rule<T> rule, String shape, String world) {
-		this.rule = rule;
-		height = valueGrid.length;
-		width = valueGrid[0].length;
-		this.rule = rule;
-		this.setWorld(world);
+	public Grid(T[][] valueGrid, SimulationXMLModel simulation) {
+		this.rule = createRule(simulation);
+		this.height = valueGrid.length;
+		this.width = valueGrid[0].length;
 		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
@@ -26,6 +27,12 @@ public abstract class Grid<T> {
 			}
 		}
 	}
+	
+	/*
+	 * 
+	 * Subclass has to take simulation and instantiate Rule
+	 */
+	protected abstract Rule<T> createRule(SimulationXMLModel simulation);
 	/**
 	 * Manipulate the Grid into its next state
 	 */

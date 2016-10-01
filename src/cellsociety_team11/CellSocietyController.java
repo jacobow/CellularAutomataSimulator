@@ -1,16 +1,12 @@
 package cellsociety_team11;
 
 import java.io.File;
-import java.util.Arrays;
-import cellsociety_team11.game_of_life.GameOfLifeCell;
-import cellsociety_team11.game_of_life.GameOfLifeGrid;
-import cellsociety_team11.game_of_life.GameOfLifeRules;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
+
 import cellsociety_team11.gui.MainBorderPane;
 import cellsociety_team11.gui.MainWindow;
-import cellsociety_team11.gui.SimulationType;
-import cellsociety_team11.predator_prey.PredatorPreyGrid;
-import cellsociety_team11.segregation.SegregationGrid;
-import cellsociety_team11.spreading_of_fire.SpreadingOfFireGrid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -23,54 +19,85 @@ import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 
 public class CellSocietyController implements MainController{
-	public static final Boolean[][] BOOL_INIT_GRID= new Boolean[][]{
-		{false, false, false, true, true},
-		{false, false, true, true, false},
-		{false, true, true, false, false},
-		{false, true, false, false, true},
-		{false, true, false, false, true}
-		};
 
-	public static final Integer[][] INT_INIT_GRID= new Integer[][]{
-		{0, 0, 0, 0},
-		{0, 2, 1, 2},
-		{0, 0, 1, 0},
-		{1, 1, 0, 1},
-		{0, 0, 0, 0}
-		};
-
-	private static final double INIT_FRAMES_PER_SECOND = 4;
+	private static final double INIT_FRAMES_PER_SECOND = 2;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
-
-
-	private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
-	private static final String XML_SUFFIX = ".xml";
+	private static final String GRID_RESOURCES = "GridClasses";
+	
 
 	private MainWindow mainWindow;
 	private Grid<?> grid;
 	private Timeline timeline;
 	private double simulationSpeed;
-	private SimulationType simulationType;
+	private String simulationType;
+	private boolean isPlaying;
 	private SimulationXMLModel simulation;
 
 	public CellSocietyController(String language){
-		readFileData();
-		simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
+		this.isPlaying = false;
+		this.simulationSpeed = MainBorderPane.SPEED_SLIDER_START;
 		this.mainWindow = new MainWindow(this, language);
-		setSimulationGrid(simulation.getSimulationName());
-		//simulationType = SimulationType.SPREADING_OF_FIRE;
-		//testSetGrid();
-		this.mainWindow.setGrid(grid, this.simulationType);
-
+		this.timeline = initSimulation();
+	}
+	
+	@Override
+	public void startSimulation(){
+		if (this.grid!=null){
+			this.isPlaying = true;
+			this.timeline.play();
+		}
 	}
 
-	private void readFileData(){
+	@Override
+	public void nextStepSimulation() {
+		if (this.grid!=null){
+			this.grid.nextGrid();
+			this.mainWindow.setGrid(this.grid, this.simulationType);
+		}
+	}
+
+
+	@Override
+	public void updateSimulationSpeed(MouseEvent speedUpdated) {
+		Slider speedSlider = (Slider) speedUpdated.getSource();
+		this.simulationSpeed = speedSlider.getValue();
+		this.timeline.stop();
+		this.timeline.getKeyFrames().clear();
+		this.timeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / this.simulationSpeed));
+		if (this.isPlaying){
+			this.timeline.playFromStart();
+		}
+	}
+
+	@Override
+	public void stopSimulation() {
+		this.isPlaying = false; 
+		this.timeline.stop();
+	}
+
+	@Override
+	public void uploadedXMLFileHandler(File xmlFile) {
+		this.stopSimulation();
+		readFileData(xmlFile.getAbsolutePath());
+		setSimulationGrid();
+		this.timeline = initSimulation();
+		this.mainWindow.setGrid(this.grid, this.simulationType);
+	}
+	
+	/*
+	 * Gets the Scene from the GUI
+	 */
+	public Scene getScene(){
+		return this.mainWindow.getScene();
+	}
+	
+	private void readFileData(String xmlFileLocation){
 	    XMLParser parser = new XMLParser();
 	    SimulationXMLFactory factory = new SimulationXMLFactory("Simulation");
-	    File f = new File(XML_FILE_LOCATION);
+	    File f = new File(xmlFileLocation);
 	    if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
 	        try {
-	            simulation = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+	        	this.simulation = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
 	        }
 	        catch (XMLFactoryException e) {
 	            System.err.println("Reading file " + f.getPath());
@@ -78,83 +105,54 @@ public class CellSocietyController implements MainController{
 	        }
 	    }
 	}
-
-	private void setSimulationGrid(String simulationTypeStr) {
-	    if (simulationTypeStr.equals("Game of Life")) {
-	        simulationType = SimulationType.GAMEOFLIFE;
-	        grid = new GameOfLifeGrid(intToBool(simulation.getInitialLayout()));
-	    }
-	    if (simulationTypeStr.equals("Segregation")) {
-	        simulationType = SimulationType.SEGREGATION;
-	        grid = new SegregationGrid(simulation.getInitialLayout(), simulation.getProbability());
-	    }
-	    if (simulationTypeStr.equals("Spreading of Fire")) {
-	        simulationType = SimulationType.SPREADING_OF_FIRE;
-	        grid = new SpreadingOfFireGrid(simulation.getInitialLayout(), simulation.getProbability());
-            }
-	    if (simulationTypeStr.equals("Predator Prey")) {
-	        simulationType = SimulationType.PREDATOR_PREY;
-	        grid = new PredatorPreyGrid(simulation.getInitialLayout(), simulation.getPredatorLifeSpan(),
-	                                    simulation.getPreyBreedingSpan(), simulation.getPredatorBreedingSpan());
-	    }
-	}
-
-	private Boolean[][] intToBool(Integer[][] array) {
-	    int rows = array.length;
-	    int columns = array[0].length;
-	    Boolean[][] result = new Boolean[rows][columns];
-            for (int i=0; i<rows; i++){
-                for (int j=0; j<columns; j++){
-                    result[i][j] = (array[i][j] == 1);
-                }
-            }
-            return result;
-	}
-
-	public Scene getScene(){
-		return mainWindow.getScene();
-	}
-
-	@Override
-	public void startSimulation(){
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY * simulationSpeed),
-                e -> this.nextStepSimulation());
-		timeline = new Timeline();
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.getKeyFrames().add(frame);
-		timeline.play();
-	}
-
-	@Override
-	public void nextStepSimulation() {
-		grid.nextGrid();
-		//printGrid(grid);
-		mainWindow.setGrid(grid, this.simulationType);
-	}
-
-
-
-	private void printGrid(Grid<?> grid){
-		for (int i = 0; i < grid.getWidth(); i++){
-			for (int j = 0; j< grid.getHeight(); j++){
-				Cell<?> currCell = grid.getCell(new Coordinates(i, j));
-				System.out.print(currCell.getValue().toString() + " ");
-			}
-			System.out.println("");
+	
+	private void setSimulationGrid() {
+		try{
+			this.grid = getGridInstance(this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
+		}
+		catch(SimulationInstantiationException e){
+			//e.printStackTrace();
+			e.getCause().printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+			System.out.println(e.getStackTrace().toString());
 		}
 	}
-
-	@Override
-	public void updateSimulationSpeed(MouseEvent speedUpdated) {
-		// TODO Auto-generated method stub
-		Slider speedSlider = (Slider) speedUpdated.getSource();
-		this.simulationSpeed = speedSlider.getValue();
-		timeline.setDelay(Duration.millis(MILLISECOND_DELAY * simulationSpeed));
+	
+	@SuppressWarnings("unchecked")
+	private <T> Grid<?> getGridInstance(T[][] valueGrid, String simulationName, ResourceBundle resourceBundle) throws SimulationInstantiationException{
+		try{
+			Class<?> simulationClass = Class.forName(resourceBundle.getString(simulationName));
+			Constructor<?> myConstructor = simulationClass.getConstructors()[0];
+			return (Grid<T>) myConstructor.newInstance(new Object[] {valueGrid, this.simulation});
+		}
+		catch(ClassNotFoundException e){
+			//throw new SimulationInstantiationException(e.getMessage(), e);
+			System.out.println("Class Not Found");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(InvocationTargetException e ){
+			System.out.println("Invoke Failed");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(Exception e ){
+			System.out.println("Other");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+	}
+	
+	private Timeline initSimulation(){
+		Timeline simulationTimeline = new Timeline();
+		simulationTimeline.setCycleCount(Timeline.INDEFINITE);
+		simulationTimeline.getKeyFrames().add(getKeyFrame(MILLISECOND_DELAY / this.simulationSpeed));
+		return simulationTimeline;
+	}
+	
+	private KeyFrame getKeyFrame(double frameDuration){
+		KeyFrame frame = new KeyFrame(Duration.millis(frameDuration),
+                e -> this.nextStepSimulation());
+		return frame;
 	}
 
-	@Override
-	public void stopSimulation() {
-		// TODO Auto-generated method stub
-		timeline.stop();
-	}
+	
 }

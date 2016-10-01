@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CA SimulationType="Simulation">
-    <name>Predator Prey</name>
+<XMLFile XMLType="Simulation">
+    <name>PREDATOR_PREY</name>
     <title>Predator Prey 1</title>
     <author>Noel</author>
-    <rows>3</rows>
+    <rows>5</rows>
     <columns>5</columns>
-    <initialLayout>10010/10111/22222</initialLayout>
-    <preyBreedingSpan>5</preyBreedingSpan>
-    <predatorBreedingSpan>5</predatorBreedingSpan>
-    <predatorLifeSpan>5</predatorLifeSpan>
-</CA>
+    <initialLayout>10010/10111/22222/00000/11111</initialLayout>
+    <preyBreedingSpan>3</preyBreedingSpan>
+    <predatorBreedingSpan>3</predatorBreedingSpan>
+    <predatorLifeSpan>3</predatorLifeSpan>
+</XMLFile>

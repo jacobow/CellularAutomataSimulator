@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CA SimulationType="Simulation">
-    <name>Spreading of Fire</name>
+<XMLFile XMLType="Simulation">
+    <name>SPREADING_OF_FIRE</name>
     <title>Spreading of Fire 1</title>
     <author>Noel</author>
     <rows>3</rows>
     <columns>5</columns>
     <initialLayout>10010/10111/22222</initialLayout>
     <probability>0.5</probability>
-</CA>
+</XMLFile>

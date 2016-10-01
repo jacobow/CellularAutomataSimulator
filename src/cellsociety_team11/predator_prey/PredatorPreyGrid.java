@@ -3,8 +3,12 @@ package cellsociety_team11.predator_prey;
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
+import cellsociety_team11.Rule;
+import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
+
+	
 
 	public static final int EMPTY = 0;
 	public static final int PREDATOR = 1;
@@ -15,21 +19,18 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	private int predatorLifeSpan;
 	private String shape;
 
-	/**
-	 * creates a new predator-prey grid
-	 * @param valueGrid
-	 * 				sets the values of the cells in the grid
-	 * @param predatorLifeSpan
-	 * 				sets the lifeSpan of a predator
-	 * @param predatorBreedingSpan
-	 * 				sets the time until a predator breeds
-	 * @param preyBreedingSpan
-	 * 				sets the time until a prey breeds
-	 */
-	public PredatorPreyGrid(Integer[][] valueGrid, String shape, String world, int predatorLifeSpan, int preyBreedingSpan, int predatorBreedingSpan) {
-		super(valueGrid, new PredatorPreyRules(), shape, world);
-		setTimers(predatorLifeSpan, preyBreedingSpan, predatorBreedingSpan);
-		this.shape = shape;
+	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
+		super(valueGrid, simulation);
+		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
+		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
+		this.preyBreedingSpan = simulation.getPreyBreedingSpan();
+		this.predatorLifeSpan = simulation.getPredatorLifeSpan();
+		setTimers(this.predatorLifeSpan, this.preyBreedingSpan, this.predatorBreedingSpan);
+		return new PredatorPreyRules();
 	}
 
 	/**
@@ -115,5 +116,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		return new PredatorPreyCell(EMPTY, null, this, shape);
 	}
 
+
+	
 
 }

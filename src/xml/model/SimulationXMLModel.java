@@ -1,12 +1,13 @@
 package xml.model;
 
 /**
- * A value object for a CA.
+ * A value object for a simulation.
  *
- * @author Rhondu Smithwick
- * @author Robert Duvall
+ * @author Noel Moon
  */
 public class SimulationXMLModel {
+    private static final String BLANK_STR = "";
+    
     private String mySimulationName;
     private String myTitle;
     private String myAuthor;
@@ -19,20 +20,25 @@ public class SimulationXMLModel {
     private String myProbability;
 
     public SimulationXMLModel (String simulationName) {
-        mySimulationName = simulationName;
+        this(simulationName, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout) {
-        mySimulationName = simulationName;
-        myTitle = title;
-        myAuthor = author;
-        myRows = rows;
-        myColumns = columns;
-        myInitialLayout = initialLayout;
+        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout,
                                String probability) {
+        this(simulationName, title, author, rows, columns, initialLayout, probability, BLANK_STR, BLANK_STR, BLANK_STR);
+    }
+    
+    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
+                              String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
+        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
+    }
+    
+    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
+                              String probability, String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
         mySimulationName = simulationName;
         myTitle = title;
         myAuthor = author;
@@ -40,16 +46,6 @@ public class SimulationXMLModel {
         myColumns = columns;
         myInitialLayout = initialLayout;
         myProbability = probability;
-    }
-    
-    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
-                              String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
-        mySimulationName = simulationName;
-        myTitle = title;
-        myAuthor = author;
-        myRows = rows;
-        myColumns = columns;
-        myInitialLayout = initialLayout;
         myPreyBreedingSpan = preyBreedingSpan;
         myPredatorBreedingSpan = predatorBreedingSpan;
         myPredatorLifeSpan = predatorLifeSpan;
@@ -111,7 +107,7 @@ public class SimulationXMLModel {
               .append("Title='").append(getTitle()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
-              .append("Columns='").append(getColumns()).append("', ")
+              .append("Columns='").append(getColumns())
               .append('}');
        return result.toString();
     }

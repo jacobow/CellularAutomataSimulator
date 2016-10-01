@@ -1,10 +1,15 @@
-package cellsociety_team11.gui;
+package cellsociety_team11.gui.display_cell_types;
 
 import cellsociety_team11.Coordinates;
+import cellsociety_team11.gui.DisplayCell;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
+/**
+ * @author Cleveland Quin Thompson V (ct168)
+ * Extends DisplayCell for the Specific Case of Square Display Cells
+ */
 public abstract class SquareDisplayCell<T> extends DisplayCell<T>{
 
 	public SquareDisplayCell(T value, Coordinates coordinates) {
