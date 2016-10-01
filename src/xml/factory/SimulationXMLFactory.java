@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    //private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
     private static final String GRID_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
@@ -52,10 +51,10 @@ public class SimulationXMLFactory extends XMLFactory {
         String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
         String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
         String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
-        //String quantityOfEachCellType = getTextValue(root, myResources.getString("XMLTagQuantityOfEachCellType"));
+        String cellTypeQuantities = getTextValue(root, myResources.getString("XMLTagCellTypeQuantities"));
         return new SimulationXMLModel(name, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
-                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan  
-                                      );
+                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan,  
+                                      cellTypeQuantities);
     }
 
     /**

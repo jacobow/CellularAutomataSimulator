@@ -12,4 +12,5 @@
     <preyBreedingSpan>3</preyBreedingSpan>
     <predatorBreedingSpan>3</predatorBreedingSpan>
     <predatorLifeSpan>3</predatorLifeSpan>
+    <cellTypeQuantities></cellTypeQuantities>
 </XMLFile>

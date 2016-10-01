@@ -12,4 +12,5 @@
     <preyBreedingSpan></preyBreedingSpan>
     <predatorBreedingSpan></predatorBreedingSpan>
     <predatorLifeSpan></predatorLifeSpan>
+    <cellTypeQuantities>500/232</cellTypeQuantities>
 </XMLFile>
