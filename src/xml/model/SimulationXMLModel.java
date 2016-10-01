@@ -13,6 +13,9 @@ public class SimulationXMLModel {
     private String myAuthor;
     private String myRows;
     private String myColumns;
+    private String myShape;
+    private String myWorld;
+    private String isRandomInitialLayout;
     private String myInitialLayout;
     private String myPreyBreedingSpan;
     private String myPredatorBreedingSpan;
@@ -20,30 +23,43 @@ public class SimulationXMLModel {
     private String myProbability;
 
     public SimulationXMLModel (String simulationName) {
-        this(simulationName, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
+        mySimulationName = simulationName;
     }
     
-    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout) {
-        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
+    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
+                               String isRandomInitialLayout,
+                               String initialLayout) {
+        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, BLANK_STR, 
+             BLANK_STR, BLANK_STR);
     }
     
-    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout,
+    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
+                               String isRandomInitialLayout,
+                               String initialLayout,
                                String probability) {
-        this(simulationName, title, author, rows, columns, initialLayout, probability, BLANK_STR, BLANK_STR, BLANK_STR);
+        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability, BLANK_STR, 
+             BLANK_STR, BLANK_STR);
     }
     
-    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
+    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String shape, String world,
+                              String isRandomInitialLayout,
+                              String initialLayout, 
                               String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
-        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
+        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
     }
     
-    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
-                              String probability, String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
+    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String shape, String world,
+                              String isRandomInitialLayout,
+                              String initialLayout, String probability, String preyBreedingSpan, String predatorBreedingSpan, 
+                              String predatorLifeSpan){
         mySimulationName = simulationName;
         myTitle = title;
         myAuthor = author;
         myRows = rows;
         myColumns = columns;
+        myShape = shape;
+        myWorld = world; 
+        this.isRandomInitialLayout = isRandomInitialLayout;
         myInitialLayout = initialLayout;
         myProbability = probability;
         myPreyBreedingSpan = preyBreedingSpan;
@@ -71,17 +87,29 @@ public class SimulationXMLModel {
         return Integer.parseInt(myColumns);
     }
     
+    public String getShape () {
+        return myShape;
+    }
+
+    public String getWorld () {
+        return myWorld;
+    }
+    
     public Integer[][] getInitialLayout () {
-        Integer initialLayout[][] = new Integer[getRows()][getColumns()];
-        int strIndex = 0;
-        for (int i=0; i<getRows(); i++){
-            for (int j=0; j<getColumns(); j++){
-                initialLayout[i][j] = Character.getNumericValue((myInitialLayout.charAt(strIndex)));
+        if (Boolean.parseBoolean(isRandomInitialLayout)) {
+            return null;
+        } else {
+            Integer initialLayout[][] = new Integer[getRows()][getColumns()];
+            int strIndex = 0;
+            for (int i=0; i<getRows(); i++){
+                for (int j=0; j<getColumns(); j++){
+                    initialLayout[i][j] = Character.getNumericValue((myInitialLayout.charAt(strIndex)));
+                    strIndex++;
+                }
                 strIndex++;
             }
-            strIndex++;
+            return initialLayout;
         }
-        return initialLayout;
     }
     
     public int getPreyBreedingSpan () {
@@ -107,7 +135,9 @@ public class SimulationXMLModel {
               .append("Title='").append(getTitle()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
-              .append("Columns='").append(getColumns())
+              .append("Columns='").append(getColumns()).append(" , ")
+              .append("Shape= ").append(getShape()).append(" , ")
+              .append("World= ").append(getWorld())
               .append('}');
        return result.toString();
     }

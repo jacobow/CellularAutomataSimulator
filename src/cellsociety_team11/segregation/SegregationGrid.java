@@ -23,8 +23,22 @@ public class SegregationGrid extends Grid<Integer>{
 	 * creates a new cell in the grid
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates) {
-		return new SegregationCell(value, coordinates, this);
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+		return new SegregationCell(value, coordinates, this, shape);
+	}
+
+	@Override
+	public Cell<Integer> getEmptyCell() {
+		return new SegregationCell(EMPTY, null, this, shape);
+	}
+
+	public double getThreshold() {
+		return threshold;
+	}
+
+	public void setThreshold(double threshold) {
+		this.threshold = threshold;
+		((SegregationRules)this.getRule()).setThreshold(threshold);
 	}
 
 

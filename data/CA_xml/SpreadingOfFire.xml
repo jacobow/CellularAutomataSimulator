@@ -5,6 +5,9 @@
     <author>Noel</author>
     <rows>3</rows>
     <columns>5</columns>
+    <shape>square</shape>
+    <world>finite</world>
+    <isRandomInitialLayout>False</isRandomInitialLayout>
     <initialLayout>10010/10111/22222</initialLayout>
     <probability>0.5</probability>
 </XMLFile>

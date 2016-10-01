@@ -1,7 +1,5 @@
 package cellsociety_team11.spreading_of_fire;
 
-import java.util.HashSet;
-
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -13,30 +11,8 @@ public class SpreadingOfFireCell extends Cell<Integer>{
 	/**
 	 * creates a new spreading of fire cell
 	 */
-	public SpreadingOfFireCell(Integer value, Coordinates coordinates, Grid<Integer> grid) {
-		super(value, coordinates, grid);
+	public SpreadingOfFireCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape) {
+		super(value, coordinates, grid, shape);
 	}
 
-	/**
-	 * gets a cell's neighbors
-	 */
-	public HashSet<SpreadingOfFireCell> getNeighbors() {
-		int i = coordinates.getI();
-		int j = coordinates.getJ();
-		HashSet<SpreadingOfFireCell> neighbors = new HashSet<SpreadingOfFireCell>();
-		for(int y = -1; y <= 1; y++) {
-			for(int x = -1; x <= 1; x++) {
-				if(y == x) {
-					continue;
-				}
-				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
-					neighbors.add(new SpreadingOfFireCell(EMPTY, null, grid));
-				}
-				else {
-					neighbors.add((SpreadingOfFireCell) grid.getCell(new Coordinates(i+y, j+x)));
-				}
-			}
-		}
-		return neighbors;
-	}
 }
