@@ -3,23 +3,40 @@ package cellsociety_team11.game_of_life;
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
+import cellsociety_team11.Rule;
+import xml.model.SimulationXMLModel;
 
 public class GameOfLifeGrid extends Grid<Boolean>{
 
-	/**
-	 * constructs a Grid of Boolean-valued cells, since Conway's Game of Life only gives cells
-	 * two states in which they can be
-	 */
-	public GameOfLifeGrid(Boolean[][] valueMatrix) {
-		super(valueMatrix, new GameOfLifeRules());
+	public GameOfLifeGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
+		super(intToBool(valueGrid), simulation);
+	}
+	
+	public GameOfLifeGrid(Boolean[][] valueGrid, SimulationXMLModel simulation) {
+		super(valueGrid, simulation);
 	}
 
-	/**
-	 * creates a new empty (dead) cell
-	 */
+	@Override
+	protected Rule<Boolean> createRule(SimulationXMLModel simulation) {
+		return new GameOfLifeRules();
+	}
+
 	@Override
 	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates) {
 		return new GameOfLifeCell(value, coordinates, this);
 	}
+
+	private static Boolean[][] intToBool(Integer[][] array) {
+	    int rows = array.length;
+	    int columns = array[0].length;
+	    Boolean[][] result = new Boolean[rows][columns];
+        for (int i=0; i<rows; i++){
+            for (int j=0; j<columns; j++){
+                result[i][j] = (array[i][j] == 1);
+            }
+        }
+        return result;
+	}
+	
 
 }
