@@ -2,7 +2,6 @@ package cellsociety_team11;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ResourceBundle;
 
 import cellsociety_team11.gui.MainBorderPane;
@@ -29,7 +28,6 @@ public class CellSocietyController implements MainController{
 	private Grid<?> grid;
 	private Timeline timeline;
 	private double simulationSpeed;
-	private String simulationType;
 	private boolean isPlaying;
 	private SimulationXMLModel simulation;
 
@@ -52,7 +50,7 @@ public class CellSocietyController implements MainController{
 	public void nextStepSimulation() {
 		if (this.grid!=null){
 			this.grid.nextGrid();
-			this.mainWindow.setGrid(this.grid, this.simulationType);
+			this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName());
 		}
 	}
 
@@ -79,9 +77,9 @@ public class CellSocietyController implements MainController{
 	public void uploadedXMLFileHandler(File xmlFile) {
 		this.stopSimulation();
 		readFileData(xmlFile.getAbsolutePath());
-		setSimulationGrid();
+		this.grid = setSimulationGrid();
 		this.timeline = initSimulation();
-		this.mainWindow.setGrid(this.grid, this.simulationType);
+		this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName());
 	}
 	
 	/*
@@ -104,39 +102,30 @@ public class CellSocietyController implements MainController{
 	            e.printStackTrace();
 	        }
 	    }
+	    else{
+	    	System.err.println("Not xml file. " + f.getAbsolutePath());
+	    }
 	}
 	
-	private void setSimulationGrid() {
+	private Grid<?> setSimulationGrid() {
 		try{
-			this.grid = getGridInstance(this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
+			return getGridInstance(this.simulation, this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
 		}
 		catch(SimulationInstantiationException e){
-			//e.printStackTrace();
-			e.getCause().printStackTrace();
-			System.out.println(e.getMessage());
-			System.out.println(e.getCause());
-			System.out.println(e.getStackTrace().toString());
+			e.printStackTrace();
+			throw e;
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private <T> Grid<?> getGridInstance(T[][] valueGrid, String simulationName, ResourceBundle resourceBundle) throws SimulationInstantiationException{
+	private <T> Grid<?> getGridInstance(SimulationXMLModel simulation, T[][] valueGrid, String simulationName, ResourceBundle resourceBundle) throws SimulationInstantiationException{
 		try{
 			Class<?> simulationClass = Class.forName(resourceBundle.getString(simulationName));
 			Constructor<?> myConstructor = simulationClass.getConstructors()[0];
-			return (Grid<T>) myConstructor.newInstance(new Object[] {valueGrid, this.simulation});
-		}
-		catch(ClassNotFoundException e){
-			//throw new SimulationInstantiationException(e.getMessage(), e);
-			System.out.println("Class Not Found");
-			throw new SimulationInstantiationException(e.getMessage(), e);
-		}
-		catch(InvocationTargetException e ){
-			System.out.println("Invoke Failed");
-			throw new SimulationInstantiationException(e.getMessage(), e);
+			return (Grid<T>) myConstructor.newInstance(new Object[] {valueGrid, simulation});
 		}
 		catch(Exception e ){
-			System.out.println("Other");
+			System.out.println("Can't Instaniate Grid");
 			throw new SimulationInstantiationException(e.getMessage(), e);
 		}
 	}

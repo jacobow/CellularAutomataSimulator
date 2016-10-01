@@ -12,7 +12,8 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
+    //private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
+    private static final String GRID_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
     private String myXMLType;
@@ -21,7 +22,7 @@ public class SimulationXMLFactory extends XMLFactory {
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_LOCATION);
+        myResources = ResourceBundle.getBundle(GRID_RESOURCES);
         myXMLType = XMLType;
     }
 
@@ -46,6 +47,7 @@ public class SimulationXMLFactory extends XMLFactory {
         String columns = getTextValue(root, myResources.getString("XMLTagColumns"));
         String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
         if (name.equals(myResources.getString("PredatorPrey"))) {
+        	System.out.println("Pred");
             String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
             String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
             String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
