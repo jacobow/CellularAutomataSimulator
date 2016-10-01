@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
     <name>PREDATOR_PREY</name>
-    <title>Predator Prey 1</title>
     <author>Noel</author>
     <rows>5</rows>
     <columns>5</columns>
+    <shape>square</shape>
+    <world>finite</world>
+    <isRandomInitialLayout>False</isRandomInitialLayout>
     <initialLayout>10010/10111/22222/00000/11111</initialLayout>
+    <probability></probability>
     <preyBreedingSpan>3</preyBreedingSpan>
     <predatorBreedingSpan>3</predatorBreedingSpan>
     <predatorLifeSpan>3</predatorLifeSpan>

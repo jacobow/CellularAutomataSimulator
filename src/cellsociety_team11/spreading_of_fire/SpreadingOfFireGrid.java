@@ -12,10 +12,15 @@ import xml.model.SimulationXMLModel;
  */
 public class SpreadingOfFireGrid extends Grid<Integer>{
 
-	public static final int EMPTY = 0;	
-	
+	public static final int EMPTY = 0;
+
+	private String shape;
+	private double probCatch;
+
 	public SpreadingOfFireGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
+		shape = simulation.getShape();
+		probCatch = simulation.getProbability();
 	}
 
 	/*
@@ -30,11 +35,25 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	 * creates a new cell for grid initialization
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates) {
-		return new SpreadingOfFireCell(value, coordinates, this);
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+		return new SpreadingOfFireCell(value, coordinates, this, shape);
+	}
+
+	@Override
+	public Cell<Integer> getEmptyCell() {
+		return new SpreadingOfFireCell(EMPTY, null, this, shape);
+	}
+
+	public double getProbCatch() {
+		return probCatch;
+	}
+
+	public void setProbCatch(double probCatch) {
+		this.probCatch = probCatch;
+		((SpreadingOfFireRules)this.getRule()).setProbCatch(probCatch);
 	}
 
 
-	
+
 
 }

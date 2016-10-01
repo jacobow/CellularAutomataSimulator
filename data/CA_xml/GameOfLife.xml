@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
     <name>GAMEOFLIFE</name>
-    <title>Game of Life 2</title>
     <author>Noel</author>
     <rows>10</rows>
     <columns>5</columns>
+    <shape>square</shape>
+    <world>finite</world>
+    <isRandomInitialLayout>False</isRandomInitialLayout>
     <initialLayout>10010/10111/00000/00000/11111/10010/10111/00000/00000/11111</initialLayout>
+    <probability></probability>
+    <preyBreedingSpan></preyBreedingSpan>
+    <predatorBreedingSpan></predatorBreedingSpan>
+    <predatorLifeSpan></predatorLifeSpan>
 </XMLFile>

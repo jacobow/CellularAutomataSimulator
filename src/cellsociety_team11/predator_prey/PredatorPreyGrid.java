@@ -8,7 +8,7 @@ import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
 
-	
+
 
 	public static final int EMPTY = 0;
 	public static final int PREDATOR = 1;
@@ -17,12 +17,16 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	private int preyBreedingSpan;
 	private int predatorBreedingSpan;
 	private int predatorLifeSpan;
+	private String shape;
 
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		// TODO Auto-generated constructor stub
+		preyBreedingSpan = simulation.getPreyBreedingSpan();
+		predatorBreedingSpan = simulation.getPredatorBreedingSpan();
+		predatorLifeSpan = simulation.getPredatorLifeSpan();
+		shape = simulation.getShape();
 	}
-	
+
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
 		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
@@ -36,14 +40,14 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	 * creates a new cell in the grid and initializes its timers if needed
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates) {
-		return new PredatorPreyCell(value, coordinates, this);
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+		return new PredatorPreyCell(value, coordinates, this, shape);
 	}
 
 	private void setTimers(int predatorLifeSpan, int preyBreedingSpan, int predatorBreedingSpan) {
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				PredatorPreyCell cell = (PredatorPreyCell) gridMatrix[i][j];
+		for(int i = 0; i < this.getHeight(); i++) {
+			for(int j = 0; j < this.getWidth(); j++) {
+				PredatorPreyCell cell = (PredatorPreyCell) this.getGridMatrix()[i][j];
 				Integer value = cell.getValue();
 				if(value == PREY) {
 					cell.setBreedingSpan(preyBreedingSpan);
@@ -58,7 +62,64 @@ public class PredatorPreyGrid extends Grid<Integer> {
 			}
 		}
 	}
+	/**
+	 * gets the prey breeding span parameter
+	 */
+	public int getPreyBreedingSpan() {
+		return preyBreedingSpan;
+	}
+	/**
+	 * sets the prey breeding span parameter
+	 */
+	public void setPreyBreedingSpan(int preyBreedingSpan) {
+		this.preyBreedingSpan = preyBreedingSpan;
+		for(int i = 0; i < getHeight(); i++) {
+			for(int j = 0; j < getWidth(); j++) {
+				((PredatorPreyCell)getGridMatrix()[i][j]).setLifeSpan(preyBreedingSpan);
+			}
+		}
+	}
+	/**
+	 * gets the predator breeding span parameter
+	 */
+	public int getPredatorBreedingSpan() {
+		return predatorBreedingSpan;
+	}
+	/**
+	 * sets the predator breeding span parameter
+	 */
+	public void setPredatorBreedingSpan(int predatorBreedingSpan) {
+		this.predatorBreedingSpan = predatorBreedingSpan;
+		for(int i = 0; i < getHeight(); i++) {
+			for(int j = 0; j < getWidth(); j++) {
+				((PredatorPreyCell)getGridMatrix()[i][j]).setLifeSpan(predatorBreedingSpan);
+			}
+		}
+	}
+	/**
+	 * gets the predator life span parameter
+	 */
+	public int getPredatorLifeSpan() {
+		return predatorLifeSpan;
+	}
+	/**
+	 * sets the predator life span parameter
+	 */
+	public void setPredatorLifeSpan(int predatorLifeSpan) {
+		this.predatorLifeSpan = predatorLifeSpan;
+		for(int i = 0; i < getHeight(); i++) {
+			for(int j = 0; j < getWidth(); j++) {
+				((PredatorPreyCell)getGridMatrix()[i][j]).setLifeSpan(predatorLifeSpan);
+			}
+		}
+	}
 
-	
+	@Override
+	public Cell<Integer> getEmptyCell() {
+		return new PredatorPreyCell(EMPTY, null, this, shape);
+	}
+
+
+
 
 }

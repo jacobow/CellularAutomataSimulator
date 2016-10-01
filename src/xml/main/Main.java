@@ -12,7 +12,7 @@ import xml.factory.XMLFactoryException;
  * @author Robert Duvall
  */
 public class Main {
-    private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife2.xml";
+    private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
     private static final String XML_SUFFIX = ".xml";
 
     public static void main (String[] args) {
@@ -36,17 +36,10 @@ public class Main {
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
                 SimulationXMLModel model = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
-                if (model.getSimulationName().equals("Game of Life")){
-                    Boolean[][] initialLayout = new Boolean[model.getRows()][model.getColumns()];
-                    for (int i=0; i<model.getRows(); i++){
-                        for (int j=0; j<model.getColumns(); j++){
-                            initialLayout[i][j] = (model.getInitialLayout()[i][j] == 1);
-                        }
-                    }
-                    System.out.println(Arrays.toString(initialLayout[1]));
-                    
+                for (int i=0; i<model.getRows(); i++){
+                    System.out.println(Arrays.toString(model.getInitialLayout()[i]));
                 }
-                
+                System.out.println(model);
             }
             catch (XMLFactoryException e) {
                 System.err.println("Reading file " + f.getPath());

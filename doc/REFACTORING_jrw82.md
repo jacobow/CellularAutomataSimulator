@@ -1,0 +1,3 @@
+I choose to refactor how my cells were retrieving their neighbors.  Originally this was the responsibility of each cell class, so that if you added a new kind of simulation with a new kind of cell you would have to right a new kind of simulation.  To refactor this redundancy I made a new general getNeighbors method in the superclass, and also made an abstract method that would determine what an empty cell for each grid type to implement.  This refactoring makes more sense than my original code, where each getNeighbors method only really differed by how they defined what an empty cell was.
+
+The relevant commit is here https://git.cs.duke.edu/CompSci308_2016Fall/cellsociety_team11/commit/51c4a8765f54d7539701546fa096983c29c76572.

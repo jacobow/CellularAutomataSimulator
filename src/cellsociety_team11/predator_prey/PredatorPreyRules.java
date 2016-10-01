@@ -1,7 +1,6 @@
 package cellsociety_team11.predator_prey;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -37,14 +36,16 @@ public class PredatorPreyRules implements Rule<Integer>{
 		cell.tickDeathTimer();
 		cell.tickBreedingTimer();
 		if(cell.getDeathTimer() <= 0) return EMPTY;
-		HashSet<PredatorPreyCell> neighbors = ((PredatorPreyCell)cell).getNeighbors();
-		for(PredatorPreyCell neighbor : neighbors) {
+		HashSet<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
+		for(Cell<Integer> neighborCell : neighbors) {
+			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
 			if(neighbor.getValue() == PREY && neighbor.getNewValue() == null) {
 				cell.upTickDeathTimer();
 				return swap(cell, neighbor);
 			}
 		}
-		for(PredatorPreyCell n : neighbors) {
+		for(Cell<Integer> nCell : neighbors) {
+			PredatorPreyCell n = (PredatorPreyCell) nCell;
 			if(n.getValue() == EMPTY &&
 			  (n.getNewValue() == null || n.getNewValue() == EMPTY)) {
 				return swap(cell, n);
@@ -78,8 +79,9 @@ public class PredatorPreyRules implements Rule<Integer>{
 	//moves prey and determines if it must die or breed
 	private Integer movePrey(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
 		cell.tickBreedingTimer();
-		HashSet<PredatorPreyCell> neighbors = ((PredatorPreyCell)cell).getNeighbors();
-		for(PredatorPreyCell neighbor : neighbors) {
+		HashSet<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
+		for(Cell<Integer> neighborCell : neighbors) {
+			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
 			if(neighbor.getValue() == EMPTY &&
 			  (neighbor.getNewValue() == null || neighbor.getNewValue() == EMPTY)) {
 				return swap(cell, neighbor);
