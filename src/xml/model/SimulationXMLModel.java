@@ -9,7 +9,6 @@ public class SimulationXMLModel {
     private static final String BLANK_STR = "";
     
     private String mySimulationName;
-    private String myTitle;
     private String myAuthor;
     private String myRows;
     private String myColumns;
@@ -21,39 +20,18 @@ public class SimulationXMLModel {
     private String myPredatorBreedingSpan;
     private String myPredatorLifeSpan;
     private String myProbability;
+    private String myQuantityOfEachCellType;
 
     public SimulationXMLModel (String simulationName) {
         mySimulationName = simulationName;
     }
     
-    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
-                               String isRandomInitialLayout,
-                               String initialLayout) {
-        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, BLANK_STR, 
-             BLANK_STR, BLANK_STR);
-    }
-    
-    public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
-                               String isRandomInitialLayout,
-                               String initialLayout,
-                               String probability) {
-        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability, BLANK_STR, 
-             BLANK_STR, BLANK_STR);
-    }
-    
-    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String shape, String world,
+    public SimulationXMLModel(String simulationName, String author, String rows, String columns, String shape, String world,
                               String isRandomInitialLayout,
-                              String initialLayout, 
-                              String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
-        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
-    }
-    
-    public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String shape, String world,
-                              String isRandomInitialLayout,
-                              String initialLayout, String probability, String preyBreedingSpan, String predatorBreedingSpan, 
+                              String initialLayout, String probability,
+                              String preyBreedingSpan, String predatorBreedingSpan, 
                               String predatorLifeSpan){
         mySimulationName = simulationName;
-        myTitle = title;
         myAuthor = author;
         myRows = rows;
         myColumns = columns;
@@ -65,14 +43,11 @@ public class SimulationXMLModel {
         myPreyBreedingSpan = preyBreedingSpan;
         myPredatorBreedingSpan = predatorBreedingSpan;
         myPredatorLifeSpan = predatorLifeSpan;
+        //myQuantityOfEachCellType = quantityOfEachCellType;
     }
     
     public String getSimulationName () {
         return mySimulationName;
-    }
-
-    public String getTitle () {
-        return myTitle;
     }
     
     public String getAuthor () {
@@ -128,11 +103,15 @@ public class SimulationXMLModel {
         return Float.parseFloat(myProbability);
     }
     
+    public Integer[] getQuantityOfEachCellType () {
+        return null;
+        //for (int i=0; i<myQuantityOfEachCellType.length(); i++)
+    }
+    
     @Override
     public String toString () {
         StringBuilder result = new StringBuilder();
         result.append("{ Name='").append(getSimulationName()).append("', ")
-              .append("Title='").append(getTitle()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
               .append("Columns='").append(getColumns()).append(" , ")

@@ -41,7 +41,6 @@ public class SimulationXMLFactory extends XMLFactory {
             throw new XMLFactoryException(myResources.getString("NotValidFile"), getSimulationType());
         }
         String name = getTextValue(root, myResources.getString("XMLTagName"));
-        String title = getTextValue(root, myResources.getString("XMLTagTitle"));
         String author = getTextValue(root, myResources.getString("XMLTagAuthor"));
         String rows = getTextValue(root, myResources.getString("XMLTagRows"));
         String columns = getTextValue(root, myResources.getString("XMLTagColumns"));
@@ -49,19 +48,14 @@ public class SimulationXMLFactory extends XMLFactory {
         String world = getTextValue(root, myResources.getString("XMLTagWorld"));
         String isRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsRandomInitialLayout"));
         String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
-        if (name.equals(myResources.getString("PredatorPrey"))) {
-        	System.out.println("Pred");
-            String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
-            String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
-            String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
-            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
-                                          preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
-        } if (name.equals(myResources.getString("Segregation")) || name.equals(myResources.getString("SpreadingOfFire"))) {
-            String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
-            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability);
-        } else {
-            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout);
-        }
+        String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
+        String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
+        String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
+        String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
+        //String quantityOfEachCellType = getTextValue(root, myResources.getString("XMLTagQuantityOfEachCellType"));
+        return new SimulationXMLModel(name, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
+                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan  
+                                      );
     }
 
     /**
