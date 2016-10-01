@@ -40,6 +40,7 @@ public class Main {
                     System.out.println(Arrays.toString(model.getInitialLayout()[i]));
                 }
                 System.out.println(model);
+                System.out.println(Arrays.toString(model.getCellTypeQuantities()));
             }
             catch (XMLFactoryException e) {
                 System.err.println("Reading file " + f.getPath());

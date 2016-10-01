@@ -1,12 +1,13 @@
 package xml.model;
 
+import java.util.Arrays;
+
 /**
  * A value object for a simulation.
  *
  * @author Noel Moon
  */
 public class SimulationXMLModel {
-    private static final String BLANK_STR = "";
     
     private String mySimulationName;
     private String myAuthor;
@@ -20,7 +21,7 @@ public class SimulationXMLModel {
     private String myPredatorBreedingSpan;
     private String myPredatorLifeSpan;
     private String myProbability;
-    private String myQuantityOfEachCellType;
+    private String myCellTypeQuantities;
 
     public SimulationXMLModel (String simulationName) {
         mySimulationName = simulationName;
@@ -30,7 +31,7 @@ public class SimulationXMLModel {
                               String isRandomInitialLayout,
                               String initialLayout, String probability,
                               String preyBreedingSpan, String predatorBreedingSpan, 
-                              String predatorLifeSpan){
+                              String predatorLifeSpan, String cellTypeQuantities){
         mySimulationName = simulationName;
         myAuthor = author;
         myRows = rows;
@@ -43,7 +44,7 @@ public class SimulationXMLModel {
         myPreyBreedingSpan = preyBreedingSpan;
         myPredatorBreedingSpan = predatorBreedingSpan;
         myPredatorLifeSpan = predatorLifeSpan;
-        //myQuantityOfEachCellType = quantityOfEachCellType;
+        myCellTypeQuantities = cellTypeQuantities;
     }
     
     public String getSimulationName () {
@@ -103,9 +104,20 @@ public class SimulationXMLModel {
         return Float.parseFloat(myProbability);
     }
     
-    public Integer[] getQuantityOfEachCellType () {
-        return null;
-        //for (int i=0; i<myQuantityOfEachCellType.length(); i++)
+    public Integer[] getCellTypeQuantities () {
+        int numCellTypes = 1;
+        for (int i=0; i<myCellTypeQuantities.length(); i++) {
+            if (myCellTypeQuantities.charAt(i) == '/') {
+                numCellTypes++;
+            }
+        }
+        Integer[] result = new Integer[numCellTypes];
+        int index = 0;
+        for (int i=0; i<numCellTypes; i++) {
+            result[i] = Integer.parseInt(myCellTypeQuantities.substring(index, index+2));
+            index = index + 4;
+        }
+        return result;
     }
     
     @Override
@@ -116,7 +128,7 @@ public class SimulationXMLModel {
               .append("Rows='").append(getRows()).append("', ")
               .append("Columns='").append(getColumns()).append(" , ")
               .append("Shape= ").append(getShape()).append(" , ")
-              .append("World= ").append(getWorld())
+              .append("World= ").append(getWorld()).append(" , ")
               .append('}');
        return result.toString();
     }
