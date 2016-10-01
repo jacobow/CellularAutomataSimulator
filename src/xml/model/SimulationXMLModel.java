@@ -85,11 +85,11 @@ public class SimulationXMLModel {
         return Integer.parseInt(myColumns);
     }
     
-    public String getMyShape () {
+    public String getShape () {
         return myShape;
     }
 
-    public String getMyWorld () {
+    public String getWorld () {
         return myWorld;
     }
     
