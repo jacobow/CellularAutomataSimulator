@@ -7,6 +7,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
+import cellsociety_team11.SimulationInstantiationException;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -26,7 +27,7 @@ public class DisplayGrid<T> extends GridPane{
 	private String simulationType;
 	
 
-	public DisplayGrid(Grid<T> grid, String simulationType) {
+	public DisplayGrid(Grid<T> grid, String simulationType) throws SimulationInstantiationException{
 		this.simulationType = simulationType;
 		this.grid = grid;
 		initDisplayGrid();
@@ -37,27 +38,26 @@ public class DisplayGrid<T> extends GridPane{
 			for (int j = 0; j < this.grid.getWidth(); j++){
 				Coordinates currentCoords = new Coordinates(i, j);
 				Cell<T> currentCell = this.grid.getCell(currentCoords);
-				this.add(getDisplayCellInstance(currentCell.getValue(), currentCoords), j, i);
+				try{
+					this.add(getDisplayCellInstance(currentCell.getValue(), currentCoords, ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + DISPLAY_GRID_RESOURCES)), j, i);
+				}
+				catch(SimulationInstantiationException e){
+					throw e;
+				}
 			}
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates){
-		//TODO: Extract Resource Bundle
-		ResourceBundle resourceBundle = ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + DISPLAY_GRID_RESOURCES);
-		
-		DisplayCell<T> displayCell;
+	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates, ResourceBundle resourceBundle) throws SimulationInstantiationException{
 		try{
 			Class<?> simulationClass = Class.forName(resourceBundle.getString(this.simulationType));
-			Constructor<?> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
-			displayCell = (DisplayCell<T>) myConstructor.newInstance(new Object[] {cellValue, coordinates});
+			Constructor<?> myConstructor = simulationClass.getConstructors()[0];
+			return (DisplayCell<T>) myConstructor.newInstance(new Object[] {cellValue, coordinates});
 		}
 		catch(Exception e){
-			System.out.println("Couldn't Get DisplayCell Instance");
-			return null;
+			throw new SimulationInstantiationException(e.getMessage(), e);
 		}
-		return displayCell;
 	}
 	
 	private void initDisplayGrid(){

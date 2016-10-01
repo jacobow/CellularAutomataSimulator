@@ -5,7 +5,10 @@ import java.util.ResourceBundle;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Grid;
 import cellsociety_team11.MainController;
+import cellsociety_team11.SimulationInstantiationException;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 
 
@@ -35,10 +38,25 @@ public class MainWindow{
 	public <T> void setGrid(Grid<T> grid, String simulationType){
 		this.displayGrid = null;
 		if (grid!=null){
-			this.displayGrid = new DisplayGrid<T>(grid, simulationType);
-			this.root.setCenter(this.displayGrid);
+			try{
+				this.displayGrid = new DisplayGrid<T>(grid, simulationType);
+				this.root.setCenter(this.displayGrid);
+			}
+			catch(SimulationInstantiationException s){
+				System.out.print("Caught SimException");
+				Alert errorAlert = createAlert(AlertType.ERROR, "SimulationExceptionTitle", "SimulationExceptionHeader", "SimulationExceptionContent");
+				errorAlert.showAndWait();
+			}
 		}
 		
+	}
+	
+	private Alert createAlert(AlertType alertType, String titleKey, String headerKey, String contentKey){
+		Alert alert = new Alert(alertType);
+		alert.setTitle(this.resourceBundle.getString(titleKey));
+		alert.setHeaderText(this.resourceBundle.getString(headerKey));
+		alert.setContentText(this.resourceBundle.getString(contentKey));
+		return alert;
 	}
 	
 	private ResourceBundle initResourceBundle(String language){
