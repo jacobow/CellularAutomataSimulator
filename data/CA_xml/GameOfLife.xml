@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
-    <name>Game of Life</name>
+    <name>GAMEOFLIFE</name>
     <title>Game of Life 2</title>
     <author>Noel</author>
     <rows>10</rows>

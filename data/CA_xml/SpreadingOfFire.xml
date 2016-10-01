@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
-    <name>Spreading of Fire</name>
+    <name>SPREADING_OF_FIRE</name>
     <title>Spreading of Fire 1</title>
     <author>Noel</author>
     <rows>3</rows>

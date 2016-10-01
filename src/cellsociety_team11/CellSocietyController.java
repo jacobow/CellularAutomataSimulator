@@ -1,13 +1,12 @@
 package cellsociety_team11;
 
 import java.io.File;
-import cellsociety_team11.game_of_life.GameOfLifeGrid;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ResourceBundle;
+
 import cellsociety_team11.gui.MainBorderPane;
 import cellsociety_team11.gui.MainWindow;
-import cellsociety_team11.gui.SimulationType;
-import cellsociety_team11.predator_prey.PredatorPreyGrid;
-import cellsociety_team11.segregation.SegregationGrid;
-import cellsociety_team11.spreading_of_fire.SpreadingOfFireGrid;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -23,13 +22,14 @@ public class CellSocietyController implements MainController{
 
 	private static final double INIT_FRAMES_PER_SECOND = 2;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
+	private static final String GRID_RESOURCES = "GridClasses";
 	
 
 	private MainWindow mainWindow;
 	private Grid<?> grid;
 	private Timeline timeline;
 	private double simulationSpeed;
-	private SimulationType simulationType;
+	private String simulationType;
 	private boolean isPlaying;
 	private SimulationXMLModel simulation;
 
@@ -79,7 +79,7 @@ public class CellSocietyController implements MainController{
 	public void uploadedXMLFileHandler(File xmlFile) {
 		this.stopSimulation();
 		readFileData(xmlFile.getAbsolutePath());
-		setSimulationGrid(this.simulation.getSimulationName());
+		setSimulationGrid();
 		this.timeline = initSimulation();
 		this.mainWindow.setGrid(this.grid, this.simulationType);
 	}
@@ -106,38 +106,40 @@ public class CellSocietyController implements MainController{
 	    }
 	}
 	
-	private void setSimulationGrid(String simulationTypeStr) {
-	    if (simulationTypeStr.equals("Game of Life")) {
-	    	this.simulationType = SimulationType.GAMEOFLIFE;
-	    	this.grid = new GameOfLifeGrid(intToBool(this.simulation.getInitialLayout()));
-	    }
-	    if (simulationTypeStr.equals("Segregation")) {
-	    	this.simulationType = SimulationType.SEGREGATION;
-	    	this.grid = new SegregationGrid(this.simulation.getInitialLayout(), this.simulation.getProbability());
-	    }
-	    if (simulationTypeStr.equals("Spreading of Fire")) {
-	    	this.simulationType = SimulationType.SPREADING_OF_FIRE;
-	    	this.grid = new SpreadingOfFireGrid(this.simulation.getInitialLayout(), this.simulation.getProbability());
-            }
-	    if (simulationTypeStr.equals("Predator Prey")) {
-	    	this.simulationType = SimulationType.PREDATOR_PREY;
-	    	this.grid = new PredatorPreyGrid(this.simulation.getInitialLayout(), this.simulation.getPredatorLifeSpan(), 
-	    			this.simulation.getPreyBreedingSpan(), this.simulation.getPredatorBreedingSpan());
-	    }
+	private void setSimulationGrid() {
+		try{
+			this.grid = getGridInstance(this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
+		}
+		catch(SimulationInstantiationException e){
+			//e.printStackTrace();
+			e.getCause().printStackTrace();
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+			System.out.println(e.getStackTrace().toString());
+		}
 	}
 	
-	private Boolean[][] intToBool(Integer[][] array) {
-	    int rows = array.length;
-	    int columns = array[0].length;
-	    Boolean[][] result = new Boolean[rows][columns];
-            for (int i=0; i<rows; i++){
-                for (int j=0; j<columns; j++){
-                    result[i][j] = (array[i][j] == 1);
-                }
-            }
-            return result;
+	@SuppressWarnings("unchecked")
+	private <T> Grid<?> getGridInstance(T[][] valueGrid, String simulationName, ResourceBundle resourceBundle) throws SimulationInstantiationException{
+		try{
+			Class<?> simulationClass = Class.forName(resourceBundle.getString(simulationName));
+			Constructor<?> myConstructor = simulationClass.getConstructors()[0];
+			return (Grid<T>) myConstructor.newInstance(new Object[] {valueGrid, this.simulation});
+		}
+		catch(ClassNotFoundException e){
+			//throw new SimulationInstantiationException(e.getMessage(), e);
+			System.out.println("Class Not Found");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(InvocationTargetException e ){
+			System.out.println("Invoke Failed");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
+		catch(Exception e ){
+			System.out.println("Other");
+			throw new SimulationInstantiationException(e.getMessage(), e);
+		}
 	}
-
 	
 	private Timeline initSimulation(){
 		Timeline simulationTimeline = new Timeline();
