@@ -44,17 +44,21 @@ public class SimulationXMLFactory extends XMLFactory {
         String author = getTextValue(root, myResources.getString("XMLTagAuthor"));
         String rows = getTextValue(root, myResources.getString("XMLTagRows"));
         String columns = getTextValue(root, myResources.getString("XMLTagColumns"));
+        String shape = getTextValue(root, myResources.getString("XMLTagShape"));
+        String world = getTextValue(root, myResources.getString("XMLTagWorld"));
+        String isRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsRandomInitialLayout"));
         String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
         if (name.equals(myResources.getString("PredatorPrey"))) {
             String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
             String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
             String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
-            return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
+            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
+                                          preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
         } if (name.equals(myResources.getString("Segregation")) || name.equals(myResources.getString("SpreadingOfFire"))) {
             String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
-            return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, probability);
+            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability);
         } else {
-            return new SimulationXMLModel(name, title, author, rows, columns, initialLayout);
+            return new SimulationXMLModel(name, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout);
         }
     }
 
