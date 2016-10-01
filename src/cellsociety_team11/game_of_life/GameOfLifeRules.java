@@ -15,8 +15,8 @@ public class GameOfLifeRules implements Rule<Boolean>{
 	@Override
 	public Boolean calculateNewValue(Cell<Boolean> c, Boolean currentValue, Grid<Boolean> grid, Coordinates coordinates) {
 		int lifeCount = 0;
-		for(GameOfLifeCell cell : ((GameOfLifeCell)c).getNeighbors()) {
-			if(cell.getValue()) lifeCount++;
+		for(Cell<Boolean> neighbor : ((GameOfLifeCell)c).getNeighbors()) {
+			if(neighbor.getValue()) lifeCount++;
 		}
 		if(currentValue && lifeCount > 1 && lifeCount < 4) {
 			return true;

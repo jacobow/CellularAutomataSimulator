@@ -32,9 +32,11 @@ public class SegregationRules implements Rule<Integer>{
 		if(value == EMPTY) return EMPTY;
 		double valueProportion = 0;
 		double neighborSize = ((SegregationCell)cell).getNeighbors().size();
-		for(SegregationCell agent : ((SegregationCell)cell).getNeighbors()) {
+		for(Cell<Integer> neighbor : ((SegregationCell)cell).getNeighbors()) {
+			SegregationCell agent = (SegregationCell) neighbor;
 			if(agent.getValue() == value) valueProportion += 1/neighborSize;
 		}
+		System.out.println(valueProportion);
 		if(valueProportion < threshold) {
 			if(fillRandomEmptyCell(value, grid)) return EMPTY;
 		}
@@ -58,6 +60,12 @@ public class SegregationRules implements Rule<Integer>{
 			return true;
 		}
 		return false;
+	}
+	public double getThreshold() {
+		return threshold;
+	}
+	public void setThreshold(double threshold) {
+		this.threshold = threshold;
 	}
 
 }

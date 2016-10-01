@@ -27,7 +27,7 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		Random r = new Random();
 		if(value == BURNING) return EMPTY;
-		for(SpreadingOfFireCell land : ((SpreadingOfFireCell)cell).getNeighbors()) {
+		for(Cell<Integer> land : ((SpreadingOfFireCell)cell).getNeighbors()) {
 			if(value == TREE &&
 			   land.getValue() == BURNING &&
 			   r.nextDouble() < probCatch) {
@@ -35,6 +35,14 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 			}
 		}
 		return value;
+	}
+
+	public double getProbCatch() {
+		return probCatch;
+	}
+
+	public void setProbCatch(double probCatch) {
+		this.probCatch = probCatch;
 	}
 
 }

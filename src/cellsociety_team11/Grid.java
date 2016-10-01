@@ -1,8 +1,9 @@
 package cellsociety_team11;
 public abstract class Grid<T> {
-	protected Cell<T> [][] gridMatrix;
-	protected int height;
-	protected int width;
+	private Cell<T> [][] gridMatrix;
+	private int height;
+	private int width;
+	private String world;
 	private Rule<T> rule;
 	/**
 	 * creates a new grid
@@ -12,15 +13,16 @@ public abstract class Grid<T> {
 	 * 				the rules which the cells will follow
 	 */
 	@SuppressWarnings("unchecked")
-	public Grid(T[][] valueGrid, Rule<T> rule) {
+	public Grid(T[][] valueGrid, Rule<T> rule, String shape, String world) {
 		this.rule = rule;
 		height = valueGrid.length;
 		width = valueGrid[0].length;
 		this.rule = rule;
+		this.setWorld(world);
 		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j));
+				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), shape);
 			}
 		}
 	}
@@ -58,7 +60,33 @@ public abstract class Grid<T> {
 	 * @return
 	 * 		Cell at given coordinates
 	 */
-	public abstract Cell<T> createNewCell(T value, Coordinates coordinates);
+	public abstract Cell<T> createNewCell(T value, Coordinates coordinates, String shape);
+	/**
+	 * gets a cell at the edge
+	 */
+	public Cell<T> getEdgeCell(Coordinates coordinates) {
+		switch(world) {
+			case "finite":
+				return getEmptyCell();
+			case "toroidal":
+				return getToroidalCell(coordinates);
+			default:
+				return null;
+		}
+
+	}
+
+	public abstract Cell<T> getEmptyCell();
+
+	private Cell<T> getToroidalCell(Coordinates coordinates) {
+		int i = coordinates.getI();
+		int j = coordinates.getJ();
+		if(i < 0) i = height + i;
+		if(i >= height) i = i - height;
+		if(j < 0) j = width + j;
+		if(j >= width) j = j - width;
+		return getCell(new Coordinates(i, j));
+	}
 	/**
 	 * gets the rules
 	 */
@@ -88,5 +116,11 @@ public abstract class Grid<T> {
 	 */
 	public int getWidth() {
 		return width;
+	}
+	public String getWorld() {
+		return world;
+	}
+	public void setWorld(String world) {
+		this.world = world;
 	}
 }

@@ -41,11 +41,11 @@ public class CellSocietyController implements MainController{
 
 	private static final double INIT_FRAMES_PER_SECOND = 4;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
-	
-	
+
+
 	private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
 	private static final String XML_SUFFIX = ".xml";
-	
+
 	private MainWindow mainWindow;
 	private Grid<?> grid;
 	private Timeline timeline;
@@ -63,7 +63,7 @@ public class CellSocietyController implements MainController{
 		this.mainWindow.setGrid(grid, this.simulationType);
 
 	}
-	
+
 	private void readFileData(){
 	    XMLParser parser = new XMLParser();
 	    SimulationXMLFactory factory = new SimulationXMLFactory("Simulation");
@@ -78,7 +78,7 @@ public class CellSocietyController implements MainController{
 	        }
 	    }
 	}
-	
+
 	private void setSimulationGrid(String simulationTypeStr) {
 	    if (simulationTypeStr.equals("Game of Life")) {
 	        simulationType = SimulationType.GAMEOFLIFE;
@@ -94,11 +94,11 @@ public class CellSocietyController implements MainController{
             }
 	    if (simulationTypeStr.equals("Predator Prey")) {
 	        simulationType = SimulationType.PREDATOR_PREY;
-	        grid = new PredatorPreyGrid(simulation.getInitialLayout(), simulation.getPredatorLifeSpan(), 
+	        grid = new PredatorPreyGrid(simulation.getInitialLayout(), simulation.getPredatorLifeSpan(),
 	                                    simulation.getPreyBreedingSpan(), simulation.getPredatorBreedingSpan());
 	    }
 	}
-	
+
 	private Boolean[][] intToBool(Integer[][] array) {
 	    int rows = array.length;
 	    int columns = array[0].length;
