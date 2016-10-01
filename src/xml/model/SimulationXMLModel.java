@@ -3,9 +3,11 @@ package xml.model;
 /**
  * A value object for a simulation.
  *
- * Noel Moon
+ * @author Noel Moon
  */
 public class SimulationXMLModel {
+    private static final String BLANK_STR = "";
+    
     private String mySimulationName;
     private String myTitle;
     private String myAuthor;
@@ -18,21 +20,21 @@ public class SimulationXMLModel {
     private String myProbability;
 
     public SimulationXMLModel (String simulationName) {
-        this(simulationName, "", "", "", "", "", "", "", "", "");
+        this(simulationName, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout) {
-        this(simulationName, title, author, rows, columns, initialLayout, "", "", "", "");
+        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String initialLayout,
                                String probability) {
-        this(simulationName, title, author, rows, columns, initialLayout, probability, "", "", "");
+        this(simulationName, title, author, rows, columns, initialLayout, probability, BLANK_STR, BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 
                               String preyBreedingSpan, String predatorBreedingSpan, String predatorLifeSpan){
-        this(simulationName, title, author, rows, columns, initialLayout, "", preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
+        this(simulationName, title, author, rows, columns, initialLayout, BLANK_STR, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
     }
     
     public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String initialLayout, 

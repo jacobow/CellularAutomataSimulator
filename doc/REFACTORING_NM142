@@ -1,0 +1,11 @@
+Design Issue: In the class SimulationXMLModel there was a lot of code in the constructor that duplicated initializing the 
+instance variables for the class. This list of variables: mySimulationName = simulationName; myTitle = title; myAuthor = author; 
+myRows = rows; myColumns = columns; myInitialLayout = initialLayout; myProbability = probability; myPreyBreedingSpan = preyBreedingSpan;
+myPredatorBreedingSpan = predatorBreedingSpan; myPredatorLifeSpan = predatorLifeSpan; were being repeated with small variations for each different 
+constructor of the class. I refactored it by using the "this" declaration for constructors.
+
+Why new version is better: This new version of the code was better because it made the code for the class a lot more readable, and it makes it
+a lot simpler to add new constructors. In the old version, if I wanted to make a new constructor, I would have to make lines of code for initializing
+each instance variable for every constructor.
+
+Link to my commit: 

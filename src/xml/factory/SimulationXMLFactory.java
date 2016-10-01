@@ -3,6 +3,7 @@ package xml.factory;
 import xml.model.SimulationXMLModel;
 import org.w3c.dom.Element;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 /**
@@ -11,24 +12,16 @@ import java.util.Objects;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    private static final String XML_TAG_NAME = "name";
-    private static final String XML_TAG_TITLE = "title";
-    private static final String XML_TAG_AUTHOR = "author";
-    private static final String XML_TAG_ROWS = "rows";
-    private static final String XML_TAG_COLUMNS = "columns";
-    private static final String XML_TAG_INITIAL_LAYOUT = "initialLayout";
-    private static final String XML_TAG_PREY_BREEDING_SPAN = "preyBreedingSpan";
-    private static final String XML_TAG_PREDATOR_BREEDING_SPAN = "predatorBreedingSpan";
-    private static final String XML_TAG_PREDATOR_LIFE_SPAN = "predatorLifeSpan";
-    private static final String XML_TAG_PROBABILITY = "probability";
+    private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
     
+    private ResourceBundle myResources;
     private String myXMLType;
-    
 
     /**
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
+        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_LOCATION);
         myXMLType = XMLType;
     }
 
@@ -44,21 +37,21 @@ public class SimulationXMLFactory extends XMLFactory {
      */
     public SimulationXMLModel getSimulation (Element root) throws XMLFactoryException{
         if (! isValidFile(root)) {
-            throw new XMLFactoryException("XML file does not represent a %s", getSimulationType());
+            throw new XMLFactoryException(myResources.getString("NotValidFile"), getSimulationType());
         }
-        String name = getTextValue(root, XML_TAG_NAME);
-        String title = getTextValue(root, XML_TAG_TITLE);
-        String author = getTextValue(root, XML_TAG_AUTHOR);
-        String rows = getTextValue(root, XML_TAG_ROWS);
-        String columns = getTextValue(root, XML_TAG_COLUMNS);
-        String initialLayout = getTextValue(root, XML_TAG_INITIAL_LAYOUT);
-        if (name.equals("Predator Prey")) {
-            String preyBreedingSpan = getTextValue(root, XML_TAG_PREY_BREEDING_SPAN);
-            String predatorBreedingSpan = getTextValue(root, XML_TAG_PREDATOR_BREEDING_SPAN);
-            String predatorLifeSpan = getTextValue(root, XML_TAG_PREDATOR_LIFE_SPAN);
+        String name = getTextValue(root, myResources.getString("XMLTagName"));
+        String title = getTextValue(root, myResources.getString("XMLTagTitle"));
+        String author = getTextValue(root, myResources.getString("XMLTagAuthor"));
+        String rows = getTextValue(root, myResources.getString("XMLTagRows"));
+        String columns = getTextValue(root, myResources.getString("XMLTagColumns"));
+        String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
+        if (name.equals(myResources.getString("PredatorPrey"))) {
+            String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
+            String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
+            String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
             return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan);
-        } if (name.equals("Segregation") || name.equals("Spreading of Fire")) {
-            String probability = getTextValue(root, XML_TAG_PROBABILITY);
+        } if (name.equals(myResources.getString("Segregation")) || name.equals(myResources.getString("SpreadingOfFire"))) {
+            String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
             return new SimulationXMLModel(name, title, author, rows, columns, initialLayout, probability);
         } else {
             return new SimulationXMLModel(name, title, author, rows, columns, initialLayout);
@@ -70,6 +63,6 @@ public class SimulationXMLFactory extends XMLFactory {
      */
     @Override
     protected boolean isValidFile (Element root) {
-        return Objects.equals(getAttribute(root, "XMLType"), getSimulationType());
+        return Objects.equals(getAttribute(root, myResources.getString("XMLTagXMLType")), getSimulationType());
     }
 }
