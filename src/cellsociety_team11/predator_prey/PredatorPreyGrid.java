@@ -8,7 +8,7 @@ import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
 
-	
+
 
 	public static final int EMPTY = 0;
 	public static final int PREDATOR = 1;
@@ -21,9 +21,12 @@ public class PredatorPreyGrid extends Grid<Integer> {
 
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		// TODO Auto-generated constructor stub
+		preyBreedingSpan = simulation.getPreyBreedingSpan();
+		predatorBreedingSpan = simulation.getPredatorBreedingSpan();
+		predatorLifeSpan = simulation.getPredatorLifeSpan();
+		shape = simulation.getShape();
 	}
-	
+
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
 		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
@@ -117,6 +120,6 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	}
 
 
-	
+
 
 }

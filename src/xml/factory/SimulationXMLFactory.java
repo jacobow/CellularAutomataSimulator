@@ -12,8 +12,8 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
-    private static final String BLANK_STR = "";
+    //private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
+    private static final String GRID_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
     private String myXMLType;
@@ -22,7 +22,7 @@ public class SimulationXMLFactory extends XMLFactory {
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_FILE_LOCATION);
+        myResources = ResourceBundle.getBundle(GRID_RESOURCES);
         myXMLType = XMLType;
     }
 

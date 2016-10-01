@@ -23,13 +23,13 @@ public abstract class Grid<T> {
 		this.gridMatrix = new Cell[height][width];
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), shape);
+				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), simulation.getShape());
 			}
 		}
 	}
-	
+
 	/*
-	 * 
+	 *
 	 * Subclass has to take simulation and instantiate Rule
 	 */
 	protected abstract Rule<T> createRule(SimulationXMLModel simulation);
