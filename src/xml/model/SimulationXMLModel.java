@@ -57,6 +57,8 @@ public class SimulationXMLModel {
         myAuthor = author;
         myRows = rows;
         myColumns = columns;
+        myShape = shape;
+        myWorld = world; 
         this.isRandomInitialLayout = isRandomInitialLayout;
         myInitialLayout = initialLayout;
         myProbability = probability;
@@ -133,7 +135,9 @@ public class SimulationXMLModel {
               .append("Title='").append(getTitle()).append("', ")
               .append("Author='").append(getAuthor()).append("', ")
               .append("Rows='").append(getRows()).append("', ")
-              .append("Columns='").append(getColumns())
+              .append("Columns='").append(getColumns()).append(" , ")
+              .append("Shape= ").append(getShape()).append(" , ")
+              .append("World= ").append(getWorld())
               .append('}');
        return result.toString();
     }
