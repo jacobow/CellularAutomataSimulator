@@ -32,7 +32,7 @@ public class MainWindow{
 		initScene();
 	}
 	
-	public <T> void setGrid(Grid<T> grid, SimulationType simulationType){
+	public <T> void setGrid(Grid<T> grid, String simulationType){
 		this.displayGrid = null;
 		if (grid!=null){
 			this.displayGrid = new DisplayGrid<T>(grid, simulationType);

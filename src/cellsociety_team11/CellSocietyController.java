@@ -4,7 +4,6 @@ import java.io.File;
 import cellsociety_team11.game_of_life.GameOfLifeGrid;
 import cellsociety_team11.gui.MainBorderPane;
 import cellsociety_team11.gui.MainWindow;
-import cellsociety_team11.gui.SimulationType;
 import cellsociety_team11.predator_prey.PredatorPreyGrid;
 import cellsociety_team11.segregation.SegregationGrid;
 import cellsociety_team11.spreading_of_fire.SpreadingOfFireGrid;
@@ -29,7 +28,7 @@ public class CellSocietyController implements MainController{
 	private Grid<?> grid;
 	private Timeline timeline;
 	private double simulationSpeed;
-	private SimulationType simulationType;
+	private String simulationType;
 	private boolean isPlaying;
 	private SimulationXMLModel simulation;
 
@@ -108,19 +107,19 @@ public class CellSocietyController implements MainController{
 	
 	private void setSimulationGrid(String simulationTypeStr) {
 	    if (simulationTypeStr.equals("Game of Life")) {
-	    	this.simulationType = SimulationType.GAMEOFLIFE;
+	    	this.simulationType = "GAMEOFLIFE";
 	    	this.grid = new GameOfLifeGrid(intToBool(this.simulation.getInitialLayout()));
 	    }
 	    if (simulationTypeStr.equals("Segregation")) {
-	    	this.simulationType = SimulationType.SEGREGATION;
+	    	this.simulationType = "SEGREGATION";
 	    	this.grid = new SegregationGrid(this.simulation.getInitialLayout(), this.simulation.getProbability());
 	    }
 	    if (simulationTypeStr.equals("Spreading of Fire")) {
-	    	this.simulationType = SimulationType.SPREADING_OF_FIRE;
+	    	this.simulationType = "SPREADING_OF_FIRE";
 	    	this.grid = new SpreadingOfFireGrid(this.simulation.getInitialLayout(), this.simulation.getProbability());
             }
 	    if (simulationTypeStr.equals("Predator Prey")) {
-	    	this.simulationType = SimulationType.PREDATOR_PREY;
+	    	this.simulationType = "PREDATOR_PREY";
 	    	this.grid = new PredatorPreyGrid(this.simulation.getInitialLayout(), this.simulation.getPredatorLifeSpan(), 
 	    			this.simulation.getPreyBreedingSpan(), this.simulation.getPredatorBreedingSpan());
 	    }

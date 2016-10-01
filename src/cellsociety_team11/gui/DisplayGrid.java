@@ -1,6 +1,7 @@
 package cellsociety_team11.gui;
 
 import java.lang.reflect.Constructor;
+import java.util.ResourceBundle;
 
 import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
@@ -19,12 +20,13 @@ import javafx.scene.layout.RowConstraints;
  * Ulimately will make this more "efficient" once we have the new CA to implement.
  */
 public class DisplayGrid<T> extends GridPane{
+	public static final String DISPLAY_GRID_RESOURCES = "DisplayGridClasses";
 	private static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
 	private Grid<T> grid;
-	private SimulationType simulationType;
+	private String simulationType;
 	
 
-	public DisplayGrid(Grid<T> grid, SimulationType simulationType) {
+	public DisplayGrid(Grid<T> grid, String simulationType) {
 		this.simulationType = simulationType;
 		this.grid = grid;
 		initDisplayGrid();
@@ -42,14 +44,17 @@ public class DisplayGrid<T> extends GridPane{
 	
 	@SuppressWarnings("unchecked")
 	private DisplayCell<T> getDisplayCellInstance(T cellValue, Coordinates coordinates){
-		Class <? extends DisplayCell<?>> simulationClass = this.simulationType.getDisplayCellClass();
-		Constructor<? extends DisplayCell<?>> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
-		DisplayCell<T> displayCell = null;
+		//TODO: Extract Resource Bundle
+		ResourceBundle resourceBundle = ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + DISPLAY_GRID_RESOURCES);
+		
+		DisplayCell<T> displayCell;
 		try{
+			Class<?> simulationClass = Class.forName(resourceBundle.getString(this.simulationType));
+			Constructor<?> myConstructor = (Constructor<? extends DisplayCell<?>>) simulationClass.getConstructors()[0];
 			displayCell = (DisplayCell<T>) myConstructor.newInstance(new Object[] {cellValue, coordinates});
 		}
 		catch(Exception e){
-			System.err.println("Couldn't Get DisplayCell Instance");
+			System.out.println("Couldn't Get DisplayCell Instance");
 			return null;
 		}
 		return displayCell;
