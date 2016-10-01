@@ -29,14 +29,16 @@ public class SimulationXMLModel {
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
                                String isRandomInitialLayout,
                                String initialLayout) {
-        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, BLANK_STR, BLANK_STR, BLANK_STR);
+        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, BLANK_STR, BLANK_STR, 
+             BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel (String simulationName, String title, String author, String rows, String columns, String shape, String world,
                                String isRandomInitialLayout,
                                String initialLayout,
                                String probability) {
-        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability, BLANK_STR, BLANK_STR, BLANK_STR);
+        this(simulationName, title, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, probability, BLANK_STR, 
+             BLANK_STR, BLANK_STR);
     }
     
     public SimulationXMLModel(String simulationName, String title, String author, String rows, String columns, String shape, String world,

@@ -5,6 +5,9 @@
     <author>Noel</author>
     <rows>5</rows>
     <columns>5</columns>
+    <shape>square</shape>
+    <world>finite</world>
+    <isRandomInitialLayout>False</isRandomInitialLayout>
     <initialLayout>10010/10111/22222/00000/11111</initialLayout>
     <preyBreedingSpan>3</preyBreedingSpan>
     <predatorBreedingSpan>3</predatorBreedingSpan>
