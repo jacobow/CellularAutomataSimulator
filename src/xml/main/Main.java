@@ -36,8 +36,10 @@ public class Main {
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
                 SimulationXMLModel model = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                for (int i=0; i<model.getRows(); i++){
+                    System.out.println(Arrays.toString(model.getInitialLayout()[i]));
+                }
                 System.out.println(model);
-                
             }
             catch (XMLFactoryException e) {
                 System.err.println("Reading file " + f.getPath());
