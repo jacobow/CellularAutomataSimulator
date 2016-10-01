@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
-    <name>Predator Prey</name>
+    <name>PREDATOR_PREY</name>
     <title>Predator Prey 1</title>
     <author>Noel</author>
     <rows>5</rows>
