@@ -2,6 +2,7 @@ package cellsociety_team11.gui;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Alert;
@@ -14,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToolBar;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -24,14 +26,15 @@ import javafx.scene.layout.HBox;
  */
 public class MainBorderPane extends BorderPane{
 	public static final double SPEED_SLIDER_START = 0.5;
-	
-	private ToolBar toolBar;
-	private ResourceBundle resourceBundle;
-	private MainController mainController;
 	private static final double SPEED_SLIDER_MIN = 0.25;
 	private static final double SPEED_SLIDER_MAX = 1.25;
 	private static final double SPEED_SLIDER_TICK_NUMBER = 4.0;
 	private static final double SPEED_SLIDER_MAJOR_TICK_UNIT = (SPEED_SLIDER_MAX-SPEED_SLIDER_MIN)/(SPEED_SLIDER_TICK_NUMBER-1.0);
+
+	
+	private ToolBar toolBar;
+	private ResourceBundle resourceBundle;
+	private MainController mainController;
 	
 	public MainBorderPane(MainController simulationController, ResourceBundle resourceBundle){
 		this.resourceBundle = resourceBundle;
@@ -42,6 +45,17 @@ public class MainBorderPane extends BorderPane{
 	public void showErrorAlert(){
 		Alert errorAlert = createAlert(AlertType.ERROR, "SimulationExceptionTitle", "SimulationExceptionHeader", "SimulationExceptionContent");
 		errorAlert.showAndWait();
+	}
+	
+	public Boolean chooseDisplay(){
+		Alert displayChooser = createAlert(AlertType.CONFIRMATION, "ChooseDisplayTitle", "ChooseDisplayHeader", "ChooseDisplayContent");
+		ButtonType leftButton = new ButtonType(this.resourceBundle.getString("ChooseDisplayLeftButton"));
+		ButtonType rightButton = new ButtonType(this.resourceBundle.getString("ChooseDisplayRightButton"));
+		displayChooser.getButtonTypes().setAll(leftButton, rightButton ,new ButtonType(this.resourceBundle.getString("ChooseDisplayCancelButton"), ButtonData.CANCEL_CLOSE));
+		
+		Optional<ButtonType> displayChooserResult = displayChooser.showAndWait();
+		
+		return displayChooserResult.isPresent() ? displayChooserResult.get() == leftButton : null;
 	}
 	
 	private void initMainBorderPane(){
@@ -55,20 +69,10 @@ public class MainBorderPane extends BorderPane{
 		toolBar.getItems().add(createButton("StepButton", event -> this.mainController.nextStepSimulation()));
 		toolBar.getItems().add(createButton("StopButton", event -> this.mainController.stopSimulation()));
 		toolBar.getItems().add(createButton("UploadXMLButton", event -> this.updateXMLHandler()));
-		toolBar.getItems().add(createButton("SecondDisplayButton", event -> addDisplayHandler()));
+		//toolBar.getItems().add(createButton("SecondDisplayButton", event -> addDisplayHandler()));
 		toolBar.getItems().add(createSliderAndLabelHBox("SpeedSliderLabel", event -> this.mainController.updateSimulationSpeed(event))); 
 		
 		return toolBar;
-	}
-	
-	private void addDisplayHandler(){
-		Alert displayChooser = createAlert(AlertType.CONFIRMATION, "ChooseDisplayTitle", "ChooseDisplayHeader", "ChooseDisplayContent");
-		//displayChooser.getButtonTypes().add(createButton("ChooseDisplayLeftButton", event -> setDisplay()));
-		//displayChooser.getButtonTypes().add(createButton("ChooseDisplayRightButton", event -> setDisplay()));
-	}
-	
-	private void setDisplay(){
-		
 	}
 	
 	private void updateXMLHandler(){
