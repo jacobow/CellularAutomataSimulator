@@ -9,7 +9,7 @@ import xml.model.SimulationXMLModel;
 
 public class GameOfLifeGrid extends Grid<Boolean>{
 
-	private String shape;
+	private int shape;
 
 	public GameOfLifeGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 	    super(intToBool(valueGrid), simulation);
@@ -30,7 +30,7 @@ public class GameOfLifeGrid extends Grid<Boolean>{
 	}
 
 	@Override
-	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates, String shape) {
+	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates, int shape) {
 		return new GameOfLifeCell(value, coordinates, this, shape);
 	}
 

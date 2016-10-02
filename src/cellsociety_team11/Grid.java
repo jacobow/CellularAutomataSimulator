@@ -75,7 +75,7 @@ public abstract class Grid<T> {
 	 * @return
 	 * 		Cell at given coordinates
 	 */
-	public abstract Cell<T> createNewCell(T value, Coordinates coordinates, String shape);
+	public abstract Cell<T> createNewCell(T value, Coordinates coordinates, int shape);
 	/**
 	 * gets a cell at the edge
 	 */

@@ -12,7 +12,7 @@ public class SlimeMoldGrid extends Grid<Integer> {
 	public static final int EMPTY = 0;
 	public static final int SLIME = 1;
 
-	private String shape;
+	private int shape;
 	private int evaporationFactor;
 
 	public SlimeMoldGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
@@ -32,7 +32,7 @@ public class SlimeMoldGrid extends Grid<Integer> {
 	}
 
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
 		return new SlimeMoldCell(value, coordinates, this, shape, evaporationFactor);
 	}
 

@@ -15,7 +15,7 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 
 	public static final int EMPTY = 0;
 
-	private String shape;
+	private int shape;
 	private double probCatch;
 
 	public SpreadingOfFireGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
@@ -45,7 +45,7 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	 * creates a new cell for grid initialization
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
 		return new SpreadingOfFireCell(value, coordinates, this, shape);
 	}
 
@@ -62,8 +62,5 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 		this.probCatch = probCatch;
 		((SpreadingOfFireRules)this.getRule()).setProbCatch(probCatch);
 	}
-
-
-
 
 }

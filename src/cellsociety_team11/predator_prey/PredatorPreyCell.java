@@ -1,14 +1,11 @@
 package cellsociety_team11.predator_prey;
 
-import java.util.HashSet;
 
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 
 public class PredatorPreyCell extends Cell<Integer> {
-
-	private static final int EMPTY = 0;
 
 	private int breedingTimer;
 	private int breedingSpan;
@@ -18,7 +15,7 @@ public class PredatorPreyCell extends Cell<Integer> {
 	/**
 	 * creates a new predator-prey cell
 	 */
-	public PredatorPreyCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape) {
+	public PredatorPreyCell(Integer value, Coordinates coordinates, Grid<Integer> grid, int shape) {
 		super(value, coordinates, grid, shape);
 	}
 	/**

@@ -18,7 +18,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	private int preyBreedingSpan;
 	private int predatorBreedingSpan;
 	private int predatorLifeSpan;
-	private String shape;
+	private int shape;
 
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
@@ -42,7 +42,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	 * creates a new cell in the grid and initializes its timers if needed
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
 		return new PredatorPreyCell(value, coordinates, this, shape);
 	}
 
