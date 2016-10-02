@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
     <name>SEGREGATION</name>
-    <author>Noel</author>
-    <rows>3</rows>
-    <columns>5</columns>
+    <author>Thomas Schelling</author>
+    <rows>20</rows>
+    <columns>20</columns>
     <shape>square</shape>
     <world>finite</world>
+    <isCompletelyRandom>true</isCompletelyRandom>
     <isRandomInitialLayout>false</isRandomInitialLayout>
+    <cellTypeQuantities>000/000/000</cellTypeQuantities>
     <initialLayout>10010/10111/22222</initialLayout>
     <probability>0.5</probability>
-    <preyBreedingSpan></preyBreedingSpan>
-    <predatorBreedingSpan></predatorBreedingSpan>
-    <predatorLifeSpan></predatorLifeSpan>
-    <cellTypeQuantities></cellTypeQuantities>
 </XMLFile>
