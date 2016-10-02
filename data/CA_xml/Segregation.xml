@@ -7,7 +7,7 @@
     <shape>square</shape>
     <world>finite</world>
     <isCompletelyRandom>true</isCompletelyRandom>
-    <isRandomInitialLayout>false</isRandomInitialLayout>
+    <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
     <cellTypeQuantities>000/000/000</cellTypeQuantities>
     <initialLayout>10010/10111/22222</initialLayout>
     <probability>0.5</probability>

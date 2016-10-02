@@ -46,14 +46,14 @@ public class SimulationXMLFactory extends XMLFactory {
         String shape = getTextValue(root, myResources.getString("XMLTagShape"));
         String world = getTextValue(root, myResources.getString("XMLTagWorld"));
         String isCompletelyRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagCompletelyRandom"));
-        String isRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsRandomInitialLayout"));
+        String isConcentratedRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsConcentratedRandomInitialLayout"));
         String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
         String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
         String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
         String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
         String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
         String cellTypeQuantities = getTextValue(root, myResources.getString("XMLTagCellTypeQuantities"));
-        return new SimulationXMLModel(name, author, rows, columns, shape, world, isCompletelyRandomInitialLayout, isRandomInitialLayout,
+        return new SimulationXMLModel(name, author, rows, columns, shape, world, isCompletelyRandomInitialLayout, isConcentratedRandomInitialLayout,
                                       initialLayout, probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan,  
                                       cellTypeQuantities);
     }
