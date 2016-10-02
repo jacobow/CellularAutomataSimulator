@@ -12,12 +12,12 @@ import xml.factory.XMLFactoryException;
  * @author Robert Duvall
  */
 public class XMLTester {
-    //private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
+    private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/Segregation.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/ForagingAnts.xml";
-    private static final String XML_FILE_LOCATION = "data/CA_xml/SlimeMold.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/SlimeMold.xml";
     
     private static final String XML_SUFFIX = ".xml";
 
