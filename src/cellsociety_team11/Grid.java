@@ -3,11 +3,13 @@ package cellsociety_team11;
 import xml.model.SimulationXMLModel;
 
 public abstract class Grid<T> {
+
 	private Cell<T> [][] gridMatrix;
 	private int height;
 	private int width;
 	private String world;
 	private Rule<T> rule;
+
 	/**
 	 * creates a new grid
 	 * @param valueGrid

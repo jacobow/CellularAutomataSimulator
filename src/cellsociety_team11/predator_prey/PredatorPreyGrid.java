@@ -24,15 +24,12 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		preyBreedingSpan = simulation.getPreyBreedingSpan();
 		predatorBreedingSpan = simulation.getPredatorBreedingSpan();
 		predatorLifeSpan = simulation.getPredatorLifeSpan();
+		setTimers(predatorLifeSpan, preyBreedingSpan, predatorBreedingSpan);
 		shape = simulation.getShape();
 	}
 
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
-		this.preyBreedingSpan = simulation.getPreyBreedingSpan();
-		this.predatorLifeSpan = simulation.getPredatorLifeSpan();
-		setTimers(this.predatorLifeSpan, this.preyBreedingSpan, this.predatorBreedingSpan);
 		return new PredatorPreyRules();
 	}
 
