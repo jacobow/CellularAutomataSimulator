@@ -9,7 +9,7 @@ public abstract class Cell<T> {
 	protected Grid<T> grid;
 	private Rule<T> rule;
 	protected Coordinates coordinates;
-	protected String shape;
+	protected int shape;
 
 	/**
 	 * Cell of a grid
@@ -56,7 +56,7 @@ public abstract class Cell<T> {
 	/**
 	 * gets the shape of the cell
 	 */
-	public String getShape() {
+	public int getShape() {
 		return shape;
 	}
 	/**
@@ -77,11 +77,11 @@ public abstract class Cell<T> {
 	 */
 	public ArrayList<Cell<T>> getNeighbors(){
 		switch (shape) {
-			case "square":
+			case 4:
 				return getSquareNeighbors();
-			case "triangle":
+			case 3:
 				return getTriangleNeighbors();
-			case "hexagon":
+			case 6:
 				return getHexagonNeighbors();
 			default:
 				return null;
