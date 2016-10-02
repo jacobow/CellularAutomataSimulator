@@ -6,10 +6,11 @@
     <columns>5</columns>
     <shape>square</shape>
     <world>finite</world>
-    <isRandomInitialLayout>False</isRandomInitialLayout>
+    <isRandomInitialLayout>true</isRandomInitialLayout>
     <initialLayout>10010/10111/22222/00000/11111</initialLayout>
     <probability></probability>
     <preyBreedingSpan>3</preyBreedingSpan>
     <predatorBreedingSpan>3</predatorBreedingSpan>
     <predatorLifeSpan>3</predatorLifeSpan>
+    <cellTypeQuantities>008/007/010</cellTypeQuantities>
 </XMLFile>

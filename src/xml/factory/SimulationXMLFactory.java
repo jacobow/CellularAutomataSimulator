@@ -12,8 +12,7 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    //private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
-    private static final String GRID_RESOURCES = "resources.XMLResources";
+    private static final String XML_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
     private String myXMLType;
@@ -22,7 +21,7 @@ public class SimulationXMLFactory extends XMLFactory {
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
-        myResources = ResourceBundle.getBundle(GRID_RESOURCES);
+        myResources = ResourceBundle.getBundle(XML_RESOURCES);
         myXMLType = XMLType;
     }
 
@@ -34,7 +33,7 @@ public class SimulationXMLFactory extends XMLFactory {
     }
 
     /**
-     * Get the actual simulation contained in this XML File.
+     * Get the actual simulation contained in the XML File.
      */
     public SimulationXMLModel getSimulation (Element root) throws XMLFactoryException{
         if (! isValidFile(root)) {
@@ -52,10 +51,10 @@ public class SimulationXMLFactory extends XMLFactory {
         String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
         String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
         String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
-        //String quantityOfEachCellType = getTextValue(root, myResources.getString("XMLTagQuantityOfEachCellType"));
+        String cellTypeQuantities = getTextValue(root, myResources.getString("XMLTagCellTypeQuantities"));
         return new SimulationXMLModel(name, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
-                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan  
-                                      );
+                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan,  
+                                      cellTypeQuantities);
     }
 
     /**

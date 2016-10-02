@@ -36,10 +36,14 @@ public class Main {
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
                 SimulationXMLModel model = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                Integer[][] initialLayout = model.getInitialLayout();
                 for (int i=0; i<model.getRows(); i++){
-                    System.out.println(Arrays.toString(model.getInitialLayout()[i]));
+                    System.out.println(Arrays.toString(initialLayout[i]));
                 }
                 System.out.println(model);
+                int randomInt = (int) (Math.random() * 2);
+                //System.out.println(randomInt);
+                //System.out.println(Arrays.toString(model.getCellTypeQuantities()));
             }
             catch (XMLFactoryException e) {
                 System.err.println("Reading file " + f.getPath());

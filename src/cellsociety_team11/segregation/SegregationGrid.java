@@ -4,6 +4,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public class SegregationGrid extends Grid<Integer> {
@@ -15,13 +16,22 @@ public class SegregationGrid extends Grid<Integer> {
 
 	public SegregationGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		shape = simulation.getShape();
-		threshold = simulation.getProbability();
+		try {
+		    shape = simulation.getShape();
+		    threshold = simulation.getProbability();
+		} catch (XMLFactoryException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-		return new SegregationRules(simulation.getProbability());
+	    try {
+	        return new SegregationRules(simulation.getProbability());
+	    } catch (XMLFactoryException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 	/**
 	 * creates a new cell in the grid

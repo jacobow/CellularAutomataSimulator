@@ -4,6 +4,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
@@ -21,11 +22,14 @@ public class PredatorPreyGrid extends Grid<Integer> {
 
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		preyBreedingSpan = simulation.getPreyBreedingSpan();
-		predatorBreedingSpan = simulation.getPredatorBreedingSpan();
-		predatorLifeSpan = simulation.getPredatorLifeSpan();
-		setTimers(predatorLifeSpan, preyBreedingSpan, predatorBreedingSpan);
-		shape = simulation.getShape();
+		try {
+		    preyBreedingSpan = simulation.getPreyBreedingSpan();
+		    predatorBreedingSpan = simulation.getPredatorBreedingSpan();
+		    predatorLifeSpan = simulation.getPredatorLifeSpan();
+		    shape = simulation.getShape();
+		} catch (XMLFactoryException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	@Override

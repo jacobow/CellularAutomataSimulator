@@ -2,14 +2,15 @@
 <XMLFile XMLType="Simulation">
     <name>GAMEOFLIFE</name>
     <author>Noel</author>
-    <rows>10</rows>
-    <columns>5</columns>
+    <rows>5</rows>
+    <columns>10</columns>
     <shape>square</shape>
     <world>finite</world>
-    <isRandomInitialLayout>False</isRandomInitialLayout>
-    <initialLayout>10010/10111/00000/00000/11111/10010/10111/00000/00000/11111</initialLayout>
+    <isRandomInitialLayout>true</isRandomInitialLayout>
+    <initialLayout>1001010111/0000000000/1111110010/1011100000/0000011111</initialLayout>
     <probability></probability>
     <preyBreedingSpan></preyBreedingSpan>
     <predatorBreedingSpan></predatorBreedingSpan>
     <predatorLifeSpan></predatorLifeSpan>
+    <cellTypeQuantities>025/025</cellTypeQuantities>
 </XMLFile>
