@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    private static final String GRID_RESOURCES = "resources.XMLResources";
+    private static final String XML_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
     private String myXMLType;
@@ -21,7 +21,7 @@ public class SimulationXMLFactory extends XMLFactory {
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
-        myResources = ResourceBundle.getBundle(GRID_RESOURCES);
+        myResources = ResourceBundle.getBundle(XML_RESOURCES);
         myXMLType = XMLType;
     }
 
@@ -33,7 +33,7 @@ public class SimulationXMLFactory extends XMLFactory {
     }
 
     /**
-     * Get the actual simulation contained in this XML File.
+     * Get the actual simulation contained in the XML File.
      */
     public SimulationXMLModel getSimulation (Element root) throws XMLFactoryException{
         if (! isValidFile(root)) {
