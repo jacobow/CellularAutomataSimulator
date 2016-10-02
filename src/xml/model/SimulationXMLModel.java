@@ -25,6 +25,7 @@ public class SimulationXMLModel {
     private String myPredatorLifeSpan;
     private String myProbability;
     private String myCellTypeQuantities;
+    private String myEvaporationFactor;
     private ResourceBundle myResources;
 
     public SimulationXMLModel (String simulationName) {
@@ -36,7 +37,7 @@ public class SimulationXMLModel {
                               String isCompletelyRandomInitialLayout, String isConcentratedRandomInitialLayout,
                               String initialLayout, String probability,
                               String preyBreedingSpan, String predatorBreedingSpan, 
-                              String predatorLifeSpan, String cellTypeQuantities){
+                              String predatorLifeSpan, String cellTypeQuantities, String evaporationFactor){
         myResources = ResourceBundle.getBundle(XML_RESOURCES);
         mySimulationName = simulationName;
         myAuthor = author;
@@ -52,6 +53,7 @@ public class SimulationXMLModel {
         myPredatorBreedingSpan = predatorBreedingSpan;
         myPredatorLifeSpan = predatorLifeSpan;
         myCellTypeQuantities = cellTypeQuantities;
+        myEvaporationFactor = evaporationFactor;
     }
     
     public String getSimulationName () throws XMLFactoryException {
@@ -214,6 +216,12 @@ public class SimulationXMLModel {
         return Float.parseFloat(myProbability);
     }
     
+    public int getEvaporationFactor () throws XMLFactoryException {
+        checkForEmptyInput(myEvaporationFactor, myResources.getString("NoEvaporationFactorInput"));
+        checkForInvalidInput(myEvaporationFactor, myResources.getString("InvalidEvaporationFactorInput"));
+        return Integer.parseInt(myEvaporationFactor);
+    }
+    
     @Override
     public String toString () {
         StringBuilder result = new StringBuilder();
@@ -224,7 +232,7 @@ public class SimulationXMLModel {
                   .append("Columns='").append(getColumns()).append(" , ")
                   .append("Shape= ").append(getShape()).append(" , ")
                   .append("World= ").append(getWorld()).append(" , ")
-                  .append("initial layout= ").append(getInitialLayout())
+                  .append("evap factor").append(getEvaporationFactor())
                   .append('}');
         }
         catch (XMLFactoryException e) {

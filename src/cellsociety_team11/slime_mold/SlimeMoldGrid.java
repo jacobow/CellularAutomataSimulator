@@ -4,6 +4,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public class SlimeMoldGrid extends Grid<Integer> {
@@ -16,8 +17,13 @@ public class SlimeMoldGrid extends Grid<Integer> {
 
 	public SlimeMoldGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		shape = simulation.getShape();
-		//evaporationFactor = simulation.getEvaporationFactor();
+		try {
+                    shape = simulation.getShape();
+                    //evaporationFactor = simulation.getEvaporationFactor();
+                }
+                catch (XMLFactoryException e) {
+                    e.printStackTrace();
+                }
 	}
 
 	@Override
