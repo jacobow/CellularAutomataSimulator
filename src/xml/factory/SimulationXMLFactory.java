@@ -12,8 +12,7 @@ import java.util.ResourceBundle;
  * @author Noel Moon
  */
 public class SimulationXMLFactory extends XMLFactory {
-    //private static final String DEFAULT_RESOURCE_FILE_LOCATION = "resources.English";
-    private static final String GRID_RESOURCES = "resources.XMLResources";
+    private static final String XML_RESOURCES = "resources.XMLResources";
     
     private ResourceBundle myResources;
     private String myXMLType;
@@ -22,7 +21,7 @@ public class SimulationXMLFactory extends XMLFactory {
      * Create a factory for making simulation objects.  
      */
     public SimulationXMLFactory (String XMLType) {
-        myResources = ResourceBundle.getBundle(GRID_RESOURCES);
+        myResources = ResourceBundle.getBundle(XML_RESOURCES);
         myXMLType = XMLType;
     }
 
@@ -34,7 +33,7 @@ public class SimulationXMLFactory extends XMLFactory {
     }
 
     /**
-     * Get the actual simulation contained in this XML File.
+     * Get the actual simulation contained in the XML File.
      */
     public SimulationXMLModel getSimulation (Element root) throws XMLFactoryException{
         if (! isValidFile(root)) {
@@ -46,16 +45,18 @@ public class SimulationXMLFactory extends XMLFactory {
         String columns = getTextValue(root, myResources.getString("XMLTagColumns"));
         String shape = getTextValue(root, myResources.getString("XMLTagShape"));
         String world = getTextValue(root, myResources.getString("XMLTagWorld"));
-        String isRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsRandomInitialLayout"));
+        String isCompletelyRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagCompletelyRandom"));
+        String isConcentratedRandomInitialLayout = getTextValue(root, myResources.getString("XMLTagIsConcentratedRandomInitialLayout"));
         String initialLayout = getTextValue(root, myResources.getString("XMLTagInitialLayout"));
         String probability = getTextValue(root, myResources.getString("XMLTagProbability"));
         String preyBreedingSpan = getTextValue(root, myResources.getString("XMLTagPreyBreedingSpan"));
         String predatorBreedingSpan = getTextValue(root, myResources.getString("XMLTagPredatorBreedingSpan"));
         String predatorLifeSpan = getTextValue(root, myResources.getString("XMLTagPredatorLifeSpan"));
-        //String quantityOfEachCellType = getTextValue(root, myResources.getString("XMLTagQuantityOfEachCellType"));
-        return new SimulationXMLModel(name, author, rows, columns, shape, world, isRandomInitialLayout, initialLayout, 
-                                      probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan  
-                                      );
+        String cellTypeQuantities = getTextValue(root, myResources.getString("XMLTagCellTypeQuantities"));
+        String evaporationFactor = getTextValue(root, myResources.getString("XMLTagEvaporationFactor"));
+        return new SimulationXMLModel(name, author, rows, columns, shape, world, isCompletelyRandomInitialLayout, isConcentratedRandomInitialLayout,
+                                      initialLayout, probability, preyBreedingSpan, predatorBreedingSpan, predatorLifeSpan,  
+                                      cellTypeQuantities, evaporationFactor);
     }
 
     /**

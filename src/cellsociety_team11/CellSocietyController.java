@@ -30,6 +30,8 @@ public class CellSocietyController implements MainController{
 	private double simulationSpeed;
 	private boolean isPlaying;
 	private SimulationXMLModel simulation;
+	private String simulationName;
+	private Integer[][] initialLayout;
 
 	public CellSocietyController(String language){
 		this.isPlaying = false;
@@ -50,7 +52,7 @@ public class CellSocietyController implements MainController{
 	public void nextStepSimulation() {
 		if (this.grid!=null){
 			this.grid.nextGrid();
-			this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName());
+			this.mainWindow.setGrid(this.grid, simulationName);
 		}
 	}
 
@@ -75,11 +77,18 @@ public class CellSocietyController implements MainController{
 
 	@Override
 	public void uploadedXMLFileHandler(File xmlFile) {
+	    try {
 		this.stopSimulation();
 		readFileData(xmlFile.getAbsolutePath());
+                simulationName = this.simulation.getSimulationName();
+                initialLayout = this.simulation.getInitialLayout();
 		this.grid = setSimulationGrid();
 		this.timeline = initSimulation();
 		this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName());
+	    }
+	    catch (XMLFactoryException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	/*
@@ -109,7 +118,7 @@ public class CellSocietyController implements MainController{
 	
 	private Grid<?> setSimulationGrid() {
 		try{
-			return getGridInstance(this.simulation, this.simulation.getInitialLayout(), this.simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
+			return getGridInstance(this.simulation, initialLayout, simulationName, ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
 		}
 		catch(SimulationInstantiationException e){
 			e.printStackTrace();

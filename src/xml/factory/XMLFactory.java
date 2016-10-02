@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
  * @author Robert Duvall
  */
 public abstract class XMLFactory {
+    
     /**
      * @return if this is a valid XML file for this specific XML object type
      */
@@ -38,14 +39,11 @@ public abstract class XMLFactory {
      * Why might it not be good design to include this and getAttribute in this class?
      * What happens when I need more transformation methods?
      */
-    protected String getTextValue (Element root, String tagName) {
+    protected String getTextValue (Element root, String tagName) throws XMLFactoryException {
         NodeList nodeList = root.getElementsByTagName(tagName);
         if (nodeList != null && nodeList.getLength() > 0) {
             return nodeList.item(0).getTextContent();
         }
-        else {
-            // BUGBUG: return empty string or null, is it an error to not find the text value?
-            return "";
-        }
+        return "";
     }
 }

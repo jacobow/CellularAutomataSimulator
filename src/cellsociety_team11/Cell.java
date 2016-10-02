@@ -1,6 +1,6 @@
 package cellsociety_team11;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public abstract class Cell<T> {
 
@@ -75,7 +75,7 @@ public abstract class Cell<T> {
 	/**
 	 * gets a cell's neighbors
 	 */
-	public HashSet<Cell<T>> getNeighbors(){
+	public ArrayList<Cell<T>> getNeighbors(){
 		switch (shape) {
 			case "square":
 				return getSquareNeighbors();
@@ -87,10 +87,10 @@ public abstract class Cell<T> {
 				return null;
 		}
 	}
-	private HashSet<Cell<T>> getSquareNeighbors() {
+	private ArrayList<Cell<T>> getSquareNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
-		HashSet<Cell<T>> neighbors = new HashSet<Cell<T>>();
+		ArrayList<Cell<T>> neighbors = new ArrayList<Cell<T>>();
 		for(int y = -1; y <= 1; y++) {
 			for(int x = -1; x <= 1; x++) {
 				if(y == 0 && x == 0) {
@@ -106,12 +106,13 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
-	private HashSet<Cell<T>> getTriangleNeighbors() {
+	private ArrayList<Cell<T>> getTriangleNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
 		int offset = -1;
-		HashSet<Cell<T>> neighbors = getSquareNeighbors();
-		if(i%2 == 0) offset = 1;
+		ArrayList<Cell<T>> neighbors = getSquareNeighbors();
+		if(i%2 == 0 && j%2 == 0) offset = 1;
+		if(i%2 != 0 && j%2 != 0) offset = 1;
 		if(j+2 < grid.getWidth()) {
 			neighbors.add(grid.getCell(new Coordinates(i, j+2)));
 			neighbors.add(grid.getCell(new Coordinates(i + offset, j+2)));
@@ -130,12 +131,24 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
-	private HashSet<Cell<T>> getHexagonNeighbors() {
+	private ArrayList<Cell<T>> getHexagonNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
-		HashSet<Cell<T>> neighbors = getSquareNeighbors();
-		neighbors.remove(grid.getCell(new Coordinates(i - 1, j+1)));
-		neighbors.remove(grid.getCell(new Coordinates(i + 1, j-1)));
+		ArrayList<Cell<T>> neighbors = new ArrayList<Cell<T>>();
+		for(int y = -1; y <= 1; y++) {
+			for(int x = -1; x <= 1; x++) {
+				if((y == 0 && x == 0) || (y == 1 && x == -1) || (y == -1 && x == 1)) {
+					continue;
+				}
+				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
+					neighbors.add(grid.getEdgeCell(new Coordinates(i+y, j+x)));
+				}
+				else {
+					neighbors.add(grid.getCell(new Coordinates(i+y, j+x)));
+				}
+			}
+		}
 		return neighbors;
 	}
+
 }

@@ -1,4 +1,4 @@
-package xml.main;
+package xml.tester;
 import java.io.File;
 import java.util.Arrays;
 import xml.model.SimulationXMLModel;
@@ -11,8 +11,14 @@ import xml.factory.XMLFactoryException;
  * @author Rhondu Smithwick
  * @author Robert Duvall
  */
-public class Main {
-    private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
+public class XMLTester {
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/Segregation.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/ForagingAnts.xml";
+    private static final String XML_FILE_LOCATION = "data/CA_xml/SlimeMold.xml";
+    
     private static final String XML_SUFFIX = ".xml";
 
     public static void main (String[] args) {
@@ -36,10 +42,15 @@ public class Main {
         if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
             try {
                 SimulationXMLModel model = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+                Integer[][] initialLayout = model.getInitialLayout();
                 for (int i=0; i<model.getRows(); i++){
-                    System.out.println(Arrays.toString(model.getInitialLayout()[i]));
+                    System.out.println(Arrays.toString(initialLayout[i]));
                 }
                 System.out.println(model);
+                //System.out.println(model.getPredatorLifeSpan());
+                int randomInt = (int) (Math.random() * 2);
+                //System.out.println(randomInt);
+                //System.out.println(Arrays.toString(model.getCellTypeQuantities()));
             }
             catch (XMLFactoryException e) {
                 System.err.println("Reading file " + f.getPath());

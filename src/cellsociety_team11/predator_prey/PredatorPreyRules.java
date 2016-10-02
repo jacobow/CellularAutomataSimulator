@@ -1,7 +1,6 @@
 package cellsociety_team11.predator_prey;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 import cellsociety_team11.Cell;
@@ -21,7 +20,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 	 */
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
-		int newValue = value;;
+		int newValue = value;
 		if(value == PREY) {
 			newValue = movePrey((PredatorPreyCell) cell, grid, coordinates);
 		}
@@ -36,7 +35,7 @@ public class PredatorPreyRules implements Rule<Integer>{
 		cell.tickDeathTimer();
 		cell.tickBreedingTimer();
 		if(cell.getDeathTimer() <= 0) return EMPTY;
-		HashSet<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
+		ArrayList<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
 		for(Cell<Integer> neighborCell : neighbors) {
 			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
 			if(neighbor.getValue() == PREY && neighbor.getNewValue() == null) {
@@ -47,7 +46,8 @@ public class PredatorPreyRules implements Rule<Integer>{
 		for(Cell<Integer> nCell : neighbors) {
 			PredatorPreyCell n = (PredatorPreyCell) nCell;
 			if(n.getValue() == EMPTY &&
-			  (n.getNewValue() == null || n.getNewValue() == EMPTY)) {
+			  (n.getNewValue() == null || n.getNewValue() == EMPTY) &&
+			  n.getCoordinates() != null) {
 				return swap(cell, n);
 			}
 		}
@@ -79,11 +79,12 @@ public class PredatorPreyRules implements Rule<Integer>{
 	//moves prey and determines if it must die or breed
 	private Integer movePrey(PredatorPreyCell cell, Grid<Integer> grid, Coordinates coordinates) {
 		cell.tickBreedingTimer();
-		HashSet<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
+		ArrayList<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
 		for(Cell<Integer> neighborCell : neighbors) {
 			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
 			if(neighbor.getValue() == EMPTY &&
-			  (neighbor.getNewValue() == null || neighbor.getNewValue() == EMPTY)) {
+			  (neighbor.getNewValue() == null || neighbor.getNewValue() == EMPTY) &&
+			  neighbor.getCoordinates() != null) {
 				return swap(cell, neighbor);
 			}
 		}

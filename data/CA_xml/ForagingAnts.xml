@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <XMLFile XMLType="Simulation">
-    <name>SEGREGATION</name>
-    <author>Thomas Schelling</author>
+    <name>FORAGING_ANTS</name>
+    <author>Liviu A. Panait and Sean Luke</author>
     <rows>20</rows>
     <columns>20</columns>
     <shape>square</shape>
     <world>finite</world>
     <isCompletelyRandom>true</isCompletelyRandom>
     <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
-    <cellTypeQuantities>000/000/000</cellTypeQuantities>
-    <initialLayout>10010/10111/22222</initialLayout>
-    <probability>0.5</probability>
+    <cellTypeQuantities>000/000</cellTypeQuantities>
+    <initialLayout>1001010111/0000000000/1111110010/1011100000/0000011111</initialLayout>
+    <probability></probability>
 </XMLFile>
