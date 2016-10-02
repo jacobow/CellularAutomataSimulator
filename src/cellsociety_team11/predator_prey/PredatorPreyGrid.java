@@ -4,6 +4,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
@@ -21,19 +22,27 @@ public class PredatorPreyGrid extends Grid<Integer> {
 
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		preyBreedingSpan = simulation.getPreyBreedingSpan();
-		predatorBreedingSpan = simulation.getPredatorBreedingSpan();
-		predatorLifeSpan = simulation.getPredatorLifeSpan();
-		shape = simulation.getShape();
+		try {
+		    preyBreedingSpan = simulation.getPreyBreedingSpan();
+		    predatorBreedingSpan = simulation.getPredatorBreedingSpan();
+		    predatorLifeSpan = simulation.getPredatorLifeSpan();
+		    shape = simulation.getShape();
+		} catch (XMLFactoryException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
+	    try {
 		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
 		this.preyBreedingSpan = simulation.getPreyBreedingSpan();
 		this.predatorLifeSpan = simulation.getPredatorLifeSpan();
 		setTimers(this.predatorLifeSpan, this.preyBreedingSpan, this.predatorBreedingSpan);
-		return new PredatorPreyRules();
+	    } catch (XMLFactoryException e) {
+	        e.printStackTrace();
+	    }
+	    return new PredatorPreyRules();
 	}
 
 	/**

@@ -4,6 +4,7 @@ import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.Rule;
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 /*
@@ -19,8 +20,12 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 
 	public SpreadingOfFireGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
-		shape = simulation.getShape();
-		probCatch = simulation.getProbability();
+		try {
+		    shape = simulation.getShape();
+	            probCatch = simulation.getProbability();
+		} catch (XMLFactoryException e) {
+		    e.printStackTrace();
+		}
 	}
 
 	/*
@@ -29,7 +34,12 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	 */
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
+	    try {
 		return new SpreadingOfFireRules(simulation.getProbability());
+	    } catch (XMLFactoryException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 	/**
 	 * creates a new cell for grid initialization

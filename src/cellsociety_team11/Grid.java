@@ -1,5 +1,6 @@
 package cellsociety_team11;
 
+import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public abstract class Grid<T> {
@@ -17,6 +18,7 @@ public abstract class Grid<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Grid(T[][] valueGrid, SimulationXMLModel simulation) {
+	    try {
 		this.rule = createRule(simulation);
 		this.height = valueGrid.length;
 		this.width = valueGrid[0].length;
@@ -26,6 +28,9 @@ public abstract class Grid<T> {
 				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), simulation.getShape());
 			}
 		}
+	    } catch (XMLFactoryException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/*
