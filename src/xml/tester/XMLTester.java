@@ -1,4 +1,4 @@
-package xml.main;
+package xml.tester;
 import java.io.File;
 import java.util.Arrays;
 import xml.model.SimulationXMLModel;
@@ -11,8 +11,13 @@ import xml.factory.XMLFactoryException;
  * @author Rhondu Smithwick
  * @author Robert Duvall
  */
-public class Main {
+public class XMLTester {
     private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/Segregation.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/ForagingAnts.xml";
+    
     private static final String XML_SUFFIX = ".xml";
 
     public static void main (String[] args) {

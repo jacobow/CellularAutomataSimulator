@@ -17,6 +17,7 @@ public class SimulationXMLModel {
     private String myColumns;
     private String myShape;
     private String myWorld;
+    private String isCompletelyRandomInitialLayout;
     private String isRandomInitialLayout;
     private String myInitialLayout;
     private String myPreyBreedingSpan;
@@ -32,7 +33,7 @@ public class SimulationXMLModel {
     }
     
     public SimulationXMLModel(String simulationName, String author, String rows, String columns, String shape, String world,
-                              String isRandomInitialLayout,
+                              String isCompletelyRandomInitialLayout, String isRandomInitialLayout,
                               String initialLayout, String probability,
                               String preyBreedingSpan, String predatorBreedingSpan, 
                               String predatorLifeSpan, String cellTypeQuantities){
@@ -42,7 +43,8 @@ public class SimulationXMLModel {
         myRows = rows;
         myColumns = columns;
         myShape = shape;
-        myWorld = world; 
+        myWorld = world;
+        this.isCompletelyRandomInitialLayout = isCompletelyRandomInitialLayout;
         this.isRandomInitialLayout = isRandomInitialLayout;
         myInitialLayout = initialLayout;
         myProbability = probability;
@@ -91,8 +93,17 @@ public class SimulationXMLModel {
     public Integer[][] getInitialLayout () throws XMLFactoryException {
         checkForEmptyInput(isRandomInitialLayout, myResources.getString("NoIsRandomInitialLayoutInput"));
         Integer initialLayout[][] = new Integer[getRows()][getColumns()];
-        if (Boolean.parseBoolean(isRandomInitialLayout)) {
-            return createRandomInitialLayout();
+        if (Boolean.parseBoolean(isCompletelyRandomInitialLayout)) {
+            Integer[] cellTypeQuantities = getCellTypeQuantities();
+            int numCellTypes = cellTypeQuantities.length;
+            for (int i=0; i<getRows(); i++){
+                for (int j=0; j<getColumns(); j++){
+                    initialLayout[i][j] = (int) (Math.random() * numCellTypes);
+                }
+            }
+            return initialLayout;
+        } else if (Boolean.parseBoolean(isRandomInitialLayout)) {
+            return createConcentratedRandomInitialLayout();
         } else {
             checkForEmptyInput(myInitialLayout, myResources.getString("NoInitialLayoutInput"));
             int strIndex = 0;
@@ -110,7 +121,7 @@ public class SimulationXMLModel {
         }
     }
 
-    private Integer[][] createRandomInitialLayout () throws XMLFactoryException {
+    private Integer[][] createConcentratedRandomInitialLayout () throws XMLFactoryException {
         Integer initialLayout[][] = new Integer[getRows()][getColumns()];
         boolean marked[][] = new boolean[getRows()][getColumns()];
         Integer[] cellTypeQuantities = getCellTypeQuantities();
@@ -140,8 +151,12 @@ public class SimulationXMLModel {
         Integer[] result = new Integer[numCellTypes];
         int index = 0;
         for (int i=0; i<numCellTypes; i++) {
-            result[i] = Integer.parseInt(myCellTypeQuantities.substring(index, index+3));
-            index = index + 4;
+            try {
+                result[i] = Integer.parseInt(myCellTypeQuantities.substring(index, index+3));
+                index = index + 4;
+            } catch (NumberFormatException e) {
+                throw new XMLFactoryException(myResources.getString("InvalidCellTypeQuantitiesFormat"));
+            }
         }
         return result;
     }
