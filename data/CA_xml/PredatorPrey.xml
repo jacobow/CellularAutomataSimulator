@@ -4,7 +4,7 @@
     <author>A.K. Dewdney</author>
     <rows>20</rows>
     <columns>20</columns>
-    <shape>square</shape>
+    <shape>4</shape>
     <world>finite</world>
     <isCompletelyRandom>true</isCompletelyRandom>
     <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
