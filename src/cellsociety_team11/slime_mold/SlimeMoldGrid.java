@@ -18,12 +18,12 @@ public class SlimeMoldGrid extends Grid<Integer> {
 	public SlimeMoldGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
 		try {
-                    shape = simulation.getShape();
-                    //evaporationFactor = simulation.getEvaporationFactor();
-                }
-                catch (XMLFactoryException e) {
-                    e.printStackTrace();
-                }
+			shape = simulation.getShape();
+            evaporationFactor = simulation.getEvaporationFactor();
+            }
+		catch (XMLFactoryException e) {
+            e.printStackTrace();
+            }
 	}
 
 	@Override
@@ -39,6 +39,19 @@ public class SlimeMoldGrid extends Grid<Integer> {
 	@Override
 	public Cell<Integer> getEmptyCell() {
 		return new SlimeMoldCell(EMPTY, null, this, shape, 0);
+	}
+
+	public int getEvaporationFactor() {
+		return evaporationFactor;
+	}
+
+	public void setEvaporationFactor(int evaporationFactor) {
+		this.evaporationFactor = evaporationFactor;
+		for(int i = 0; i < getHeight(); i++) {
+			for(int j = 0; j < getWidth(); j++) {
+				((SlimeMoldCell)getGridMatrix()[i][j]).setEvaporationFactor(evaporationFactor);
+			}
+		}
 	}
 
 }
