@@ -27,6 +27,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		    predatorBreedingSpan = simulation.getPredatorBreedingSpan();
 		    predatorLifeSpan = simulation.getPredatorLifeSpan();
 		    shape = simulation.getShape();
+		    setTimers(predatorLifeSpan, preyBreedingSpan, predatorBreedingSpan);
 		} catch (XMLFactoryException e) {
 		    e.printStackTrace();
 		}

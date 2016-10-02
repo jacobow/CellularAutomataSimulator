@@ -25,6 +25,7 @@ public abstract class Grid<T> {
 		this.height = valueGrid.length;
 		this.width = valueGrid[0].length;
 		this.gridMatrix = new Cell[height][width];
+		this.world = simulation.getWorld();
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), simulation.getShape());

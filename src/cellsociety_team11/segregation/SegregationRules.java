@@ -36,7 +36,6 @@ public class SegregationRules implements Rule<Integer>{
 			SegregationCell agent = (SegregationCell) neighbor;
 			if(agent.getValue() == value) valueProportion += 1/neighborSize;
 		}
-		System.out.println(valueProportion);
 		if(valueProportion < threshold) {
 			if(fillRandomEmptyCell(value, grid)) return EMPTY;
 		}
