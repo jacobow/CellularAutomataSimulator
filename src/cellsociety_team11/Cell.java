@@ -112,6 +112,7 @@ public abstract class Cell<T> {
 		int offset = -1;
 		ArrayList<Cell<T>> neighbors = getSquareNeighbors();
 		if(i%2 == 0 && j%2 == 0) offset = 1;
+		if(i%2 != 0 && j%2 != 0) offset = 1;
 		if(j+2 < grid.getWidth()) {
 			neighbors.add(grid.getCell(new Coordinates(i, j+2)));
 			neighbors.add(grid.getCell(new Coordinates(i + offset, j+2)));
