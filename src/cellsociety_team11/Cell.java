@@ -21,7 +21,7 @@ public abstract class Cell<T> {
 	 * @param grid
 	 * 		The grid the cell is located on
 	 */
-	public Cell(T value, Coordinates coordinates, Grid<T> grid, String shape) {
+	public Cell(T value, Coordinates coordinates, Grid<T> grid, int shape) {
 		this.currentValue = value;
 		newValue = null;
 		this.shape = shape;

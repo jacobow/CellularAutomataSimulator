@@ -11,7 +11,7 @@ public class SpreadingOfFireCell extends Cell<Integer>{
 	/**
 	 * creates a new spreading of fire cell
 	 */
-	public SpreadingOfFireCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape) {
+	public SpreadingOfFireCell(Integer value, Coordinates coordinates, Grid<Integer> grid, int shape) {
 		super(value, coordinates, grid, shape);
 	}
 

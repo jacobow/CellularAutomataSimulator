@@ -14,7 +14,7 @@ public class SlimeMoldCell extends Cell<Integer>{
 	private ArrayList<Integer> cAMP;
 	private int evaporationFactor;
 
-	public SlimeMoldCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape, int evaporationFactor) {
+	public SlimeMoldCell(Integer value, Coordinates coordinates, Grid<Integer> grid, int shape, int evaporationFactor) {
 		super(value, coordinates, grid, shape);
 		this.evaporationFactor = evaporationFactor;
 		cAMP = new ArrayList<Integer>();

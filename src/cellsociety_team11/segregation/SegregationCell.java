@@ -11,7 +11,7 @@ public class SegregationCell extends Cell<Integer>{
 	/**
 	 * creates a new segregation cell
 	 */
-	public SegregationCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape) {
+	public SegregationCell(Integer value, Coordinates coordinates, Grid<Integer> grid, int shape) {
 		super(value, coordinates, grid, shape);
 	}
 

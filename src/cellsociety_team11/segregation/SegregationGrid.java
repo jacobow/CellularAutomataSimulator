@@ -11,7 +11,7 @@ public class SegregationGrid extends Grid<Integer> {
 
 	public static final int EMPTY = 0;
 
-	private String shape;
+	private int shape;
 	private double threshold;
 
 	public SegregationGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
@@ -37,7 +37,7 @@ public class SegregationGrid extends Grid<Integer> {
 	 * creates a new cell in the grid
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
 		return new SegregationCell(value, coordinates, this, shape);
 	}
 
