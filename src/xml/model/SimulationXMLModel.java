@@ -84,7 +84,13 @@ public class SimulationXMLModel {
                 throw new XMLFactoryException(errorMessage);
             }
         } catch (NumberFormatException e) {
-            throw new XMLFactoryException(errorMessage);
+            try {
+                if (Float.parseFloat(input) < 0.0){
+                    throw new XMLFactoryException(errorMessage);
+                }
+            } catch (NumberFormatException f){
+                throw new XMLFactoryException(errorMessage);
+            }
         }
 
     }
