@@ -12,8 +12,8 @@ import xml.factory.XMLFactoryException;
  * @author Robert Duvall
  */
 public class XMLTester {
-    private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
-    //private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
+    //private static final String XML_FILE_LOCATION = "data/CA_xml/GameOfLife.xml";
+    private static final String XML_FILE_LOCATION = "data/CA_xml/PredatorPrey.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/Segregation.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/SpreadingOfFire.xml";
     //private static final String XML_FILE_LOCATION = "data/CA_xml/ForagingAnts.xml";
@@ -46,6 +46,7 @@ public class XMLTester {
                     System.out.println(Arrays.toString(initialLayout[i]));
                 }
                 System.out.println(model);
+                //System.out.println(model.getPredatorLifeSpan());
                 int randomInt = (int) (Math.random() * 2);
                 //System.out.println(randomInt);
                 //System.out.println(Arrays.toString(model.getCellTypeQuantities()));
