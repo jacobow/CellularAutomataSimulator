@@ -22,7 +22,7 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 		super(valueGrid, simulation);
 		try {
 		    shape = simulation.getShape();
-	            probCatch = simulation.getProbability();
+	        probCatch = simulation.getProbability();
 		} catch (XMLFactoryException e) {
 		    e.printStackTrace();
 		}
@@ -34,12 +34,12 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	 */
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-	    try {
-		return new SpreadingOfFireRules(simulation.getProbability());
-	    } catch (XMLFactoryException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
+		try {
+			return new SpreadingOfFireRules(simulation.getProbability());
+		    } catch (XMLFactoryException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
 	}
 	/**
 	 * creates a new cell for grid initialization

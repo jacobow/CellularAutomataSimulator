@@ -64,4 +64,12 @@ public class SlimeMoldCell extends Cell<Integer>{
 		grid.getCell(destination).setNewValue(SLIME);
 		return hasMoved;
 	}
+
+	public int getEvaporationFactor() {
+		return evaporationFactor;
+	}
+
+	public void setEvaporationFactor(int evaporationFactor) {
+		this.evaporationFactor = evaporationFactor;
+	}
 }

@@ -26,7 +26,7 @@ public class SegregationGrid extends Grid<Integer> {
 
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-	    try {
+		try {
 	        return new SegregationRules(simulation.getProbability());
 	    } catch (XMLFactoryException e) {
 	        e.printStackTrace();
