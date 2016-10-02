@@ -34,15 +34,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-	    try {
-		this.predatorBreedingSpan = simulation.getPredatorBreedingSpan();
-		this.preyBreedingSpan = simulation.getPreyBreedingSpan();
-		this.predatorLifeSpan = simulation.getPredatorLifeSpan();
-		setTimers(this.predatorLifeSpan, this.preyBreedingSpan, this.predatorBreedingSpan);
-	    } catch (XMLFactoryException e) {
-	        e.printStackTrace();
-	    }
-	    return new PredatorPreyRules();
+		return new PredatorPreyRules();
 	}
 
 	/**
