@@ -1,5 +1,7 @@
 package cellsociety_team11.game_of_life;
 
+import java.util.List;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -73,6 +75,11 @@ public class GameOfLifeGrid extends Grid<Boolean>{
             }
         }
         return result;
+	}
+	@Override
+	public List<Double> getSimulationParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

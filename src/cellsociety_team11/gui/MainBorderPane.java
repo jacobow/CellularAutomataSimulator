@@ -2,9 +2,12 @@ package cellsociety_team11.gui;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javafx.scene.chart.Axis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -35,6 +38,7 @@ public class MainBorderPane extends BorderPane{
 	private ToolBar toolBar;
 	private ResourceBundle resourceBundle;
 	private MainController mainController;
+	private CellSocietyGraph dataGraph;
 	
 	public MainBorderPane(MainController simulationController, ResourceBundle resourceBundle){
 		this.resourceBundle = resourceBundle;
@@ -52,10 +56,18 @@ public class MainBorderPane extends BorderPane{
 		ButtonType leftButton = new ButtonType(this.resourceBundle.getString("ChooseDisplayLeftButton"));
 		ButtonType rightButton = new ButtonType(this.resourceBundle.getString("ChooseDisplayRightButton"));
 		displayChooser.getButtonTypes().setAll(leftButton, rightButton ,new ButtonType(this.resourceBundle.getString("ChooseDisplayCancelButton"), ButtonData.CANCEL_CLOSE));
-		
 		Optional<ButtonType> displayChooserResult = displayChooser.showAndWait();
-		
 		return displayChooserResult.isPresent() ? displayChooserResult.get() == leftButton : null;
+	}
+	
+	public void updateGraph(Map<Object, Integer> dataMap){
+		if (this.dataGraph == null){
+			Axis<Number> xAxis = new NumberAxis();
+			Axis<Number> yAxis = new NumberAxis();
+			this.dataGraph = new CellSocietyGraph(xAxis, yAxis, this.resourceBundle);
+			this.setBottom(dataGraph);
+		}
+		dataGraph.addData(dataMap);
 	}
 	
 	private void initMainBorderPane(){
@@ -119,6 +131,6 @@ public class MainBorderPane extends BorderPane{
 		button.setOnAction(handler);
 		
 		return button;
-	}	
+	}
 	
 }

@@ -1,5 +1,9 @@
 package cellsociety_team11;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
@@ -21,21 +25,38 @@ public abstract class Grid<T> {
 	@SuppressWarnings("unchecked")
 	public Grid(T[][] valueGrid, SimulationXMLModel simulation) {
 	    try {
-		this.rule = createRule(simulation);
-		this.height = valueGrid.length;
-		this.width = valueGrid[0].length;
-		this.gridMatrix = new Cell[height][width];
-		this.world = simulation.getWorld();
-		for(int i = 0; i < height; i++) {
-			for(int j = 0; j < width; j++) {
-				gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), simulation.getShape());
+			this.rule = createRule(simulation);
+			this.height = valueGrid.length;
+			this.width = valueGrid[0].length;
+			this.gridMatrix = new Cell[height][width];
+			this.world = simulation.getWorld();
+			for(int i = 0; i < height; i++) {
+				for(int j = 0; j < width; j++) {
+					gridMatrix[i][j] = createNewCell(valueGrid[i][j], new Coordinates(i, j), simulation.getShape());
+				}
 			}
-		}
 	    } catch (XMLFactoryException e) {
 	        e.printStackTrace();
 	    }
 	}
 
+	public abstract List<Double> getSimulationParameters();
+	
+	public Map<T, Integer> getStateTotals(){
+		HashMap<T, Integer> totalsMap = new HashMap<T, Integer>();
+		for(int i = 0; i < height; i++) {
+			for(int j = 0; j < width; j++) {
+				T currValue = gridMatrix[i][j].getValue();
+				if (totalsMap.containsKey(currValue)){
+					totalsMap.put(currValue, totalsMap.get(currValue) + 1);
+				}
+				else{
+					totalsMap.put(currValue, 1);
+				}
+			}
+		}
+		return totalsMap;
+	}
 	/**
 	 *
 	 * Subclass has to take simulation and instantiate Rule

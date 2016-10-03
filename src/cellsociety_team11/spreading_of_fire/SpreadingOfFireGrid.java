@@ -1,5 +1,7 @@
 package cellsociety_team11.spreading_of_fire;
 
+import java.util.List;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -77,6 +79,12 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	public void setProbCatch(double probCatch) {
 		this.probCatch = probCatch;
 		((SpreadingOfFireRules)this.getRule()).setProbCatch(probCatch);
+	}
+
+	@Override
+	public List<Double> getSimulationParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
