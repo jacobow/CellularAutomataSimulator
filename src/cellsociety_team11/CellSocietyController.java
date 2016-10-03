@@ -52,7 +52,13 @@ public class CellSocietyController implements MainController{
 	public void nextStepSimulation() {
 		if (this.grid!=null){
 			this.grid.nextGrid();
-			this.mainWindow.setGrid(this.grid, simulationName);
+			try{
+				this.mainWindow.setGrid(this.grid, this.simulationName, this.simulation.getShape());
+			}catch(XMLFactoryException exception){
+				System.out.println(exception.getMessage());
+				exception.printStackTrace();
+			}
+			
 		}
 	}
 
@@ -78,13 +84,13 @@ public class CellSocietyController implements MainController{
 	@Override
 	public void uploadedXMLFileHandler(File xmlFile) {
 	    try {
-		this.stopSimulation();
-		readFileData(xmlFile.getAbsolutePath());
-                simulationName = this.simulation.getSimulationName();
-                initialLayout = this.simulation.getInitialLayout();
-		this.grid = setSimulationGrid();
-		this.timeline = initSimulation();
-		this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName());
+			this.stopSimulation();
+			readFileData(xmlFile.getAbsolutePath());
+	        this.simulationName = this.simulation.getSimulationName();
+	        this.initialLayout = this.simulation.getInitialLayout();
+			this.grid = setSimulationGrid();
+			this.timeline = initSimulation();
+			this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName(), this.simulation.getShape());
 	    }
 	    catch (XMLFactoryException e) {
 	        e.printStackTrace();
