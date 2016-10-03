@@ -25,13 +25,14 @@ public class CellSocietyController implements MainController{
 	
 
 	private MainWindow mainWindow;
-	private Grid<?> grid;
+	private Grid<?> leftGrid, rightGrid;
+	//private Timeline leftTimeline, rightTimeline;
 	private Timeline timeline;
 	private double simulationSpeed;
 	private boolean isPlaying;
-	private SimulationXMLModel simulation;
-	private String simulationName;
-	private Integer[][] initialLayout;
+	//private SimulationXMLModel simulation;
+	//private String simulationName;
+	//private Integer[][] initialLayout;
 
 	public CellSocietyController(String language){
 		this.isPlaying = false;
@@ -42,7 +43,7 @@ public class CellSocietyController implements MainController{
 	
 	@Override
 	public void startSimulation(){
-		if (this.grid!=null){
+		if (this.leftGrid!=null){
 			this.isPlaying = true;
 			this.timeline.play();
 		}
@@ -50,16 +51,13 @@ public class CellSocietyController implements MainController{
 
 	@Override
 	public void nextStepSimulation() {
-		if (this.grid!=null){
-			this.grid.nextGrid();
-			try{
-				this.mainWindow.setGrid(this.grid, this.simulationName, this.simulation.getShape());
-			}catch(XMLFactoryException exception){
-				System.out.println(exception.getMessage());
-				exception.printStackTrace();
-			}
-			
+		if (this.leftGrid!=null){
+			this.leftGrid.nextGrid();	
 		}
+		if (this.rightGrid!=null){
+			this.rightGrid.nextGrid();
+		}
+		this.mainWindow.updateGrids();
 	}
 
 
@@ -85,12 +83,19 @@ public class CellSocietyController implements MainController{
 	public void uploadedXMLFileHandler(File xmlFile) {
 	    try {
 			this.stopSimulation();
-			readFileData(xmlFile.getAbsolutePath());
-	        this.simulationName = this.simulation.getSimulationName();
-	        this.initialLayout = this.simulation.getInitialLayout();
-			this.grid = setSimulationGrid();
+			SimulationXMLModel currentSimulation = readFileData(xmlFile.getAbsolutePath());
+			Grid<?> grid = getSimulationGrid(currentSimulation);
 			this.timeline = initSimulation();
-			this.mainWindow.setGrid(this.grid, this.simulation.getSimulationName(), this.simulation.getShape());
+			Boolean chosenGrid = this.mainWindow.setGrid(grid, currentSimulation.getSimulationName(), currentSimulation.getShape());
+			if (chosenGrid==null){
+				return;
+			}
+			if (chosenGrid){
+				this.leftGrid = grid;
+			}
+			else{
+				this.rightGrid = grid;
+			}
 	    }
 	    catch (XMLFactoryException e) {
 	        e.printStackTrace();
@@ -104,29 +109,35 @@ public class CellSocietyController implements MainController{
 		return this.mainWindow.getScene();
 	}
 	
-	private void readFileData(String xmlFileLocation){
+	private SimulationXMLModel readFileData(String xmlFileLocation){
 	    XMLParser parser = new XMLParser();
 	    SimulationXMLFactory factory = new SimulationXMLFactory("Simulation");
 	    File f = new File(xmlFileLocation);
 	    if (f.isFile() && f.getName().endsWith(XML_SUFFIX)) {
 	        try {
-	        	this.simulation = factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
+	        	return factory.getSimulation(parser.getRootElement(f.getAbsolutePath()));
 	        }
 	        catch (XMLFactoryException e) {
 	            System.err.println("Reading file " + f.getPath());
 	            e.printStackTrace();
+	            return null;
 	        }
 	    }
 	    else{
 	    	System.err.println("Not xml file. " + f.getAbsolutePath());
+	    	return null;
 	    }
 	}
 	
-	private Grid<?> setSimulationGrid() {
+	private Grid<?> getSimulationGrid(SimulationXMLModel simulation) throws XMLFactoryException {
 		try{
-			return getGridInstance(this.simulation, initialLayout, simulationName, ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
+			return getGridInstance(simulation, simulation.getInitialLayout(), simulation.getSimulationName(), ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + GRID_RESOURCES));
 		}
 		catch(SimulationInstantiationException e){
+			e.printStackTrace();
+			throw e;
+		}
+		catch(XMLFactoryException e){
 			e.printStackTrace();
 			throw e;
 		}

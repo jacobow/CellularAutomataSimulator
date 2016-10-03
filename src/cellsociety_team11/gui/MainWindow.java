@@ -20,34 +20,63 @@ public class MainWindow{
 	
 	private Scene scene;
 	private MainBorderPane root;
-	private DisplayGrid<?> displayGrid; 
+	private DisplayGrid<?> displayGridLeft; 
+	private DisplayGrid<?> displayGridRight; 
 	
 	private ResourceBundle resourceBundle;
 	private MainController mainController;
-	private boolean dualDisplays;
 	
 	
 	public MainWindow(MainController simulationController, String language){
-		this.displayGrid = null;
-		this.dualDisplays = false;
+		this.displayGridLeft = null;
+		this.displayGridRight = null;
 		this.mainController = simulationController;
 		this.resourceBundle = initResourceBundle(language);
 		initScene();
 	}
 	
-	public <T> void setGrid(Grid<T> grid, String simulationType, int numSides){
-		this.displayGrid = null;
+	public <T> Boolean setGrid(Grid<T> grid, String simulationType, int numSides){
+		Boolean chosenDisplay = true;
 		if (grid!=null){
 			try{
-				this.displayGrid = new DisplayGrid<T>(grid, simulationType, numSides);
-				this.root.setCenter(this.displayGrid);
+				if (this.displayGridLeft==null){
+					this.displayGridLeft = new DisplayGrid<T>(grid, simulationType, numSides);
+					this.root.setCenter(this.displayGridLeft);
+				}
+				else{
+					chosenDisplay = root.chooseDisplay();
+					if (chosenDisplay == null)
+						return null;
+					else if(chosenDisplay){
+						this.displayGridLeft = new DisplayGrid<T>(grid, simulationType, numSides);
+						if (this.displayGridRight!=null)
+							this.root.setLeft(this.displayGridLeft);
+						else
+							this.root.setCenter(this.displayGridLeft);
+					}
+					else{
+						this.displayGridRight = new DisplayGrid<T>(grid, simulationType, numSides);
+						this.root.setCenter(null);
+						this.root.setLeft(this.displayGridLeft);
+						this.root.setRight(this.displayGridRight);
+					}
+				}
 			}
 			catch(SimulationInstantiationException s){
 				System.out.print("Caught SimException");
 				root.showErrorAlert();
 			}
 		}
-		
+		return chosenDisplay;
+	}
+	
+	public void updateGrids(){
+		if (displayGridLeft !=null){
+			displayGridLeft.updateDisplayCells();
+		}
+		if (displayGridRight != null){
+			displayGridRight.updateDisplayCells();
+		}
 	}
 	
 	

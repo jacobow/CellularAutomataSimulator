@@ -65,16 +65,6 @@ public abstract class DisplayCell<T> extends Pane{
 		return cellShape;
 	}
 	
-	/*
-	private Rectangle initSquareCell(){
-		Rectangle cellRectangle = new Rectangle();
-		cellRectangle.widthProperty().bind(this.widthProperty());
-		cellRectangle.heightProperty().bind(this.heightProperty());
-		cellRectangle.setStroke(Color.BLACK);
-		return cellRectangle;
-	}*/
-
-	
 	private double[] getPolygonPoints(double width, int numSides){
 		double[] polyPoints = new double[numSides * 2];
 		double interiorAngle = getTotalInteriorAngleRadians(numSides)/numSides;

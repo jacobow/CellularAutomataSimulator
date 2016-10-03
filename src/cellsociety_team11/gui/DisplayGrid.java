@@ -3,11 +3,13 @@ package cellsociety_team11.gui;
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.SimulationInstantiationException;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 /**
@@ -16,7 +18,7 @@ import javafx.scene.layout.Pane;
  * In current implementation, this is instantiated on every grid update rather than updated.
  * This isn't great from a performance standpoint, but made it more extensible in the meantime,
  * as updating the DisplayGrid in MainWindow becomes much easier.
- * Ulimately will make this more "efficient" once we have the new CA to implement.
+ * Ultimately will make this more "efficient" once we have the new CA to implement.
  */
 public class DisplayGrid<T> extends Pane{
 	public static final String DISPLAY_GRID_RESOURCES = "DisplayGridClasses";
@@ -49,6 +51,16 @@ public class DisplayGrid<T> extends Pane{
 				this.getChildren().add(displayCell);
 			}
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void updateDisplayCells(){
+		for (Node d : this.getChildren()){
+			DisplayCell<T> displayCell = (DisplayCell<T>) d;
+			Cell<T> gridCell = grid.getCell(displayCell.getCoordinates());
+			displayCell.updateValue(gridCell.getValue());
+		}
+			
 	}
 	
 	public void orientDisplayCell(DisplayCell<T> displayCell, double cellWidth, int numSides, int rowIndex, int colIndex){
