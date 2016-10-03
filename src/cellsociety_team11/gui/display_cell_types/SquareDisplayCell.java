@@ -10,8 +10,11 @@ import javafx.scene.shape.Shape;
  * @author Cleveland Quin Thompson V (ct168)
  * Extends DisplayCell for the Specific Case of Square Display Cells
  */
-public abstract class SquareDisplayCell<T> extends DisplayCell<T>{
-
+public abstract class SquareDisplayCell<T> {
+	
+}
+/*
+extends DisplayCell<T>{
 	public SquareDisplayCell(T value, Coordinates coordinates) {
 		super(value, coordinates);
 	}
@@ -27,4 +30,4 @@ public abstract class SquareDisplayCell<T> extends DisplayCell<T>{
 	@Override
 	protected abstract Color getColor();
 
-}
+}*/
