@@ -9,6 +9,6 @@
     <isCompletelyRandom>true</isCompletelyRandom>
     <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
     <cellTypeQuantities>000/000/000</cellTypeQuantities>
-    <initialLayout>10010/10111/22222</initialLayout>
+    <initialLayout>11111/11221/11111</initialLayout>
     <probability>0.5</probability>
 </XMLFile>
