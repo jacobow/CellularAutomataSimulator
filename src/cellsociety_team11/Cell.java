@@ -87,6 +87,7 @@ public abstract class Cell<T> {
 				return null;
 		}
 	}
+
 	private ArrayList<Cell<T>> getSquareNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -106,6 +107,7 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
+
 	private ArrayList<Cell<T>> getTriangleNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -131,6 +133,7 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
+
 	private ArrayList<Cell<T>> getHexagonNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();

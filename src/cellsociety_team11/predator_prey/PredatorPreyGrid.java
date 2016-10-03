@@ -20,6 +20,13 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	private int predatorLifeSpan;
 	private int shape;
 
+	/**
+	 * creates new predator-prey grid
+	 * @param valueGrid
+	 * 			2d array of the different cell values
+	 * @param simulation
+	 * 			holds the parameters of the grid
+	 */
 	public PredatorPreyGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
 		try {
@@ -33,6 +40,9 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		}
 	}
 
+	/**
+	 * instantiates the rules of the predator prey grid
+	 */
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
 		return new PredatorPreyRules();
@@ -46,6 +56,7 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		return new PredatorPreyCell(value, coordinates, this, shape);
 	}
 
+	//sets all the timers of the grid
 	private void setTimers(int predatorLifeSpan, int preyBreedingSpan, int predatorBreedingSpan) {
 		for(int i = 0; i < this.getHeight(); i++) {
 			for(int j = 0; j < this.getWidth(); j++) {
@@ -116,6 +127,9 @@ public class PredatorPreyGrid extends Grid<Integer> {
 		}
 	}
 
+	/**
+	 * gets an empty cell in the finite grid
+	 */
 	@Override
 	public Cell<Integer> getEmptyCell() {
 		return new PredatorPreyCell(EMPTY, null, this, shape);

@@ -60,9 +60,15 @@ public class SegregationRules implements Rule<Integer>{
 		}
 		return false;
 	}
+	/**
+	 * gets the threshold of the rules
+	 */
 	public double getThreshold() {
 		return threshold;
 	}
+	/**
+	 * sets the threshold of the rules
+	 */
 	public void setThreshold(double threshold) {
 		this.threshold = threshold;
 	}

@@ -10,6 +10,9 @@ public class SlimeMoldRules implements Rule<Integer>{
 	public static final int EMPTY = 0;
 	public static final int SLIME = 1;
 
+	/**
+	 * calculates the new value of a slime cell
+	 */
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		int newValue = value;

@@ -15,6 +15,11 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 
 	private double probCatch;
 
+	/**
+	 * creates a new set of rules for a spreading of fire simulation
+	 * @param probCatch
+	 * 		the probability that a tree catches fire
+	 */
 	public SpreadingOfFireRules(double probCatch) {
 		this.probCatch = probCatch;
 	}
@@ -37,10 +42,16 @@ public class SpreadingOfFireRules implements Rule<Integer>{
 		return value;
 	}
 
+	/**
+	 * gets the probCatch parameter
+	 */
 	public double getProbCatch() {
 		return probCatch;
 	}
 
+	/**
+	 * sets the probCatch parameter
+	 */
 	public void setProbCatch(double probCatch) {
 		this.probCatch = probCatch;
 	}
