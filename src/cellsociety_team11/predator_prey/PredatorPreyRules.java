@@ -40,7 +40,6 @@ public class PredatorPreyRules implements Rule<Integer>{
 			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
 			if(neighbor.getValue() == PREY &&
 			  (neighbor.getNewValue() == null || neighbor.getNewValue() == PREY)) {
-				System.out.println(((PredatorPreyCell) cell).getDeathTimer());
 				cell.upTickDeathTimer();
 				return swap(cell, neighbor);
 			}
@@ -111,8 +110,6 @@ public class PredatorPreyRules implements Rule<Integer>{
 	private void fillRandomEmptyCell(int value, PredatorPreyCell cell, Grid<Integer> grid) {
 		Random r = new Random();
 		PredatorPreyCell randCell = getEmptyCells(grid).get(r.nextInt(getEmptyCells(grid).size()));
-		randCell.setNewValue(value);
-		randCell.setDeathTimer(cell.getDeathTimer());
-		randCell.setBreedingTimer(cell.getBreedingTimer());
+		swap(cell, randCell);
 	}
 }

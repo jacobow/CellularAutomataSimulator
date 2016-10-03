@@ -2,15 +2,15 @@
 <XMLFile XMLType="Simulation">
     <name>PREDATOR_PREY</name>
     <author>A.K. Dewdney</author>
-    <rows>20</rows>
-    <columns>20</columns>
-    <shape>4</shape>
-    <world>finite</world>
+    <rows>50</rows>
+    <columns>50</columns>
+    <shape>6</shape>
+    <world>toroidal</world>
     <isCompletelyRandom>true</isCompletelyRandom>
     <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
     <cellTypeQuantities>000/000/000</cellTypeQuantities>
-    <initialLayout>10010/10111/22222/00000/11111</initialLayout>
+    <initialLayout>11011/11001/11011/11011/11011/</initialLayout>
     <preyBreedingSpan>3</preyBreedingSpan>
-    <predatorBreedingSpan>3</predatorBreedingSpan>
-    <predatorLifeSpan>3</predatorLifeSpan>
+    <predatorBreedingSpan>10</predatorBreedingSpan>
+    <predatorLifeSpan>7</predatorLifeSpan>
 </XMLFile>

@@ -47,7 +47,6 @@ public class SlimeMoldGrid extends Grid<Integer> {
 	 */
 	@Override
 	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
-		System.out.println(evaporationFactor);
 		return new SlimeMoldCell(value, coordinates, this, shape, evaporationFactor);
 	}
 

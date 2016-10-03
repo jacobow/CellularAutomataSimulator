@@ -81,7 +81,6 @@ public class SlimeMoldCell extends Cell<Integer>{
 		Coordinates destination = this.getCoordinates();
 		for(Cell<Integer> cell : getNeighbors()) {
 			if(cell.getCoordinates() == null || cell.getValue() == SLIME || cell.getNewValue() == SLIME) continue;
-			//System.out.println(((SlimeMoldCell)cell).getTotalCAMP());
 			if(((SlimeMoldCell)cell).getTotalCAMP() > mostCAMP) {
 				destination = cell.getCoordinates();
 				mostCAMP = ((SlimeMoldCell)cell).getTotalCAMP();
