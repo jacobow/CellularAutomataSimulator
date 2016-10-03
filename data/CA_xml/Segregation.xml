@@ -2,13 +2,13 @@
 <XMLFile XMLType="Simulation">
     <name>SEGREGATION</name>
     <author>Thomas Schelling</author>
-    <rows>20</rows>
-    <columns>20</columns>
-    <shape>4</shape>
+    <rows>25</rows>
+    <columns>50</columns>
+    <shape>3</shape>
     <world>finite</world>
     <isCompletelyRandom>true</isCompletelyRandom>
     <isConcentratedRandomInitialLayout>false</isConcentratedRandomInitialLayout>
     <cellTypeQuantities>000/000/000</cellTypeQuantities>
     <initialLayout>10010/10111/22222</initialLayout>
-    <probability>0.5</probability>
+    <probability>0.7</probability>
 </XMLFile>

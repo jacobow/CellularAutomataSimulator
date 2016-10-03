@@ -29,6 +29,7 @@ public class SlimeMoldGrid extends Grid<Integer> {
 		try {
 			shape = simulation.getShape();
             evaporationFactor = simulation.getEvaporationFactor();
+            setEvaporationFactor(evaporationFactor);
             }
 		catch (XMLFactoryException e) {
             e.printStackTrace();
