@@ -22,7 +22,7 @@ import javafx.scene.layout.Pane;
  */
 public class DisplayGrid<T> extends Pane{
 	public static final String DISPLAY_GRID_RESOURCES = "DisplayGridClasses";
-	public static final double MAX_WIDTH = CellSociety.INIT_WIDTH*3/4;
+	public static final double MAX_WIDTH = CellSociety.INIT_WIDTH*2/4;
 	private Grid<T> grid;
 	private String simulationType;
 	
@@ -31,26 +31,6 @@ public class DisplayGrid<T> extends Pane{
 		this.simulationType = simulationType;
 		this.grid = grid;
 		initDisplayGrid(numSides);
-	}
-	
-	private void initDisplayCells(int numSides){
-		for (int i = 0; i < this.grid.getHeight(); i++){
-			for (int j = 0; j < this.grid.getWidth(); j++){
-				Coordinates currentCoords = new Coordinates(i, j);
-				Cell<T> currentCell = this.grid.getCell(currentCoords);
-				DisplayCell<T> displayCell;
-				double cellWidth = MAX_WIDTH/getMaxDimension();
-				try{
-					displayCell = getDisplayCellInstance(currentCell.getValue(), currentCoords, cellWidth, numSides, ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + DISPLAY_GRID_RESOURCES));
-				}
-				catch(SimulationInstantiationException e){
-					e.printStackTrace();
-					throw e;
-				}
-				orientDisplayCell(displayCell, cellWidth, numSides, i, j);
-				this.getChildren().add(displayCell);
-			}
-		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -78,6 +58,31 @@ public class DisplayGrid<T> extends Pane{
 			displayCell.moveCell(cellWidth * (double)colIndex, cellWidth * (double) rowIndex);
 		}
 	}
+	
+	public Grid<T> getGrid(){
+		return this.grid;
+	}
+	
+	private void initDisplayCells(int numSides){
+		for (int i = 0; i < this.grid.getHeight(); i++){
+			for (int j = 0; j < this.grid.getWidth(); j++){
+				Coordinates currentCoords = new Coordinates(i, j);
+				Cell<T> currentCell = this.grid.getCell(currentCoords);
+				DisplayCell<T> displayCell;
+				double cellWidth = MAX_WIDTH/getMaxDimension();
+				try{
+					displayCell = getDisplayCellInstance(currentCell.getValue(), currentCoords, cellWidth, numSides, ResourceBundle.getBundle(MainWindow.DEFAULT_RESOURCE_PACKAGE + DISPLAY_GRID_RESOURCES));
+				}
+				catch(SimulationInstantiationException e){
+					e.printStackTrace();
+					throw e;
+				}
+				orientDisplayCell(displayCell, cellWidth, numSides, i, j);
+				this.getChildren().add(displayCell);
+			}
+		}
+	}
+	
 	
 	
 	@SuppressWarnings("unchecked")

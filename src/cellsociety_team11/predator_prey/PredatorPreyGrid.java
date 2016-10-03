@@ -1,5 +1,7 @@
 package cellsociety_team11.predator_prey;
 
+import java.util.List;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -8,8 +10,6 @@ import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 
 public class PredatorPreyGrid extends Grid<Integer> {
-
-
 
 	public static final int EMPTY = 0;
 	public static final int PREDATOR = 1;
@@ -133,6 +133,12 @@ public class PredatorPreyGrid extends Grid<Integer> {
 	@Override
 	public Cell<Integer> getEmptyCell() {
 		return new PredatorPreyCell(EMPTY, null, this, shape);
+	}
+
+	@Override
+	public List<Double> getSimulationParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

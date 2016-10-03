@@ -1,5 +1,6 @@
 package cellsociety_team11.gui;
 
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import cellsociety_team11.CellSociety;
@@ -35,6 +36,7 @@ public class MainWindow{
 		initScene();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <T> Boolean setGrid(Grid<T> grid, String simulationType, int numSides){
 		Boolean chosenDisplay = true;
 		if (grid!=null){
@@ -42,6 +44,7 @@ public class MainWindow{
 				if (this.displayGridLeft==null){
 					this.displayGridLeft = new DisplayGrid<T>(grid, simulationType, numSides);
 					this.root.setCenter(this.displayGridLeft);
+					this.root.updateGraph((Map<Object, Integer>) this.displayGridLeft.getGrid().getStateTotals());
 				}
 				else{
 					chosenDisplay = root.chooseDisplay();
@@ -70,9 +73,11 @@ public class MainWindow{
 		return chosenDisplay;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void updateGrids(){
 		if (displayGridLeft !=null){
 			displayGridLeft.updateDisplayCells();
+			this.root.updateGraph((Map<Object, Integer>) this.displayGridLeft.getGrid().getStateTotals());
 		}
 		if (displayGridRight != null){
 			displayGridRight.updateDisplayCells();

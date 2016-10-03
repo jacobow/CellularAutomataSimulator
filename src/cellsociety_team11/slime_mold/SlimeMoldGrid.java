@@ -1,5 +1,7 @@
 package cellsociety_team11.slime_mold;
 
+import java.util.List;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -76,6 +78,12 @@ public class SlimeMoldGrid extends Grid<Integer> {
 				((SlimeMoldCell)getGridMatrix()[i][j]).setEvaporationFactor(evaporationFactor);
 			}
 		}
+	}
+
+	@Override
+	public List<Double> getSimulationParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

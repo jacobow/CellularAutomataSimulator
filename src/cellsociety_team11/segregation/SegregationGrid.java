@@ -1,5 +1,7 @@
 package cellsociety_team11.segregation;
 
+import java.util.List;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
@@ -72,6 +74,12 @@ public class SegregationGrid extends Grid<Integer> {
 	public void setThreshold(double threshold) {
 		this.threshold = threshold;
 		((SegregationRules)this.getRule()).setThreshold(threshold);
+	}
+
+	@Override
+	public List<Double> getSimulationParameters() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
