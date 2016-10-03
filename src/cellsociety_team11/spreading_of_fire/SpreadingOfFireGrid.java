@@ -15,14 +15,21 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 
 	public static final int EMPTY = 0;
 
-	private String shape;
+	private int shape;
 	private double probCatch;
 
+	/**
+	 * creates new spreading of fire grid
+	 * @param valueGrid
+	 * 			2d array of the different cell values
+	 * @param simulation
+	 * 			holds the parameters (shape) of the grid
+	 */
 	public SpreadingOfFireGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
 		try {
 		    shape = simulation.getShape();
-	            probCatch = simulation.getProbability();
+	        probCatch = simulation.getProbability();
 		} catch (XMLFactoryException e) {
 		    e.printStackTrace();
 		}
@@ -34,36 +41,42 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	 */
 	@Override
 	protected Rule<Integer> createRule(SimulationXMLModel simulation) {
-	    try {
-		return new SpreadingOfFireRules(simulation.getProbability());
-	    } catch (XMLFactoryException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
+		try {
+			return new SpreadingOfFireRules(simulation.getProbability());
+		    } catch (XMLFactoryException e) {
+		        e.printStackTrace();
+		        return null;
+		    }
 	}
 	/**
 	 * creates a new cell for grid initialization
 	 */
 	@Override
-	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, String shape) {
+	public Cell<Integer> createNewCell(Integer value, Coordinates coordinates, int shape) {
 		return new SpreadingOfFireCell(value, coordinates, this, shape);
 	}
 
+	/**
+	 * gets an empty cell for a finite grid
+	 */
 	@Override
 	public Cell<Integer> getEmptyCell() {
 		return new SpreadingOfFireCell(EMPTY, null, this, shape);
 	}
 
+	/**
+	 * gets the probCatch parameter
+	 */
 	public double getProbCatch() {
 		return probCatch;
 	}
 
+	/**
+	 * sets the probCatch parameter
+	 */
 	public void setProbCatch(double probCatch) {
 		this.probCatch = probCatch;
 		((SpreadingOfFireRules)this.getRule()).setProbCatch(probCatch);
 	}
-
-
-
 
 }

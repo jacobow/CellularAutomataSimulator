@@ -101,9 +101,10 @@ public class SimulationXMLModel {
         return Integer.parseInt(myColumns);
     }
     
-    public String getShape () throws XMLFactoryException {
+    public int getShape () throws XMLFactoryException {
         checkForEmptyInput(myShape, myResources.getString("NoShapeInput"));
-        return myShape;
+        checkForInvalidInput(myShape, myResources.getString("InvalidShapeInput"));
+        return Integer.parseInt(myShape);
     }
 
     public String getWorld () throws XMLFactoryException {
@@ -238,7 +239,7 @@ public class SimulationXMLModel {
                   .append("Columns='").append(getColumns()).append(" , ")
                   .append("Shape= ").append(getShape()).append(" , ")
                   .append("World= ").append(getWorld()).append(" , ")
-                  .append("evap factor").append(getEvaporationFactor())
+                  //.append("evap factor").append(getEvaporationFactor())
                   .append('}');
         }
         catch (XMLFactoryException e) {

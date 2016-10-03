@@ -9,7 +9,7 @@ public abstract class Cell<T> {
 	protected Grid<T> grid;
 	private Rule<T> rule;
 	protected Coordinates coordinates;
-	protected String shape;
+	protected int shape;
 
 	/**
 	 * Cell of a grid
@@ -21,7 +21,7 @@ public abstract class Cell<T> {
 	 * @param grid
 	 * 		The grid the cell is located on
 	 */
-	public Cell(T value, Coordinates coordinates, Grid<T> grid, String shape) {
+	public Cell(T value, Coordinates coordinates, Grid<T> grid, int shape) {
 		this.currentValue = value;
 		newValue = null;
 		this.shape = shape;
@@ -56,7 +56,7 @@ public abstract class Cell<T> {
 	/**
 	 * gets the shape of the cell
 	 */
-	public String getShape() {
+	public int getShape() {
 		return shape;
 	}
 	/**
@@ -77,16 +77,17 @@ public abstract class Cell<T> {
 	 */
 	public ArrayList<Cell<T>> getNeighbors(){
 		switch (shape) {
-			case "square":
+			case 4:
 				return getSquareNeighbors();
-			case "triangle":
+			case 3:
 				return getTriangleNeighbors();
-			case "hexagon":
+			case 6:
 				return getHexagonNeighbors();
 			default:
 				return null;
 		}
 	}
+
 	private ArrayList<Cell<T>> getSquareNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -106,6 +107,7 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
+
 	private ArrayList<Cell<T>> getTriangleNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -131,6 +133,7 @@ public abstract class Cell<T> {
 		}
 		return neighbors;
 	}
+
 	private ArrayList<Cell<T>> getHexagonNeighbors() {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();

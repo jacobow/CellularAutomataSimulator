@@ -9,8 +9,15 @@ import xml.model.SimulationXMLModel;
 
 public class GameOfLifeGrid extends Grid<Boolean>{
 
-	private String shape;
+	private int shape;
 
+	/**
+	 * creates new game of life grid
+	 * @param valueGrid
+	 * 			2d array of the different cell values
+	 * @param simulation
+	 * 			holds the parameters (shape) of the grid
+	 */
 	public GameOfLifeGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 	    super(intToBool(valueGrid), simulation);
 	    try {
@@ -19,26 +26,43 @@ public class GameOfLifeGrid extends Grid<Boolean>{
 	        e.printStackTrace();
 	    }
 	}
-
+	/**
+	 * creates new game of life grid
+	 * @param valueGrid
+	 * 			2d array of the different cell values
+	 * @param simulation
+	 * 			holds the parameters (shape) of the grid
+	 */
 	public GameOfLifeGrid(Boolean[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
 	}
 
+	/**
+	 * instantiates the rules of the game of life grid
+	 */
 	@Override
 	protected Rule<Boolean> createRule(SimulationXMLModel simulation) {
 		return new GameOfLifeRules();
 	}
-
+	/**
+	 * creates a new cell in the grid
+	 */
 	@Override
-	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates, String shape) {
+	public Cell<Boolean> createNewCell(Boolean value, Coordinates coordinates, int shape) {
 		return new GameOfLifeCell(value, coordinates, this, shape);
 	}
 
+	/**
+	 * gets an empty cell
+	 */
 	@Override
 	public Cell<Boolean> getEmptyCell() {
 		return new GameOfLifeCell(false, null, this, shape);
 	}
 
+	/**
+	 * converts an Boolean grid to an Integer grid
+	 */
 	private static Boolean[][] intToBool(Integer[][] array) {
 	    int rows = array.length;
 	    int columns = array[0].length;

@@ -14,24 +14,40 @@ public class SlimeMoldCell extends Cell<Integer>{
 	private ArrayList<Integer> cAMP;
 	private int evaporationFactor;
 
-	public SlimeMoldCell(Integer value, Coordinates coordinates, Grid<Integer> grid, String shape, int evaporationFactor) {
+	/**
+	 * creates a new slime mold cell
+	 * @param value
+	 * 			either slime or empty
+	 * @param coordinates
+	 * 			location of the cell on the grid
+	 * @param grid
+	 * 			grid that the cell is wrong
+	 * @param shape
+	 * 			shape of the cell
+	 * @param evaporationFactor
+	 * 			the number of turns it takes for cAMP to completely evaporate
+	 */
+	public SlimeMoldCell(Integer value, Coordinates coordinates, Grid<Integer> grid, int shape, int evaporationFactor) {
 		super(value, coordinates, grid, shape);
 		this.evaporationFactor = evaporationFactor;
 		cAMP = new ArrayList<Integer>();
 	}
 
-	public int getTotalCAMP() {
+	private int getTotalCAMP() {
 		int sum = 0;
 		for(Integer i  : cAMP) {
 			sum += i;
 		}
 		return sum;
 	}
-
-	public void addToCAMP() {
+	//add to a cell's cAMP
+	private void addToCAMP() {
 		cAMP.add(evaporationFactor);
 	}
 
+	/**
+	 * evaporates a cell's cAMP
+	 */
 	public void evaporate() {
 		int index = 0;
 		for(Integer i : cAMP) {
@@ -41,6 +57,9 @@ public class SlimeMoldCell extends Cell<Integer>{
 		}
 	}
 
+	/**
+	 * diffuses cAMP into a cell
+	 */
 	public void diffuse() {
 		for(Cell<Integer> cell : getNeighbors()) {
 			if(cell.getValue() == SLIME) continue;
@@ -49,6 +68,13 @@ public class SlimeMoldCell extends Cell<Integer>{
 		this.addToCAMP();
 	}
 
+	/**
+	 * moves a cells value to the neighboring cell with the most cAMP
+	 * @param grid
+	 * 			grid the cell should be moved on
+	 * @return
+	 * 			return true if movement occurred and false otherwise
+	 */
 	public boolean move(Grid<Integer> grid) {
 		boolean hasMoved = false;
 		int mostCAMP = 0;
@@ -63,5 +89,19 @@ public class SlimeMoldCell extends Cell<Integer>{
 		}
 		grid.getCell(destination).setNewValue(SLIME);
 		return hasMoved;
+	}
+
+	/**
+	 * gets the evaporation factor
+	 */
+	public int getEvaporationFactor() {
+		return evaporationFactor;
+	}
+
+	/**
+	 * sets the evaporation factor
+	 */
+	public void setEvaporationFactor(int evaporationFactor) {
+		this.evaporationFactor = evaporationFactor;
 	}
 }

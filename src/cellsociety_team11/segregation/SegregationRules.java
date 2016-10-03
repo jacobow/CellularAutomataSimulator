@@ -30,12 +30,15 @@ public class SegregationRules implements Rule<Integer>{
 	@Override
 	public Integer calculateNewValue(Cell<Integer> cell, Integer value, Grid<Integer> grid, Coordinates coordinates) {
 		if(value == EMPTY) return EMPTY;
-		double valueProportion = 0;
-		double neighborSize = ((SegregationCell)cell).getNeighbors().size();
+		double alikeCount = 0;
+		double neighborSize = 0;
 		for(Cell<Integer> neighbor : ((SegregationCell)cell).getNeighbors()) {
 			SegregationCell agent = (SegregationCell) neighbor;
-			if(agent.getValue() == value) valueProportion += 1/neighborSize;
+			if(agent.getValue() != EMPTY) neighborSize++;
+			if(agent.getValue() == value) alikeCount++;
 		}
+		if(neighborSize == 0) neighborSize = 1;
+		double valueProportion = alikeCount/neighborSize;
 		if(valueProportion < threshold) {
 			if(fillRandomEmptyCell(value, grid)) return EMPTY;
 		}
@@ -60,9 +63,15 @@ public class SegregationRules implements Rule<Integer>{
 		}
 		return false;
 	}
+	/**
+	 * gets the threshold of the rules
+	 */
 	public double getThreshold() {
 		return threshold;
 	}
+	/**
+	 * sets the threshold of the rules
+	 */
 	public void setThreshold(double threshold) {
 		this.threshold = threshold;
 	}
