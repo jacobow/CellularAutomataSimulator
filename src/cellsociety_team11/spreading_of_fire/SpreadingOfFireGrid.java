@@ -18,6 +18,13 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 	private int shape;
 	private double probCatch;
 
+	/**
+	 * creates new spreading of fire grid
+	 * @param valueGrid
+	 * 			2d array of the different cell values
+	 * @param simulation
+	 * 			holds the parameters (shape) of the grid
+	 */
 	public SpreadingOfFireGrid(Integer[][] valueGrid, SimulationXMLModel simulation) {
 		super(valueGrid, simulation);
 		try {
@@ -49,15 +56,24 @@ public class SpreadingOfFireGrid extends Grid<Integer>{
 		return new SpreadingOfFireCell(value, coordinates, this, shape);
 	}
 
+	/**
+	 * gets an empty cell for a finite grid
+	 */
 	@Override
 	public Cell<Integer> getEmptyCell() {
 		return new SpreadingOfFireCell(EMPTY, null, this, shape);
 	}
 
+	/**
+	 * gets the probCatch parameter
+	 */
 	public double getProbCatch() {
 		return probCatch;
 	}
 
+	/**
+	 * sets the probCatch parameter
+	 */
 	public void setProbCatch(double probCatch) {
 		this.probCatch = probCatch;
 		((SpreadingOfFireRules)this.getRule()).setProbCatch(probCatch);

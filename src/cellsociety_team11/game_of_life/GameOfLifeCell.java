@@ -1,6 +1,5 @@
 package cellsociety_team11.game_of_life;
 
-import java.util.HashSet;
 
 import cellsociety_team11.Cell;
 import cellsociety_team11.Coordinates;

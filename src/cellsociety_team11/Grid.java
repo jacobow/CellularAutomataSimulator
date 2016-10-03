@@ -15,8 +15,8 @@ public abstract class Grid<T> {
 	 * creates a new grid
 	 * @param valueGrid
 	 *				grid of the values of the cells
-	 * @param rule
-	 * 				the rules which the cells will follow
+	 * @param simulation
+	 * 				holds all of the parameters of the simulation
 	 */
 	@SuppressWarnings("unchecked")
 	public Grid(T[][] valueGrid, SimulationXMLModel simulation) {
@@ -36,7 +36,7 @@ public abstract class Grid<T> {
 	    }
 	}
 
-	/*
+	/**
 	 *
 	 * Subclass has to take simulation and instantiate Rule
 	 */
@@ -91,8 +91,17 @@ public abstract class Grid<T> {
 
 	}
 
+	/**
+	 * subclasses implement this to define what an empty cell is
+	 * for finite grids
+	 */
 	public abstract Cell<T> getEmptyCell();
 
+	/**
+	 * gets a cell on the other end of the toroidal grid
+	 * @param coordinates
+	 * 		coordinates outside the range of the displayed grid
+	 */
 	private Cell<T> getToroidalCell(Coordinates coordinates) {
 		int i = coordinates.getI();
 		int j = coordinates.getJ();
@@ -132,9 +141,15 @@ public abstract class Grid<T> {
 	public int getWidth() {
 		return width;
 	}
+	/**
+	 * gets the world type
+	 */
 	public String getWorld() {
 		return world;
 	}
+	/**
+	 * sets the world type
+	 */
 	public void setWorld(String world) {
 		this.world = world;
 	}
