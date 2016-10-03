@@ -22,6 +22,7 @@ public class CellSociety extends Application{
 		primaryStage.setTitle("Cell Society");
 		primaryStage.setScene(cellSocietyController.getScene());
 		primaryStage.centerOnScreen();
+		primaryStage.setMaximized(true);
 		primaryStage.setMinHeight(INIT_HEIGHT);
 		primaryStage.setMinWidth(INIT_WIDTH);
 		primaryStage.show();
