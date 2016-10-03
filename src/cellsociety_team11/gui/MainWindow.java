@@ -35,11 +35,11 @@ public class MainWindow{
 		initScene();
 	}
 	
-	public <T> void setGrid(Grid<T> grid, String simulationType){
+	public <T> void setGrid(Grid<T> grid, String simulationType, int numSides){
 		this.displayGrid = null;
 		if (grid!=null){
 			try{
-				this.displayGrid = new DisplayGrid<T>(grid, simulationType);
+				this.displayGrid = new DisplayGrid<T>(grid, simulationType, numSides);
 				this.root.setCenter(this.displayGrid);
 			}
 			catch(SimulationInstantiationException s){

@@ -1,8 +1,7 @@
-package cellsociety_team11.gui.display_cell_types.square_display_cells;
+package cellsociety_team11.gui.display_cell_types;
 
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.gui.DisplayCell;
-import cellsociety_team11.gui.display_cell_types.SquareDisplayCell;
 import javafx.scene.paint.Color;
 
 /**

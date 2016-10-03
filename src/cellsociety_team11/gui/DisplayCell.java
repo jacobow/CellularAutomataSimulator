@@ -1,13 +1,10 @@
 package cellsociety_team11.gui;
 
 import cellsociety_team11.Coordinates;
-import javafx.scene.Group;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
-import javafx.scene.transform.Rotate;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
@@ -17,6 +14,7 @@ public abstract class DisplayCell<T> extends Pane{
 	private T currentValue;
 	private Coordinates coordinates;
 	private Shape cellShape;
+	private double radius;
 	
 	public DisplayCell(T value, Coordinates coordinates, double width, int numSides) {
 		super();
@@ -32,14 +30,12 @@ public abstract class DisplayCell<T> extends Pane{
 		this.setLayoutY(y);
 	}
 	
-	public void customRotate(double angle, double offsetPos){
-		if (this.cellShape.getTransforms().size() > 0){
-			this.cellShape.getTransforms().remove(0);
-		}
-
-		System.out.println(this.cellShape.getLayoutBounds().toString());
+	public void customRotate(double angle){
 		this.cellShape.setRotate(angle);
-		//this.cellShape.getTransforms().add(new Rotate(angle, offsetPos, offsetPos));
+	}
+	
+	public double getRadius(){
+		return this.radius;
 	}
 	
 	
@@ -95,6 +91,7 @@ public abstract class DisplayCell<T> extends Pane{
 		double angleArgument = 2*Math.PI*i/numSides + rotateFactor1 + rotateFactor2;
 		double trigResult = xFactor ? Math.cos(angleArgument) : Math.sin(angleArgument);
 		double amplitudeArgument = numSides%2==0 ? (width/2)  * 1/Math.sin(interiorAngle/2) : (width/2)/(Math.cos(interiorAngle/2));
+		this.radius = amplitudeArgument;
 		return (width/2) + amplitudeArgument*trigResult;
 	}
 	

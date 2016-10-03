@@ -3,17 +3,12 @@ package cellsociety_team11.gui;
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
-import com.sun.org.apache.xpath.internal.operations.And;
-
 import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
 import cellsociety_team11.Grid;
 import cellsociety_team11.SimulationInstantiationException;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
@@ -30,10 +25,9 @@ public class DisplayGrid<T> extends Pane{
 	private String simulationType;
 	
 
-	public DisplayGrid(Grid<T> grid, String simulationType) throws SimulationInstantiationException{
+	public DisplayGrid(Grid<T> grid, String simulationType, int numSides) throws SimulationInstantiationException{
 		this.simulationType = simulationType;
 		this.grid = grid;
-		int numSides = 3;
 		initDisplayGrid(numSides);
 	}
 	
@@ -52,9 +46,7 @@ public class DisplayGrid<T> extends Pane{
 					throw e;
 				}
 				orientDisplayCell(displayCell, cellWidth, numSides, i, j);
-				//this.add(displayCell, j, i);
 				this.getChildren().add(displayCell);
-				//System.out.println("Shape Width " + displayCell.getWidth());
 			}
 		}
 	}
@@ -62,14 +54,16 @@ public class DisplayGrid<T> extends Pane{
 	public void orientDisplayCell(DisplayCell<T> displayCell, double cellWidth, int numSides, int rowIndex, int colIndex){
 		if (numSides == 3){
 			if (!((colIndex % 2 != 0 && rowIndex % 2 != 0) || (colIndex % 2 == 0 && rowIndex % 2 == 0))){
-				displayCell.customRotate(Math.toDegrees(Math.PI), 0);
-				
+				displayCell.customRotate(Math.toDegrees(Math.PI));
 			}
-			//double newColIndex = (double) colIndex/2.0;
-			//double xMoveFactor = cellWidth * newColIndex;
-			//System.out.println("xfactor: " + newColIndex + " "+ xMoveFactor);
-			displayCell.moveCell(cellWidth * ((double)colIndex)/2.0, rowIndex * cellWidth);
-			
+			displayCell.moveCell(cellWidth * ((double)colIndex)/2.0, rowIndex * 1.5*displayCell.getRadius());
+		}
+		else if(numSides == 6){
+			double horizontalOffset = rowIndex % 2 == 0 ? 0 : cellWidth/2;
+			displayCell.moveCell(cellWidth * ((double)colIndex) + horizontalOffset, rowIndex * (displayCell.getRadius() + cellWidth/4.0));
+		}
+		else{
+			displayCell.moveCell(cellWidth * (double)colIndex, cellWidth * (double) rowIndex);
 		}
 	}
 	
@@ -82,12 +76,12 @@ public class DisplayGrid<T> extends Pane{
 			return (DisplayCell<T>) myConstructor.newInstance(new Object[] {cellValue, coordinates, cellWidth, numSides});
 		}
 		catch(Exception e){
+			System.out.println(this.simulationType);
 			throw new SimulationInstantiationException(e.getMessage(), e);
 		}
 	}
 	
 	private void initDisplayGrid(int numSides){
-		//initConstraints();		
 		setDimensions(getMaxDimension());
 		initDisplayCells(numSides);
 	}
@@ -95,29 +89,6 @@ public class DisplayGrid<T> extends Pane{
 	private int getMaxDimension(){
 		return this.grid.getHeight() > this.grid.getWidth() ? this.grid.getHeight() : this.grid.getWidth();
 	}
-	/*
-	private void initConstraints(){
-		
-		for (int i = 0; i<this.grid.getWidth(); i++){
-			this.addCustomColumnConstraint();
-		}
-		
-		for (int i = 0; i<this.grid.getHeight(); i++){
-			this.addCustomRowConstraint();
-		}
-	}
-	
-	private void addCustomColumnConstraint(){
-		ColumnConstraints columnResizing = new ColumnConstraints();
-		columnResizing.prefWidthProperty().bind(this.widthProperty().divide(this.grid.getWidth()));
-		this.getColumnConstraints().add(columnResizing);
-	}
-	
-	private void addCustomRowConstraint(){
-		RowConstraints rowResizing = new RowConstraints();
-		rowResizing.prefHeightProperty().bind(this.heightProperty().divide(this.grid.getHeight()));
-		this.getRowConstraints().add(rowResizing);
-	}*/
 	
 	private void setDimensions(int largestDimension){
 		double cellSize = MAX_WIDTH/(double) largestDimension;
