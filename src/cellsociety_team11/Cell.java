@@ -115,7 +115,7 @@ public abstract class Cell<T> {
 		ArrayList<Cell<T>> neighbors = getSquareNeighbors();
 		if(i%2 == 0 && j%2 == 0) offset = 1;
 		if(i%2 != 0 && j%2 != 0) offset = 1;
-		if(j+2 < grid.getWidth()) {
+		if(j+2 < grid.getWidth() && i + offset >= 0 && i + offset < grid.getHeight()) {
 			neighbors.add(grid.getCell(new Coordinates(i, j+2)));
 			neighbors.add(grid.getCell(new Coordinates(i + offset, j+2)));
 		}
@@ -123,7 +123,7 @@ public abstract class Cell<T> {
 			neighbors.add(grid.getEdgeCell(new Coordinates(i, j+2)));
 			neighbors.add(grid.getEdgeCell(new Coordinates(i + offset, j+2)));
 		}
-		if(j-2 >= 0) {
+		if(j-2 >= 0 && i + offset >= 0 && i + offset < grid.getHeight()) {
 			neighbors.add(grid.getCell(new Coordinates(i, j-2)));
 			neighbors.add(grid.getCell(new Coordinates(i + offset, j-2)));
 		}
@@ -140,7 +140,7 @@ public abstract class Cell<T> {
 		ArrayList<Cell<T>> neighbors = new ArrayList<Cell<T>>();
 		for(int y = -1; y <= 1; y++) {
 			for(int x = -1; x <= 1; x++) {
-				if((y == 0 && x == 0) || (y == 1 && x == -1) || (y == -1 && x == 1)) {
+				if((y == 0 && x == 0) || (y == -1 && x == -1) || (y == 1 && x == 1)) {
 					continue;
 				}
 				if(0 > i+y || i+y >= grid.getHeight() || 0 > j+x || j+x >= grid.getWidth()) {
