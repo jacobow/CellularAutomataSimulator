@@ -8,8 +8,8 @@ import cellsociety_team11.Grid;
 
 public class SlimeMoldCell extends Cell<Integer>{
 
-	public static final int EMPTY = 0;
-	public static final int SLIME = 1;
+	public static final Integer EMPTY = 0;
+	public static final Integer SLIME = 1;
 
 	private ArrayList<Integer> cAMP;
 	private int evaporationFactor;
@@ -49,11 +49,11 @@ public class SlimeMoldCell extends Cell<Integer>{
 	 * evaporates a cell's cAMP
 	 */
 	public void evaporate() {
-		int index = 0;
 		for(Integer i : cAMP) {
 			i--;
-			if(i <= 0) cAMP.remove(index);
-			index++;
+		}
+		for(int i = 0; i < cAMP.size(); i++) {
+			if(cAMP.get(i) <= 0) cAMP.remove(i);
 		}
 	}
 
@@ -81,6 +81,7 @@ public class SlimeMoldCell extends Cell<Integer>{
 		Coordinates destination = this.getCoordinates();
 		for(Cell<Integer> cell : getNeighbors()) {
 			if(cell.getCoordinates() == null || cell.getValue() == SLIME || cell.getNewValue() == SLIME) continue;
+			//System.out.println(((SlimeMoldCell)cell).getTotalCAMP());
 			if(((SlimeMoldCell)cell).getTotalCAMP() > mostCAMP) {
 				destination = cell.getCoordinates();
 				mostCAMP = ((SlimeMoldCell)cell).getTotalCAMP();

@@ -38,7 +38,9 @@ public class PredatorPreyRules implements Rule<Integer>{
 		ArrayList<Cell<Integer>> neighbors = ((PredatorPreyCell)cell).getNeighbors();
 		for(Cell<Integer> neighborCell : neighbors) {
 			PredatorPreyCell neighbor = (PredatorPreyCell) neighborCell;
-			if(neighbor.getValue() == PREY && neighbor.getNewValue() == null) {
+			if(neighbor.getValue() == PREY &&
+			  (neighbor.getNewValue() == null || neighbor.getNewValue() == PREY)) {
+				System.out.println(((PredatorPreyCell) cell).getDeathTimer());
 				cell.upTickDeathTimer();
 				return swap(cell, neighbor);
 			}
