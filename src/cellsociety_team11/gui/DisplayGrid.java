@@ -3,6 +3,8 @@ package cellsociety_team11.gui;
 import java.lang.reflect.Constructor;
 import java.util.ResourceBundle;
 
+import com.sun.org.apache.xpath.internal.operations.And;
+
 import cellsociety_team11.Cell;
 import cellsociety_team11.CellSociety;
 import cellsociety_team11.Coordinates;
@@ -59,14 +61,15 @@ public class DisplayGrid<T> extends Pane{
 	
 	public void orientDisplayCell(DisplayCell<T> displayCell, double cellWidth, int numSides, int rowIndex, int colIndex){
 		if (numSides == 3){
+			if (!((colIndex % 2 != 0 && rowIndex % 2 != 0) || (colIndex % 2 == 0 && rowIndex % 2 == 0))){
+				displayCell.customRotate(Math.toDegrees(Math.PI), 0);
+				
+			}
 			//double newColIndex = (double) colIndex/2.0;
 			//double xMoveFactor = cellWidth * newColIndex;
 			//System.out.println("xfactor: " + newColIndex + " "+ xMoveFactor);
 			displayCell.moveCell(cellWidth * ((double)colIndex)/2.0, rowIndex * cellWidth);
-			if (colIndex % 2 == 0){
-				displayCell.setRotate(Math.toDegrees(Math.PI));
-				
-			}
+			
 		}
 	}
 	

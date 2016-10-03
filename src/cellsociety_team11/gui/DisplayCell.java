@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
@@ -29,6 +30,16 @@ public abstract class DisplayCell<T> extends Pane{
 	public void moveCell(double x, double y){
 		this.setLayoutX(x);
 		this.setLayoutY(y);
+	}
+	
+	public void customRotate(double angle, double offsetPos){
+		if (this.cellShape.getTransforms().size() > 0){
+			this.cellShape.getTransforms().remove(0);
+		}
+
+		System.out.println(this.cellShape.getLayoutBounds().toString());
+		this.cellShape.setRotate(angle);
+		//this.cellShape.getTransforms().add(new Rotate(angle, offsetPos, offsetPos));
 	}
 	
 	
