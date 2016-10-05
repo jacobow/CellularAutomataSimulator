@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Noel Moon
+
 package cellsociety_team11;
 
 import java.io.File;
@@ -17,22 +20,32 @@ import xml.factory.XMLFactoryException;
 import xml.model.SimulationXMLModel;
 import xml.parser.XMLParser;
 
+/**
+ * This class extends the MainController interface and handles the stepping from one state to the next. It also reads in the data from the
+ * XML File so that it can be used by the rest of the program. It manages the simulation speed and handles updating the simulation speed
+ * if the user changes the speed using the speed slider. 
+ * 
+ * This class is well-designed because it provides very functional and readable code that implements the methods that were required by the
+ * interface that this class implements. There is also encapsulation that hides the implementation of the how exactly the XML file is read from,
+ * which can be seen in the private readFileData() method. This encapsulation is necessary because the code for reading in an XML file is 
+ * difficult to read and it is not necessary to be seen to use the uploadedXMLFileHandler() method. Another encapsulated method is the 
+ * getSimulationGrid() method, which is properly encapsulated because someone using this class doesn't have to know how the code of the
+ * getSimulationGrid() method is written as long as they know that this method gets the simulation grid, as its name states.
+ * 
+ * @author Cleveland Quin Thompson V (ct168)
+ * @author Noel Moon (nm142)
+ */
 public class CellSocietyController implements MainController{
 
 	private static final double INIT_FRAMES_PER_SECOND = 2;
 	private static final double MILLISECOND_DELAY = 1000.0 / INIT_FRAMES_PER_SECOND;
 	private static final String GRID_RESOURCES = "GridClasses";
-	
 
 	private MainWindow mainWindow;
 	private Grid<?> leftGrid, rightGrid;
-	//private Timeline leftTimeline, rightTimeline;
 	private Timeline timeline;
 	private double simulationSpeed;
 	private boolean isPlaying;
-	//private SimulationXMLModel simulation;
-	//private String simulationName;
-	//private Integer[][] initialLayout;
 
 	public CellSocietyController(String language){
 		this.isPlaying = false;
@@ -41,6 +54,9 @@ public class CellSocietyController implements MainController{
 		this.timeline = initSimulation();
 	}
 	
+	/*
+         * Starts the Simulation at the current Simulation Speed
+         */
 	@Override
 	public void startSimulation(){
 		if (this.leftGrid!=null){
@@ -49,6 +65,9 @@ public class CellSocietyController implements MainController{
 		}
 	}
 
+	/*
+         * Progresses the Simulation one frame
+         */
 	@Override
 	public void nextStepSimulation() {
 		if (this.leftGrid!=null){
@@ -60,7 +79,9 @@ public class CellSocietyController implements MainController{
 		this.mainWindow.updateGrids();
 	}
 
-
+	/*
+         * Updates the Simulation Speed based on the Speed Slider
+         */
 	@Override
 	public void updateSimulationSpeed(MouseEvent speedUpdated) {
 		Slider speedSlider = (Slider) speedUpdated.getSource();
@@ -73,29 +94,35 @@ public class CellSocietyController implements MainController{
 		}
 	}
 
+	/*
+         * Stops the Simulation
+         */
 	@Override
 	public void stopSimulation() {
 		this.isPlaying = false; 
 		this.timeline.stop();
 	}
 
+	/*
+         * Handles the upload of a new XML file and reinitializes the Simulation
+         */
 	@Override
 	public void uploadedXMLFileHandler(File xmlFile) {
 	    try {
-			this.stopSimulation();
-			SimulationXMLModel currentSimulation = readFileData(xmlFile.getAbsolutePath());
-			Grid<?> grid = getSimulationGrid(currentSimulation);
-			this.timeline = initSimulation();
-			Boolean chosenGrid = this.mainWindow.setGrid(grid, currentSimulation.getSimulationName(), currentSimulation.getShape());
-			if (chosenGrid==null){
-				return;
-			}
-			if (chosenGrid){
-				this.leftGrid = grid;
-			}
-			else{
-				this.rightGrid = grid;
-			}
+	        this.stopSimulation();
+	        SimulationXMLModel currentSimulation = readFileData(xmlFile.getAbsolutePath());
+	        Grid<?> grid = getSimulationGrid(currentSimulation);
+	        this.timeline = initSimulation();
+	        Boolean chosenGrid = this.mainWindow.setGrid(grid, currentSimulation.getSimulationName(), currentSimulation.getShape());
+	        if (chosenGrid==null){
+	            return;
+	        }
+	        if (chosenGrid){
+	            this.leftGrid = grid;
+	        }
+	        else{
+	            this.rightGrid = grid;
+	        }
 	    }
 	    catch (XMLFactoryException e) {
 	        e.printStackTrace();
