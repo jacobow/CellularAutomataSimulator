@@ -43,21 +43,7 @@ public class DisplayGrid<T> extends Pane{
 			
 	}
 	
-	public void orientDisplayCell(DisplayCell<T> displayCell, double cellWidth, int numSides, int rowIndex, int colIndex){
-		if (numSides == 3){
-			if (!((colIndex % 2 != 0 && rowIndex % 2 != 0) || (colIndex % 2 == 0 && rowIndex % 2 == 0))){
-				displayCell.customRotate(Math.toDegrees(Math.PI));
-			}
-			displayCell.moveCell(cellWidth * ((double)colIndex)/2.0, rowIndex * 1.5*displayCell.getRadius());
-		}
-		else if(numSides == 6){
-			double horizontalOffset = rowIndex % 2 == 0 ? 0 : cellWidth/2;
-			displayCell.moveCell(cellWidth * ((double)colIndex) + horizontalOffset, rowIndex * (displayCell.getRadius() + cellWidth/4.0));
-		}
-		else{
-			displayCell.moveCell(cellWidth * (double)colIndex, cellWidth * (double) rowIndex);
-		}
-	}
+	
 	
 	public Grid<T> getGrid(){
 		return this.grid;
@@ -77,7 +63,7 @@ public class DisplayGrid<T> extends Pane{
 					e.printStackTrace();
 					throw e;
 				}
-				orientDisplayCell(displayCell, cellWidth, numSides, i, j);
+				//orientDisplayCell(displayCell, cellWidth, numSides, i, j);
 				this.getChildren().add(displayCell);
 			}
 		}
