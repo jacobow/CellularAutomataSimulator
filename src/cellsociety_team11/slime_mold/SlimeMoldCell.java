@@ -1,3 +1,15 @@
+// This entire file is part of my masterpiece.
+// Jacob Warner
+
+/**
+ * This class is well designed because it successfully makes use of object oriented principles.
+ * I refactored it by moving several of the method which only affect the state of the SlimeMoldCell
+ * from the rules class (also included in this masterpiece) to here.  What were originally private
+ * helper methods in the rules class are now included here as a resource for the cells.  This increases
+ * the readability of my code, and serves as a very good example of how an implementation of Cell<T> should
+ * look.
+ */
+
 package cellsociety_team11.slime_mold;
 
 import java.util.ArrayList;
@@ -40,6 +52,7 @@ public class SlimeMoldCell extends Cell<Integer>{
 		}
 		return sum;
 	}
+
 	//add to a cell's cAMP
 	private void addToCAMP() {
 		cAMP.add(evaporationFactor);
