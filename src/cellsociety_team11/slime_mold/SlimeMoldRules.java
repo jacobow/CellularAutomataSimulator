@@ -1,3 +1,14 @@
+// This entire file is part of my masterpiece.
+// Jacob Warner
+
+/**
+ * This code was greatly shortened, and now it has one elegant method from which you can nicely
+ * see the logic of how the slime mold simulation works.  It originally had a bunch of help methods,
+ * but these were migrated over to the SlimeMoldCell class (also included in this master piece).  This
+ * is also a very good example of how I implement cell rules from the super class and why putting this function
+ * in a seperate class was a good idea for clarity.
+ */
+
 package cellsociety_team11.slime_mold;
 
 import cellsociety_team11.Cell;
