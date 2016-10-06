@@ -1,3 +1,6 @@
+// This entire file is part of my masterpiece.
+// Noel Moon
+
 package cellsociety_team11;
 
 import java.io.File;
@@ -5,6 +8,13 @@ import java.io.File;
 import javafx.scene.input.MouseEvent;
 
 /**
+ * This is the interface for the controller of the simulations. It carries methods that have to be implemented for a class that implements
+ * this interface. This interface is implemented by the CellSocietyController class.
+ * 
+ * This interface is well-designed because it clearly lists out the methods that need to be implemented in order to have a functional
+ * controller. For example, for any controller, there has to be a way to start and stop the simulation. In this case, there also has to be
+ * ways to control the speed of the simulation and a way to take in data that is going to be used by the simulation.
+ * 
  * @author Cleveland Quin Thompson V (ct168)
  *
  */
