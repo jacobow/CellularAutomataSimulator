@@ -11,6 +11,8 @@ import javafx.scene.paint.Color;
 /**
  * @author Cleveland Quin Thompson V (ct168)
  * Display Cell For Predator Prey Simulation
+ * Example of Extension of DisplayCell (hence why I'm including in masterpiece)
+ * Actual Discussion in DisplayCell
  */
 public class PredatorPreyDisplayCell extends DisplayCell<Integer>{
 

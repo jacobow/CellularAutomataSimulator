@@ -10,7 +10,13 @@ import javafx.scene.shape.Shape;
 
 /**
  * @author Cleveland Quin Thompson V (ct168)
- * Highest Level of Abstraction for displaying the representation of each cell in the grid
+ * Highest Level of Abstraction for displaying the representation of each cell in the grid.
+ * I think that this class is well designed because even though it represents the cell in the display,
+ * it outsources the math-heavy operations of defining the shape of the cell and moving the cell, both of which are dependant on the number of sides--to cellShape.
+ * So, changing the rules for the orientation and shape of the cell can be updated in CellShape, preventing tampering with the central DisplayCell Class.
+ * Originally I had the management of the shape (polygon) in this class and the orientation management in DisplayGrid, but the DisplayCell has to have access
+ * to its coordinates, width, and number of sides anyway, so it made more sense to encapsulate the management of the actual shape of the cell in a separate class (CellShape).
+ * 
  */
 public abstract class DisplayCell<T> extends Pane implements DisplayCellInterface{
 	private T currentValue;
@@ -29,10 +35,7 @@ public abstract class DisplayCell<T> extends Pane implements DisplayCellInterfac
 		this.getChildren().add(cellShape);
 		setColor(getColor());
 	}
-	
-	/*
-	 * 
-	 */
+
 	@Override
 	public void moveCell(double x, double y){
 		this.setLayoutX(x);
@@ -43,7 +46,7 @@ public abstract class DisplayCell<T> extends Pane implements DisplayCellInterfac
 	public int getNumberOfSides(){
 		return this.numSides;
 	}
-	
+
 	@Override
 	public double getCellWidth(){
 		return this.cellWidth;
@@ -56,10 +59,6 @@ public abstract class DisplayCell<T> extends Pane implements DisplayCellInterfac
 		setColor(getColor());
 	}
 	
-	/*
-	 * Gets the current value of the coordinates. 
-	 * 
-	 */
 	@Override
 	public Coordinates getCoordinates(){
 		return this.coordinates;
