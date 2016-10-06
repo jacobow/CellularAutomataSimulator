@@ -1,5 +1,15 @@
 # cellsociety
 
-Put any written documents related to your project here, including lab discussions.
+* Group:
+	* Jacob Warner
+	* Noel Moon
+	* Cleveland (Quin) Thompson
 
-Jacob's edit
+* Quin: GUI
+* Noel: XML
+* Jacob: Simulation Back-end
+
+Quin Hours: 50
+
+
+Main is in CellSociety.java

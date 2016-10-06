@@ -7,6 +7,10 @@ package cellsociety_team11.gui;
 
 import javafx.scene.shape.Polygon;
 
+/*
+ * Included this class purely because it uses the displayCellInterface. I don't actually consider this code my best.
+ * I wasn't sure whether or not you would want a reference to the use of the interface.
+ */
 public class CellShape extends Polygon{
 	private double radius;
 	private int numSides;

@@ -8,7 +8,9 @@ import cellsociety_team11.Coordinates;
  * 
  * @author Cleveland Thompson V (ct168)
  * 
- * Creates inferface for DisplayCell so that the shape of the cell can orient itself on the grid.
+ * Creates interface for DisplayCell so that the shape of the cell can orient itself on the screen.
+ * This interface provides the necessary information about the DisplayCell to CellShape without exposing the DisplayCell Class.
+ * 
  */
 public interface DisplayCellInterface {
 
