@@ -1,3 +1,7 @@
+// This entire file is part of my masterpiece.
+// Cleveland Thompson V (ct168)
+
+
 package cellsociety_team11.gui.display_cell_types;
 
 import cellsociety_team11.Coordinates;
